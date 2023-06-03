@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: saturn
+  host: 127.0.0.1
+  port: 5433
+
+development:
+  <<: *default
+  database: saturn_development
+
+test:
+  <<: *default
+  database: saturn_test
+
+production:
+  <<: *default
+  database: saturn_production
+  username: saturn
+  password:
