@@ -3,8 +3,8 @@ default: &default
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: saturn
-  host: 127.0.0.1
-  port: 5433
+  host: postgres
+  port: 5432
 
 development:
   <<: *default
