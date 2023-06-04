@@ -2,9 +2,9 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV.fetch("DB_USERNAME") %>
-  host: <%= ENV.fetch("DB_HOST") %>
-  port: <%= ENV.fetch("DB_PORT") %>
+  username: <%= ENV.fetch("DATABASE_USERNAME") %>
+  host: <%= ENV.fetch("DATABASE_HOST") %>
+  port: <%= ENV.fetch("DATABASE_PORT") %>
 
 development:
   <<: *default
