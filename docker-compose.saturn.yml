@@ -8,7 +8,9 @@ services:
       - postgres
       - redis
     environment:
+      DATABASE_USERNAME: saturn
       DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
       REDIS_URL: redis://redis:6379/0
   postgres:
     image: postgres:13.1-alpine
