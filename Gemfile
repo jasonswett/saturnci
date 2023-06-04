@@ -69,6 +69,7 @@ gem "audited"
 gem "devise"
 
 group :development, :test do
+  gem "dotenv-rails"
   gem "capybara"
   gem "factory_bot_rails"
   gem "faker"
