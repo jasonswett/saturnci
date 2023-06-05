@@ -9,4 +9,5 @@ services:
       - ~/.aws:/root/.aws
       - ~/.ssh:/root/.ssh
       - ~/.kube:/root/.kube
+      - ~/.config/helm:/root/.config/helm
     working_dir: /usr/src
