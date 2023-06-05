@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: saturn
-        image: 588695668471.dkr.ecr.us-east-2.amazonaws.com/saturn:1685935277
+        image: 588695668471.dkr.ecr.us-east-2.amazonaws.com/saturn:$APP_VERSION
         ports:
         - containerPort: 8080
 
