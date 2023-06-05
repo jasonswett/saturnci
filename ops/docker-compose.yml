@@ -5,4 +5,6 @@ services:
   aws-cli:
     image: aws-cli
     volumes:
+      - .:/usr/src:cached
       - ~/.aws:/root/.aws
+      - ~/.ssh:/root/.ssh
