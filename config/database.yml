@@ -17,5 +17,5 @@ test:
 production:
   <<: *default
   database: saturn_production
-  username: saturn
-  password:
+  username: <%= ENV.fetch("DATABASE_USERNAME") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD") %>
