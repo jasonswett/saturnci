@@ -8,3 +8,4 @@ services:
       - .:/usr/src:cached
       - ~/.aws:/root/.aws
       - ~/.ssh:/root/.ssh
+      - ~/.kube:/root/.kube

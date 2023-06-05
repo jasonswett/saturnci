@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: saturn
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: saturn
+  template:
+    metadata:
+      labels:
+        app: saturn
+    spec:
+      containers:
+      - name: saturn
+        image: 588695668471.dkr.ecr.us-east-2.amazonaws.com/saturn:1685934910
+        ports:
+        - containerPort: 8080
+
