@@ -10,4 +10,5 @@ services:
       - ~/.ssh:/root/.ssh
       - ~/.kube:/root/.kube
       - ~/.config/helm:/root/.config/helm
+      - ~/.cache/helm:/root/.cache/helm
     working_dir: /usr/src
