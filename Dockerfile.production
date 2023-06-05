@@ -11,6 +11,5 @@ RUN bundle install
 
 COPY . $INSTALL_PATH
 
-EXPOSE 80
-
-CMD bundle exec puma -C config/puma.rb -p 80
+EXPOSE 3000
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]

@@ -1,1 +1,1 @@
-./aws-cli aws ecr get-login-password | docker login --username AWS --password-stdin 588695668471.dkr.ecr.us-east-2.amazonaws.com/saturn
+./run aws ecr get-login-password | docker login --username AWS --password-stdin 588695668471.dkr.ecr.us-east-2.amazonaws.com/saturn
