@@ -23,13 +23,23 @@ spec:
             secretKeyRef:
               name: saturn-secrets
               key: DATABASE_USERNAME
-        - name: DATABASE_HOST
-          valueFrom:
-            secretKeyRef:
-              name: saturn-secrets
-              key: DATABASE_HOST
         - name: DATABASE_PASSWORD
           valueFrom:
             secretKeyRef:
               name: saturn-secrets
               key: DATABASE_PASSWORD
+        - name: DATABASE_HOST
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: DATABASE_HOST
+        - name: DATABASE_PORT
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: DATABASE_PORT
+        - name: RAILS_ENV
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: RAILS_ENV
