@@ -1,0 +1,16 @@
+FROM ruby:3.1.2
+
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev postgresql-client
+
+ENV INSTALL_PATH /myapp
+WORKDIR $INSTALL_PATH
+
+COPY Gemfile* $INSTALL_PATH
+
+RUN bundle install
+
+COPY . $INSTALL_PATH
+
+EXPOSE 80
+
+CMD bundle exec puma -C config/puma.rb -p 80
