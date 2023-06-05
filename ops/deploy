@@ -5,7 +5,7 @@
 APP_VERSION=$(date +%s)
 echo "Deploying $APP_VERSION"
 cd ..
-docker build -t $APP_VERSION -f Dockerfile.production .
+docker build --platform linux/amd64 -t $APP_VERSION -f Dockerfile.production .
 cd -
 docker tag $APP_VERSION 588695668471.dkr.ecr.us-east-2.amazonaws.com/saturn:$APP_VERSION
 
