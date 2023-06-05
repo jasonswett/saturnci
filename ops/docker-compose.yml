@@ -1,0 +1,8 @@
+---
+version: "3.8"
+
+services:
+  aws-cli:
+    image: aws-cli
+    volumes:
+      - ~/.aws:/root/.aws
