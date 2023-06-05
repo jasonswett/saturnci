@@ -9,3 +9,4 @@ services:
       - ~/.aws:/root/.aws
       - ~/.ssh:/root/.ssh
       - ~/.kube:/root/.kube
+    working_dir: /usr/src
