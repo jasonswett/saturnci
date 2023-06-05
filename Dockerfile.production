@@ -2,6 +2,16 @@ FROM ruby:3.1.2
 
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev postgresql-client
 
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+RUN apt-get update && apt-get install -y nodejs
+
+# Ensure latest packages for Yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
+RUN apt-get update -yqq && apt-get install -yqq --no-install-recommends \
+    yarn
+
 ENV INSTALL_PATH /myapp
 WORKDIR $INSTALL_PATH
 
@@ -10,6 +20,9 @@ COPY Gemfile* $INSTALL_PATH
 RUN bundle install
 
 COPY . $INSTALL_PATH
+
+RUN yarn install --check-files
+RUN bundle exec rake assets:precompile
 
 EXPOSE 3000
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
