@@ -1,8 +1,9 @@
 #!/bin/bash
 
-APP_VERSION=$1
-DEPLOYMENT_FILENAME="deployment_$APP_VERSION.yaml"
+ENVIRONMENT=$1
+TAG=$2
+DEPLOYMENT_FILENAME="deployment-$TAG.yaml"
 
-cat deployment.yaml | sed "s/\$APP_VERSION/$APP_VERSION/g" > $DEPLOYMENT_FILENAME
-./run kubectl apply -f $DEPLOYMENT_FILENAME
+cat deployment.yaml | sed "s/\$TAG/$TAG/g" > $DEPLOYMENT_FILENAME
+./run kubectl -n $ENVIRONMENT apply -f $DEPLOYMENT_FILENAME
 rm $DEPLOYMENT_FILENAME

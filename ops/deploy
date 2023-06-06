@@ -3,13 +3,15 @@
 # Example usage: ./deploy mednote production
 
 APP_VERSION=$(date +%s)
-echo "Deploying $APP_VERSION"
+ENVIRONMENT=$1
+TAG="$ENVIRONMENT-$APP_VERSION"
+echo "Deploying $TAG"
 cd ..
-docker build --platform linux/amd64 -t $APP_VERSION -f Dockerfile.production .
+docker build --platform linux/amd64 -t $TAG -f Dockerfile.production .
 cd -
-docker tag $APP_VERSION 588695668471.dkr.ecr.us-east-2.amazonaws.com/saturn:$APP_VERSION
+docker tag $TAG 588695668471.dkr.ecr.us-east-2.amazonaws.com/saturn:$TAG
 
 ./auth
-docker push 588695668471.dkr.ecr.us-east-2.amazonaws.com/saturn:$APP_VERSION
+docker push 588695668471.dkr.ecr.us-east-2.amazonaws.com/saturn:$TAG
 
-./apply $APP_VERSION
+./apply $ENVIRONMENT $TAG
