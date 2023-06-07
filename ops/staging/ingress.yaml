@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: saturn-ingress
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80, "HTTPS":443}]'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-2:588695668471:certificate/7b495a10-7722-4c67-b28c-5d254871f4e6
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+spec:
+  rules:
+  - host: staging.saturnci.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: saturn-service
+            port:
+              number: 80

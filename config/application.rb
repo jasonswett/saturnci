@@ -35,5 +35,6 @@ module Saturn
     config.generators.system_tests = nil
 
     config.hosts << "app.saturnci.com"
+    config.hosts << "staging.saturnci.com"
   end
 end
