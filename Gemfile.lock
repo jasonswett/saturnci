@@ -70,6 +70,18 @@ GEM
       public_suffix (>= 2.0.2, < 6.0)
     audited (5.0.2)
       activerecord (>= 5.0, < 7.1)
+    aws-eventstream (1.2.0)
+    aws-partitions (1.776.0)
+    aws-sdk-core (3.174.0)
+      aws-eventstream (~> 1, >= 1.0.2)
+      aws-partitions (~> 1, >= 1.651.0)
+      aws-sigv4 (~> 1.5)
+      jmespath (~> 1, >= 1.6.1)
+    aws-sdk-ec2 (1.382.0)
+      aws-sdk-core (~> 3, >= 3.174.0)
+      aws-sigv4 (~> 1.1)
+    aws-sigv4 (1.5.2)
+      aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.18)
     bindex (0.8.1)
     bootsnap (1.13.0)
@@ -121,6 +133,7 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jmespath (1.6.2)
     loofah (2.19.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -240,6 +253,7 @@ PLATFORMS
 
 DEPENDENCIES
   audited
+  aws-sdk-ec2
   bootsnap
   capybara
   debug

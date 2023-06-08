@@ -67,6 +67,7 @@ end
 gem "paranoia"
 gem "audited"
 gem "devise"
+gem "aws-sdk-ec2"
 
 group :development, :test do
   gem "dotenv-rails"
