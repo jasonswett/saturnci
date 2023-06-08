@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${TAG}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ${TAG}
+  template:
+    metadata:
+      labels:
+        app: ${TAG}
+    spec:
+      containers:
+      - name: ${TAG}
+        image: 588695668471.dkr.ecr.us-east-2.amazonaws.com/builds:${TAG}
