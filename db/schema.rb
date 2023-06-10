@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_04_204431) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_10_150849) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "builds", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "project_id", null: false
+    t.datetime "ended_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_builds_on_project_id"
+  end
 
   create_table "projects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
@@ -20,4 +28,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_04_204431) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "builds", "projects"
 end
