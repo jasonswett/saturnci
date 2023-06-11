@@ -5,4 +5,8 @@ class BuildsController < ApplicationController
 
     redirect_to @project
   end
+
+  def show
+    @build = Build.find(params[:id])
+  end
 end

@@ -8,6 +8,6 @@ Rails.application.routes.draw do
   end
 
   resources :projects
-  resources :builds, only: :create
+  resources :builds, only: %i(show create)
   root "projects#index"
 end

@@ -16,7 +16,7 @@
 
     <% @builds.each do |build| %>
       <tr>
-        <td><%= build.created_at %></td>
+        <td><%= link_to build.created_at, build %></td>
         <td><%= build.ended_at %></td>
       </tr>
     <% end %>
