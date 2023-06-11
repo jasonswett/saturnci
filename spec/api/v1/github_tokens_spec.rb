@@ -6,9 +6,7 @@ RSpec.describe "GitHub tokens", type: :request do
       allow(GitHubToken).to receive(:generate).and_return("ABC123")
       post api_v1_github_tokens_path
 
-      expect(JSON.parse(response.body)).to eq({
-        "token" => "ABC123"
-      })
+      expect(response.body).to eq("ABC123")
     end
   end
 end
