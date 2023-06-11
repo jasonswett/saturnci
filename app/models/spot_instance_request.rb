@@ -25,10 +25,9 @@ class SpotInstanceRequest
     script_filename = File.join(Rails.root, "app", "models", "spot_instance_script.rb")
 
     script_content = <<~SCRIPT
-      #!/usr/bin/env ruby
-      HOST = "https://app.saturnci.com"
-      BUILD_ID = #{@build.id}
-      #{File.read(script_filename)}
+      #!/usr/bin/bash
+      HOST="https://app.saturnci.com"
+      curl -X POST -d "event=spot_instance_ready" $HOST/api/v1/builds/#{@build.id}/events
     SCRIPT
 
     Base64.encode64(script_content)
