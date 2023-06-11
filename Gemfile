@@ -70,8 +70,9 @@ gem "devise"
 gem "aws-sdk-ec2"
 
 # For GitHub authentication
-gem "octokit"
-gem "jwt"
+gem "octokit", require: false
+gem "jwt", require: false
+gem "aws-sdk-secretsmanager", require: false
 
 group :development, :test do
   gem "dotenv-rails"

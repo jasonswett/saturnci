@@ -80,6 +80,9 @@ GEM
     aws-sdk-ec2 (1.382.0)
       aws-sdk-core (~> 3, >= 3.174.0)
       aws-sigv4 (~> 1.1)
+    aws-sdk-secretsmanager (1.76.0)
+      aws-sdk-core (~> 3, >= 3.174.0)
+      aws-sigv4 (~> 1.1)
     aws-sigv4 (1.5.2)
       aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.18)
@@ -266,6 +269,7 @@ PLATFORMS
 DEPENDENCIES
   audited
   aws-sdk-ec2
+  aws-sdk-secretsmanager
   bootsnap
   capybara
   debug
