@@ -1,4 +1,24 @@
 <h1>Build</h1>
 
-Started at:
-<%= @build.created_at %>
+<p>
+  Started at:
+  <%= @build.created_at %>
+</p>
+
+<% if @build.build_events.any? %>
+  <table border>
+    <tr>
+      <th>Time</th>
+      <th>Event</th>
+    </tr>
+
+    <% @build.build_events.each do |build_event| %>
+      <tr>
+        <td><%= build_event.created_at %></td>
+        <td><%= build_event.type %></td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  Waiting for spot instance
+<% end %>
