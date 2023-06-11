@@ -1,3 +1,5 @@
+require "aws-sdk-ec2"
+
 class SpotInstanceRequest
   def initialize(build)
     @build = build
