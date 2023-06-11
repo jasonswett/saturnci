@@ -1,1 +1,21 @@
 <h1><%= @project %></h1>
+
+<h2>Builds</h2>
+
+<% if @builds.any? %>
+  <table border>
+    <tr>
+      <th>Start</th>
+      <th>End</th>
+    </tr>
+
+    <% @builds.each do |build| %>
+      <tr>
+        <td><%= build.created_at %></td>
+        <td><%= build.ended_at %></td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  (No builds)
+<% end %>
