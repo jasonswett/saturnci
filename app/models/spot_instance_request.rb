@@ -27,7 +27,7 @@ class SpotInstanceRequest
     script_content = <<~SCRIPT
       #!/usr/bin/bash
       HOST="https://app.saturnci.com"
-      curl -X POST -d "event=spot_instance_ready" $HOST/api/v1/builds/#{@build.id}/events
+      curl -X POST -d "type=spot_instance_ready" $HOST/api/v1/builds/#{@build.id}/build_events
     SCRIPT
 
     Base64.encode64(script_content)

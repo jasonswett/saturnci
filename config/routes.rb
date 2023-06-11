@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      get "github_tokens/create"
-      resources :builds, only: :create
       resources :github_tokens, only: :create
+
+      resources :builds, only: :create do
+        resources :build_events, only: :create
+      end
     end
   end
 

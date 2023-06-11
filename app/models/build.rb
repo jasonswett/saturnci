@@ -2,6 +2,7 @@ require "aws-sdk-ec2"
 
 class Build < ApplicationRecord
   belongs_to :project
+  has_many :build_events
 
   def self.start!(project)
     transaction do
