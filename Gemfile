@@ -69,6 +69,10 @@ gem "audited"
 gem "devise"
 gem "aws-sdk-ec2"
 
+# For GitHub authentication
+gem "octokit"
+gem "jwt"
+
 group :development, :test do
   gem "dotenv-rails"
   gem "capybara"
