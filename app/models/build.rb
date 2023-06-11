@@ -1,15 +1,18 @@
-require "aws-sdk-ec2"
-
 class Build < ApplicationRecord
   belongs_to :project
   has_many :build_events
 
-  def self.start!(project)
+  def start!
     transaction do
-      transaction do
-        build = create!(project: project)
-        SpotInstanceRequest.new(build).send!
-      end
+      save!
+      build_events.create!(type: :spot_instance_requested)
+      spot_instance_request.send!
     end
+  end
+
+  private
+
+  def spot_instance_request
+    SpotInstanceRequest.new(self)
   end
 end
