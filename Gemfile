@@ -72,6 +72,7 @@ gem "aws-sdk-ec2"
 # For GitHub authentication
 gem "octokit", require: false
 gem "jwt", require: false
+gem "faraday-retry", require: false
 gem "aws-sdk-secretsmanager", require: false
 
 group :development, :test do
@@ -80,4 +81,5 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
   gem "rspec-rails"
+  gem "webmock"
 end
