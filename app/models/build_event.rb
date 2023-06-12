@@ -5,6 +5,8 @@ class BuildEvent < ApplicationRecord
   enum type: {
     spot_instance_requested: 1,
     spot_instance_ready: 0,
-    repository_cloned: 2
+    repository_cloned: 2,
+    test_suite_started: 3,
+    test_suite_finished: 4
   }
 end
