@@ -55,7 +55,9 @@ class SpotInstanceRequest
 
       cd $PROJECT_DIR
       sudo docker-compose -f .saturnci/docker-compose.yml run app rails db:create
+      curl -X POST -d "type=test_suite_started" $HOST/api/v1/builds/#{@build.id}/build_events
       sudo docker-compose -f .saturnci/docker-compose.yml run app bundle exec rspec
+      curl -X POST -d "type=test_suite_finished" $HOST/api/v1/builds/#{@build.id}/build_events
     SCRIPT
 
     Base64.encode64(script_content)
