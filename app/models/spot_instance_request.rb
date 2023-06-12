@@ -29,7 +29,9 @@ class SpotInstanceRequest
     script_content = <<~SCRIPT
       #!/usr/bin/bash
       HOST="https://app.saturnci.com"
-      curl -X POST -d "type=spot_instance_ready" $HOST/api/v1/builds/#{@build.id}/build_events
+      BUILD_ID=#{@build.id}
+
+      curl -X POST -d "type=spot_instance_ready" $HOST/api/v1/builds/$BUILD_ID/build_events
 
       sudo apt-get update
       sudo apt-get -y install ca-certificates curl gnupg
@@ -51,13 +53,13 @@ class SpotInstanceRequest
       TOKEN=$(curl -X POST $HOST/api/v1/github_tokens)
       PROJECT_DIR=/home/ubuntu/project
       git clone https://x-access-token:$TOKEN@github.com/jasonswett/mars $PROJECT_DIR
-      curl -X POST -d "type=repository_cloned" $HOST/api/v1/builds/#{@build.id}/build_events
+      curl -X POST -d "type=repository_cloned" $HOST/api/v1/builds/$BUILD_ID/build_events
 
       cd $PROJECT_DIR
       sudo docker-compose -f .saturnci/docker-compose.yml run app rails db:create
-      curl -X POST -d "type=test_suite_started" $HOST/api/v1/builds/#{@build.id}/build_events
+      curl -X POST -d "type=test_suite_started" $HOST/api/v1/builds/$BUILD_ID/build_events
       sudo docker-compose -f .saturnci/docker-compose.yml run app bundle exec rspec
-      curl -X POST -d "type=test_suite_finished" $HOST/api/v1/builds/#{@build.id}/build_events
+      curl -X POST -d "type=test_suite_finished" $HOST/api/v1/builds/$BUILD_ID/build_events
     SCRIPT
 
     Base64.encode64(script_content)
