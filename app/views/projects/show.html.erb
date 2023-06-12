@@ -2,10 +2,12 @@
 
 <h2>Builds</h2>
 
-<%= button_to "Trigger New Build",
-  { controller: "builds", action: "create" },
-  params: { project_id: @project.id },
-  method: :post %>
+<p>
+  <%= button_to "Trigger New Build",
+    { controller: "builds", action: "create" },
+    params: { project_id: @project.id },
+    method: :post %>
+</p>
 
 <% if @builds.any? %>
   <table border>

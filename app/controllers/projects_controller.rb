@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1 or /projects/1.json
   def show
-    @builds = @project.builds
+    @builds = @project.builds.order("created_at desc")
   end
 
   # GET /projects/new
