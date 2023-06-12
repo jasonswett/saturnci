@@ -30,6 +30,10 @@ class SpotInstanceRequest
       #!/usr/bin/bash
       HOST="https://app.saturnci.com"
       curl -X POST -d "type=spot_instance_ready" $HOST/api/v1/builds/#{@build.id}/build_events
+
+      TOKEN=$(curl -X POST $HOST/api/v1/github_tokens)
+      git clone https://x-access-token:$TOKEN@github.com/jasonswett/mars /home/ubuntu/project
+      curl -X POST -d "type=repository_cloned" $HOST/api/v1/builds/#{@build.id}/build_events
     SCRIPT
 
     Base64.encode64(script_content)
