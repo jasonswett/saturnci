@@ -1,7 +1,9 @@
-class API::V1::GitHubTokensController < ApplicationController
-  skip_before_action :verify_authenticity_token
-
-  def create
-    render plain: GitHubToken.generate
+module API
+  module V1
+    class GitHubTokensController < APIController
+      def create
+        render plain: GitHubToken.generate
+      end
+    end
   end
 end
