@@ -10,6 +10,12 @@ class Build < ApplicationRecord
     end
   end
 
+  def status
+    return "Running" if report.nil?
+    return "Passed" if JSON.parse(report).empty?
+    "Failed"
+  end
+
   private
 
   def spot_instance_request
