@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_11_193547) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_14_024646) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,6 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_11_193547) do
     t.datetime "ended_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "report"
     t.index ["project_id"], name: "index_builds_on_project_id"
   end
 
