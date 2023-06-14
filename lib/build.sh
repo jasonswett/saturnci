@@ -24,7 +24,7 @@ cd $PROJECT_DIR
 curl -X POST -d "type=repository_cloned" $HOST/api/v1/builds/$BUILD_ID/build_events
 
 git clone https://x-access-token:$TOKEN@github.com/jasonswett/saturnci ../saturnci
-cp ../saturnci/lib/custom_formatter.rb
+cp ../saturnci/lib/custom_formatter.rb .
 
 sudo docker-compose -f .saturnci/docker-compose.yml run app rails db:create
 curl -X POST -d "type=test_suite_started" $HOST/api/v1/builds/$BUILD_ID/build_events
