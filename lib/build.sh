@@ -20,10 +20,18 @@ sudo chmod +x /usr/local/bin/docker-compose
 TOKEN=$(curl -X POST $HOST/api/v1/github_tokens)
 PROJECT_DIR=/home/ubuntu/project
 git clone https://x-access-token:$TOKEN@github.com/jasonswett/mars $PROJECT_DIR
+cd $PROJECT_DIR
 curl -X POST -d "type=repository_cloned" $HOST/api/v1/builds/$BUILD_ID/build_events
 
-cd $PROJECT_DIR
+git clone https://x-access-token:$TOKEN@github.com/jasonswett/saturnci ../saturnci
+cp ../saturnci/lib/custom_formatter.rb
+
 sudo docker-compose -f .saturnci/docker-compose.yml run app rails db:create
 curl -X POST -d "type=test_suite_started" $HOST/api/v1/builds/$BUILD_ID/build_events
-sudo docker-compose -f .saturnci/docker-compose.yml run app bundle exec rspec
+
+sudo docker-compose -f .saturnci/docker-compose.yml run \
+  app bundle exec rspec \
+  --require ./custom_formatter.rb \
+  --format CustomFormatter
+
 curl -X POST -d "type=test_suite_finished" $HOST/api/v1/builds/$BUILD_ID/build_events
