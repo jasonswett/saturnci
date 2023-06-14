@@ -29,11 +29,11 @@ cp ../saturnci/lib/custom_formatter.rb .
 sudo docker-compose -f .saturnci/docker-compose.yml run app rails db:create
 curl -X POST -d "type=test_suite_started" $HOST/api/v1/builds/$BUILD_ID/build_events
 
-RESULTS_FILENAME=~/results.json
+RESULTS_FILENAME=~/build_report.json
 sudo docker-compose -f .saturnci/docker-compose.yml run \
   app bundle exec rspec \
   --require ./custom_formatter.rb \
   --format CustomFormatter > $RESULTS_FILENAME
 
 curl -X POST -d "type=test_suite_finished" $HOST/api/v1/builds/$BUILD_ID/build_events
-curl -X POST -H "Content-Type: application/json" -d @$RESULTS_FILENAME $HOST/api/v1/builds/$BUILD_ID/results
+curl -X POST -H "Content-Type: application/json" -d @$RESULTS_FILENAME $HOST/api/v1/builds/$BUILD_ID/build_reports
