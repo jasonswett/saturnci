@@ -12,7 +12,7 @@ class Build < ApplicationRecord
 
   def status
     return "Running" if report.nil?
-    return "Passed" if JSON.parse(report).empty?
+    return "Passed" if report.empty?
     "Failed"
   end
 
