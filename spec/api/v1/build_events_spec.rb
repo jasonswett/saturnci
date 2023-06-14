@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "builds", type: :request do
+RSpec.describe "builds events", type: :request do
   describe "POST /api/v1/builds/:id/build_events" do
     let!(:build) { create(:build) }
 
