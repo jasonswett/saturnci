@@ -53,13 +53,13 @@ spec:
             secretKeyRef:
               name: saturn-secrets
               key: AWS_SECRET_ACCESS_KEY
-        - name: SATURNCI_USERNAME
+        - name: SATURNCI_API_USERNAME
           valueFrom:
             secretKeyRef:
               name: saturn-secrets
-              key: SATURNCI_USERNAME
-        - name: SATURNCI_PASSWORD
+              key: SATURNCI_API_USERNAME
+        - name: SATURNCI_API_PASSWORD
           valueFrom:
             secretKeyRef:
               name: saturn-secrets
-              key: SATURNCI_PASSWORD
+              key: SATURNCI_API_PASSWORD
