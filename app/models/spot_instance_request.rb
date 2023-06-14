@@ -30,6 +30,8 @@ class SpotInstanceRequest
       #!/usr/bin/bash
       HOST="https://app.saturnci.com"
       BUILD_ID=#{@build.id}
+      SATURNCI_API_USERNAME=#{ENV["SATURNCI_API_USERNAME"]}
+      SATURNCI_API_PASSWORD=#{ENV["SATURNCI_API_PASSWORD"]}
 
       #{File.read(Rails.root.join("lib", "build.sh"))}
     SCRIPT
