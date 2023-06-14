@@ -20,7 +20,7 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 
 echo "Cloning repo"
-TOKEN=$(curl -X POST $HOST/api/v1/github_tokens)
+TOKEN=$(curl -u $SATURNCI_API_USERNAME:$SATURNCI_API_PASSWORD -X POST $HOST/api/v1/github_tokens)
 USER_DIR=/home/ubuntu
 PROJECT_DIR=$USER_DIR/project
 git clone https://x-access-token:$TOKEN@github.com/jasonswett/mars $PROJECT_DIR
