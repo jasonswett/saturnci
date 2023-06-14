@@ -18,7 +18,7 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 
 TOKEN=$(curl -X POST $HOST/api/v1/github_tokens)
-PROJECT_DIR=/home/ubuntu/project
+PROJECT_DIR=~/project
 git clone https://x-access-token:$TOKEN@github.com/jasonswett/mars $PROJECT_DIR
 cd $PROJECT_DIR
 curl -X POST -d "type=repository_cloned" $HOST/api/v1/builds/$BUILD_ID/build_events
@@ -29,9 +29,11 @@ cp ../saturnci/lib/custom_formatter.rb .
 sudo docker-compose -f .saturnci/docker-compose.yml run app rails db:create
 curl -X POST -d "type=test_suite_started" $HOST/api/v1/builds/$BUILD_ID/build_events
 
+RESULTS_FILENAME=~/results.json
 sudo docker-compose -f .saturnci/docker-compose.yml run \
   app bundle exec rspec \
   --require ./custom_formatter.rb \
-  --format CustomFormatter
+  --format CustomFormatter > $RESULTS_FILENAME
 
 curl -X POST -d "type=test_suite_finished" $HOST/api/v1/builds/$BUILD_ID/build_events
+curl -X POST -H "Content-Type: application/json" -d @$RESULTS_FILENAME $HOST/api/v1/builds/$BUILD_ID/results
