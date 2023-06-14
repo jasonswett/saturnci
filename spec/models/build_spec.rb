@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.describe Build, type: :model do
+  let!(:build) { create(:build) }
+
   describe "#start!" do
-    let(:project) { create(:project) } # Assuming that you have a Project factory
-    let(:build) { Build.new(project: project) }
-    let(:fake_spot_instance_request) { double("SpotInstanceRequest") }
+    let!(:fake_spot_instance_request) { double("SpotInstanceRequest") }
 
     before do
       allow(build).to receive(:spot_instance_request).and_return(fake_spot_instance_request)
@@ -14,6 +14,26 @@ RSpec.describe Build, type: :model do
     it "creates a new build_event with type spot_instance_requested" do
       expect { build.start! }
         .to change { BuildEvent.where(type: "spot_instance_requested").count }.by(1)
+    end
+  end
+
+  describe "#status" do
+    context "there's no report yet" do
+      it "returns 'Running'" do
+        expect(build.status).to eq("Running")
+      end
+    end
+
+    context "report is an empty array" do
+      it "returns 'Passed'" do
+        build.update!(report: [].to_json)
+        expect(build.status).to eq("Passed")
+      end
+    end
+
+    context "report is anything else" do
+      it "returns 'Failed'" do
+      end
     end
   end
 end
