@@ -26,7 +26,7 @@ RSpec.describe Build, type: :model do
 
     context "report is an empty array" do
       it "returns 'Passed'" do
-        build.update!(report: [].to_json)
+        build.update!(report: [])
         expect(build.status).to eq("Passed")
       end
     end
