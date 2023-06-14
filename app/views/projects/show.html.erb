@@ -13,13 +13,13 @@
   <table border>
     <tr>
       <th>Start</th>
-      <th>End</th>
+      <th>Outcome</th>
     </tr>
 
     <% @builds.each do |build| %>
       <tr>
         <td><%= link_to build.created_at, build %></td>
-        <td><%= build.ended_at %></td>
+        <td><%= build.report %></td>
       </tr>
     <% end %>
   </table>
