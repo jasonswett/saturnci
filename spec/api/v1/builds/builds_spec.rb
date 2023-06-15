@@ -1,4 +1,5 @@
 require "rails_helper"
+include APIAuthenticationHelper
 
 RSpec.describe "builds", type: :request do
   describe "POST /api/v1/builds" do
@@ -6,7 +7,7 @@ RSpec.describe "builds", type: :request do
 
     it "increases the count of builds by 1" do
       expect {
-        post api_v1_builds_path
+        post(api_v1_builds_path, headers: api_authorization_headers)
       }.to change(Build, :count).by(1)
     end
   end
