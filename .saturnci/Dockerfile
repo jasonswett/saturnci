@@ -24,4 +24,4 @@ RUN yarn install --check-files
 
 # Set "rails server -b 0.0.0.0" as the command to
 # run when this container starts.
-CMD ["rspec"]
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
