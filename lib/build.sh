@@ -38,7 +38,7 @@ echo "Cloning repo"
 TOKEN=$(api_request "POST" "github_tokens")
 USER_DIR=/home/ubuntu
 PROJECT_DIR=$USER_DIR/project
-git clone https://x-access-token:$TOKEN@github.com/jasonswett/mars $PROJECT_DIR
+git clone https://x-access-token:$TOKEN@github.com/$GITHUB_REPO_FULL_NAME $PROJECT_DIR
 cd $PROJECT_DIR
 api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"repository_cloned"}'
 
