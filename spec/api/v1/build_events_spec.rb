@@ -14,5 +14,15 @@ RSpec.describe "builds events", type: :request do
         )
       }.to change(BuildEvent, :count).by(1)
     end
+
+    it "returns an empty 200 response" do
+      post(
+        api_v1_build_build_events_path(build),
+        params: { type: "spot_instance_ready" },
+        headers: api_authorization_headers
+      )
+      expect(response).to have_http_status(200)
+      expect(response.body).to be_empty
+    end
   end
 end

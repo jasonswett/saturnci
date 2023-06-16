@@ -4,6 +4,7 @@ module API
       def create
         build = Build.find(params[:build_id])
         build.build_events.create!(type: params[:type])
+        head :ok
       end
     end
   end
