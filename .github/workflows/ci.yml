@@ -14,26 +14,30 @@ jobs:
       postgres:
         image: postgres
         env:
+          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
 
+    env:
+      DATABASE_USERNAME: saturn
+      DATABASE_PASSWORD: saturn
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      RAILS_ENV: test
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Build the Docker image
-      run: docker build . --file .saturnci/Dockerfile --tag my-rails-app
-
-    - name: Run tests
-      env:
-        DATABASE_USERNAME: saturn
-        DATABASE_PASSWORD: saturn
-        DATABASE_HOST: postgres
-        DATABASE_PORT: 5432
-        POSTGRES_HOST: postgres
-        POSTGRES_PORT: 5432
-        RAILS_ENV: test
-      run: docker run -e DATABASE_USERNAME -e DATABASE_PASSWORD -e DATABASE_HOST -e DATABASE_PORT my-rails-app bundle exec rspec
+      - uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Install rails dependencies
+        run: bundle install
+      - name: Create DB
+        run: bundle exec rails db:test:prepare
+      - name: Run tests
+        run: bundle exec rspec
