@@ -26,7 +26,7 @@ jobs:
     env:
       DATABASE_USERNAME: saturn
       DATABASE_PASSWORD: saturn
-      DATABASE_HOST: postgres
+      DATABASE_HOST: postgressss
       DATABASE_PORT: 5432
       RAILS_ENV: test
     steps:
