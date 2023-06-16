@@ -17,7 +17,7 @@ jobs:
         env:
           POSTGRES_USER: saturn
           POSTGRES_HOST_AUTH_METHOD: trust
-          POSTGRES_DB: saturn_test
+          POSTGRES_DB: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
