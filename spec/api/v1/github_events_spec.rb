@@ -55,5 +55,16 @@ RSpec.describe "GitHub Events", type: :request do
         )
       }.to change { project.builds.count }.by(1)
     end
+
+    it "sets the branch name for the build" do
+      post(
+        "/api/v1/github_events",
+        params: payload,
+        headers: headers
+      )
+
+      build = Build.last
+      expect(build.branch_name).to eq('main')
+    end
   end
 end
