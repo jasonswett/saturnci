@@ -5,7 +5,6 @@ default: &default
   username: <%= ENV.fetch("DATABASE_USERNAME") %>
   host: <%= ENV.fetch("DATABASE_HOST") %>
   port: <%= ENV.fetch("DATABASE_PORT") %>
-  password: <%= ENV.fetch("DATABASE_PASSWORD") %>
 
 development:
   <<: *default
@@ -19,3 +18,4 @@ production:
   <<: *default
   database: saturn_production
   username: <%= ENV.fetch("DATABASE_USERNAME") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD") %>
