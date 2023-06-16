@@ -28,12 +28,10 @@ jobs:
       run: docker build . --file .saturnci/Dockerfile --tag my-rails-app
 
     - name: Run tests
-      run: docker run my-rails-app bundle exec rspec
-
       env:
         DATABASE_USERNAME: saturn
         DATABASE_PASSWORD: saturn
         DATABASE_HOST: postgres
         DATABASE_PORT: 5432
         RAILS_ENV: test
-
+      run: docker run my-rails-app bundle exec rspec
