@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DATABASE_USERNAME: saturn
-      DATABASE_HOST: postgres
+      DATABASE_HOST: localhost
       DATABASE_PASSWORD: postgres
       DATABASE_PORT: 5432
       RAILS_ENV: test
