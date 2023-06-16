@@ -16,6 +16,7 @@ jobs:
         env:
           POSTGRES_USER: saturn
           POSTGRES_PASSWORD: saturn
+          POSTGRES_DB: saturn_test
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
