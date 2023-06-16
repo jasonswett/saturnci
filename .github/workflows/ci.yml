@@ -14,16 +14,12 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_USER: saturn
-          POSTGRES_PASSWORD: saturn
-          POSTGRES_DB: saturn_test
+          POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-        ports:
-          - "5432:5432"
 
     steps:
     - uses: actions/checkout@v2
@@ -37,5 +33,7 @@ jobs:
         DATABASE_PASSWORD: saturn
         DATABASE_HOST: localhost
         DATABASE_PORT: 5432
+        POSTGRES_HOST: postgres
+        POSTGRES_PORT: 5432
         RAILS_ENV: test
       run: docker run -e DATABASE_USERNAME -e DATABASE_PASSWORD -e DATABASE_HOST -e DATABASE_PORT my-rails-app bundle exec rspec
