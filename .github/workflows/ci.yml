@@ -11,27 +11,32 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      db:
-        image: postgres:latest
-        env:
-          POSTGRES_USER: saturn
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: saturn_test
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
+  postgres:
+    image: postgres:13.1-alpine
+    volumes:
+      - postgresql:/var/lib/postgresql/data:delegated
+      - ./init.sql:/data/application/init.sql
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment:
+      PSQL_HISTFILE: /usr/src/app/log/.psql_history
+      POSTGRES_USER: saturn
+      POSTGRES_HOST_AUTH_METHOD: trust
+    restart: on-failure
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U saturn"]
+      interval: 10s
+      timeout: 2s
+      retries: 10
+    logging:
+      driver: none
 
     env:
       DATABASE_USERNAME: saturn
       DATABASE_PASSWORD: postgres
-      DATABASE_HOST: localhost
+      DATABASE_HOST: postgres
       DATABASE_PORT: 5432
       RAILS_ENV: test
-      REDIS_URL: redis://redis:6379/0
 
     steps:
     - uses: actions/checkout@v2
