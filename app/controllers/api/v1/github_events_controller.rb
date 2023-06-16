@@ -1,8 +1,6 @@
 module API
   module V1
-    class GitHubEventsController < ApplicationController
-      skip_before_action :verify_authenticity_token
-
+    class GitHubEventsController < APIController
       def create
         payload_raw = request.body.read
         payload = JSON.parse(payload_raw)
@@ -10,8 +8,12 @@ module API
 
         repo_full_name = params[:repository][:full_name]
         @project = Project.find_by!(github_repo_full_name: repo_full_name)
-
         build = Build.new(project: @project)
+
+        ref_path = payload['ref']
+        branch_name = ref_path.split('/').last
+        build.branch_name = branch_name
+
         build.start!
 
         head :ok
