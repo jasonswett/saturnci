@@ -15,7 +15,6 @@ jobs:
         image: postgres
         env:
           POSTGRES_USER: saturn
-          POSTGRES_PASSWORD: saturn
           POSTGRES_DB: postgres
         options: >-
           --health-cmd pg_isready
@@ -25,7 +24,7 @@ jobs:
 
     env:
       DATABASE_USERNAME: saturn
-      DATABASE_PASSWORD: saturn
+      DATABASE_PASSWORD:
       DATABASE_HOST: postgres
       DATABASE_PORT: 5432
       RAILS_ENV: test
