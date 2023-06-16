@@ -11,10 +11,13 @@ services:
       - redis
     environment:
       DATABASE_USERNAME: saturn
+      DATABASE_PASSWORD:
       DATABASE_HOST: postgres
       DATABASE_PORT: 5432
       RAILS_ENV: test
       REDIS_URL: redis://redis:6379/0
+      SATURNCI_API_USERNAME: myuser
+      SATURNCI_API_PASSWORD: mypassword
   postgres:
     image: postgres:13.1-alpine
     volumes:
