@@ -13,7 +13,7 @@ module API
         ref_path = payload['ref']
         branch_name = ref_path.split('/').last
         build.branch_name = branch_name
-
+        Rails.logger.info "Branch name: #{build.branch_name}"
         build.start!
 
         head :ok
