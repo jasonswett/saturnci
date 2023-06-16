@@ -37,3 +37,5 @@ jobs:
           bundler-cache: true
       - name: Install rails dependencies
         run: bundle install
+      - name: Create DB
+        run: bundle exec rails db:create
