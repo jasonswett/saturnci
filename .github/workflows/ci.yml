@@ -30,6 +30,8 @@ jobs:
       DATABASE_HOST: postgres
       DATABASE_PORT: 5432
       RAILS_ENV: test
+      SATURNCI_API_USERNAME: myusername
+      SATURNCI_API_PASSWORD: mypassword
     steps:
       - uses: actions/checkout@v3
       - name: Install rails dependencies
