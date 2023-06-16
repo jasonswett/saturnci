@@ -23,4 +23,4 @@ jobs:
       run: docker build . --file .saturnci/Dockerfile --tag my-rails-app
 
     - name: Run tests
-      run: docker run my-rails-app bundle exec rspec
+      run: docker run -e DATABASE_USERNAME -e DATABASE_HOST -e DATABASE_PORT -e RAILS_ENV -e REDIS_URL my-rails-app bundle exec rspec
