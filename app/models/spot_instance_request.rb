@@ -16,8 +16,7 @@ class SpotInstanceRequest
         image_id: "ami-024e6efaf93d85776",
         instance_type: "t2.micro",
         key_name: "saturn",
-        user_data: user_data,
-        instance_initiated_shutdown_behavior: "terminate"
+        user_data: user_data
       }
     })
   end
