@@ -14,8 +14,8 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: saturn
+          POSTGRES_PASSWORD: saturn
           POSTGRES_DB: postgres
         options: >-
           --health-cmd pg_isready
