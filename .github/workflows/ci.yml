@@ -1,0 +1,20 @@
+name: Rails CI
+
+on:
+  push:
+    branches: [ github-actions ]
+  pull_request:
+    branches: [ github-actions ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build the Docker image
+      run: docker build . --file .saturnci/Dockerfile --tag my-rails-app
+
+    - name: Run tests
+      run: docker run my-rails-app bundle exec rspec
