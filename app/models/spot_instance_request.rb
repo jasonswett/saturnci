@@ -16,7 +16,10 @@ class SpotInstanceRequest
         image_id: "ami-024e6efaf93d85776",
         instance_type: "t2.micro",
         key_name: "saturn",
-        user_data: user_data
+        user_data: user_data,
+        iam_instance_profile: {
+          name: "role_name_able_to_terminate_instances"
+        }
       }
     })
   end

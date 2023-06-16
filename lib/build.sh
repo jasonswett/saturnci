@@ -61,3 +61,6 @@ api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"test_suite_finished
 echo "Sending report"
 RESULTS_CONTENT=$(cat $RESULTS_FILENAME)
 api_request "POST" "builds/$BUILD_ID/build_reports" "$RESULTS_CONTENT"
+
+INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
+aws ec2 terminate-instances --instance-ids $INSTANCE_ID
