@@ -9,6 +9,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      DATABASE_USERNAME: saturn
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      RAILS_ENV: test
+      REDIS_URL: redis://redis:6379/0
 
     steps:
     - uses: actions/checkout@v2
