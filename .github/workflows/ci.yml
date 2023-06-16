@@ -16,7 +16,6 @@ jobs:
         env:
           DATABASE_USERNAME: saturn
           DATABASE_PASSWORD: saturn
-          DATABASE_HOST: postgres
           DATABASE_PORT: 5432
         ports:
           - 5432:5432
@@ -31,7 +30,7 @@ jobs:
       env:
         DATABASE_USERNAME: saturn
         DATABASE_PASSWORD: saturn
-        DATABASE_HOST: postgres
+        DATABASE_HOST: localhost
         DATABASE_PORT: 5432
         RAILS_ENV: test
       run: docker run -e DATABASE_USERNAME -e DATABASE_PASSWORD -e DATABASE_HOST -e DATABASE_PORT my-rails-app bundle exec rspec
