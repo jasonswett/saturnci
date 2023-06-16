@@ -38,6 +38,6 @@ jobs:
       - name: Install rails dependencies
         run: bundle install
       - name: Create DB
-        run: bundle exec rails db:test:prepare
+        run: bundle exec rails db:create
       - name: Run tests
         run: bundle exec rspec
