@@ -11,7 +11,7 @@ services:
       - redis
     environment:
       DATABASE_USERNAME: saturn
-      DATABASE_PASSWORD:
+      DATABASE_PASSWORD: ""
       DATABASE_HOST: postgres
       DATABASE_PORT: 5432
       RAILS_ENV: test
