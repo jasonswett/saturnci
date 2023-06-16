@@ -14,9 +14,9 @@ jobs:
       postgres:
         image: postgres:13.1-alpine
         env:
-          DATABASE_USERNAME: saturn
-          DATABASE_PASSWORD: saturn
-          DATABASE_PORT: 5432
+          POSTGRES_USER: saturn
+          POSTGRES_PASSWORD: saturn
+          POSTGRES_DB: saturn
         ports:
           - "5432:5432"
 
