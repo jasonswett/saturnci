@@ -1,6 +1,8 @@
 module API
   module V1
-    class GitHubEventsController < APIController
+    class GitHubEventsController < ApplicationController
+      skip_before_action :verify_authenticity_token
+
       def create
         payload_raw = request.body.read
         payload = JSON.parse(payload_raw)
