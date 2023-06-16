@@ -9,10 +9,26 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: saturn
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: saturn_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
     env:
       DATABASE_USERNAME: saturn
-      DATABASE_HOST: localhost
       DATABASE_PASSWORD: postgres
+      DATABASE_HOST: localhost
       DATABASE_PORT: 5432
       RAILS_ENV: test
       REDIS_URL: redis://redis:6379/0
