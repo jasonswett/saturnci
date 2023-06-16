@@ -21,12 +21,6 @@ jobs:
         ports:
           - 5432:5432
 
-    env:
-      DATABASE_USERNAME: saturn
-      DATABASE_HOST: postgres
-      DATABASE_PORT: 5432
-      RAILS_ENV: test
-
     steps:
     - uses: actions/checkout@v2
 
@@ -34,4 +28,12 @@ jobs:
       run: docker build . --file .saturnci/Dockerfile --tag my-rails-app
 
     - name: Run tests
-      run: docker run -e DATABASE_USERNAME -e DATABASE_PASSWORD -e DATABASE_HOST -e DATABASE_PORT -e RAILS_ENV -e REDIS_URL my-rails-app bundle exec rspec
+      run: docker run my-rails-app bundle exec rspec
+
+      env:
+        DATABASE_USERNAME: saturn
+        DATABASE_PASSWORD: saturn
+        DATABASE_HOST: postgres
+        DATABASE_PORT: 5432
+        RAILS_ENV: test
+
