@@ -7,16 +7,22 @@ on:
     branches: [ github-actions ]
 
 jobs:
-  build:
+  container-job:
     runs-on: ubuntu-latest
+    container: ruby:3.1.2
 
     services:
       postgres:
-        image: postgres:13.1-alpine
+        image: postgres
         env:
           POSTGRES_USER: saturn
           POSTGRES_PASSWORD: saturn
           POSTGRES_DB: saturn_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
         ports:
           - "5432:5432"
 
