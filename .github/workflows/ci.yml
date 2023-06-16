@@ -9,7 +9,6 @@ on:
 jobs:
   container-job:
     runs-on: ubuntu-latest
-    container: ruby:3.1.2
 
     services:
       postgres:
