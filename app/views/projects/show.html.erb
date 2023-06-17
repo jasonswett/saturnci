@@ -8,6 +8,7 @@
       <th>Start</th>
       <th>Branch</th>
       <th>Status</th>
+      <th>Duration</th>
     </tr>
 
     <% @builds.each do |build| %>
@@ -15,6 +16,7 @@
         <td><%= link_to build.created_at, build %></td>
         <td><%= build.branch_name %></td>
         <td><%= build.status %></td>
+        <td><%= build.duration_formatted %></td>
       </tr>
     <% end %>
   </table>
