@@ -10,6 +10,8 @@
   </head>
 
   <body>
+    <%= button_to "Sign up with GitHub", user_github_omniauth_authorize_path, method: :post %>
+
     <%= yield %>
   </body>
 </html>
