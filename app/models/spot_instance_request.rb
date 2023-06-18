@@ -14,7 +14,7 @@ class SpotInstanceRequest
       type: "one-time",
       launch_specification: {
         image_id: "ami-024e6efaf93d85776",
-        instance_type: "t2.micro",
+        instance_type: "t3.medium",
         key_name: "saturn",
         user_data: user_data
       }
