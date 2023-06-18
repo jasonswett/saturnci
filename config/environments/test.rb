@@ -58,5 +58,6 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 
-  config.hosts = [IPAddr.new("0.0.0.0/0")]
+  config.hosts << "www.example.com"
+  config.hosts << IPAddr.new("0.0.0.0/0")
 end
