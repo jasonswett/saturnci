@@ -1,14 +1,25 @@
----
 version: "3.8"
 
 services:
+  chrome:
+    image: seleniarm/standalone-chromium
+    hostname: chrome
+    shm_size: 2g
+    ports:
+      - "4444:4444"
+      - "5900:5900"
+      - "7900:7900"
+
   app:
     build:
       context: ../
       dockerfile: .saturnci/Dockerfile
+    volumes:
+      - ../:/code
     depends_on:
       - postgres
       - redis
+      - chrome
     environment:
       DATABASE_USERNAME: saturn
       DATABASE_PASSWORD: ""
@@ -18,6 +29,7 @@ services:
       REDIS_URL: redis://redis:6379/0
       SATURNCI_API_USERNAME: myuser
       SATURNCI_API_PASSWORD: mypassword
+
   postgres:
     image: postgres:13.1-alpine
     volumes:
@@ -47,6 +59,26 @@ services:
     restart: on-failure
     logging:
       driver: none
+
+#  chrome:
+#    image: selenium/node-chrome:latest
+#    volumes:
+#      - /dev/shm:/dev/shm
+#    shm_size: 2gb
+#    depends_on:
+#      - selenium-hub
+#    environment:
+#      - SE_EVENT_BUS_HOST=selenium-hub
+#      - SE_EVENT_BUS_PUBLISH_PORT=4442
+#      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
+#  selenium-hub:
+#    image: selenium/hub:latest
+#    container_name: selenium-hub
+#    ports:
+#      - "4442:4442"
+#      - "4443:4443"
+#      - "4444:4444"
 
 volumes:
   postgresql:

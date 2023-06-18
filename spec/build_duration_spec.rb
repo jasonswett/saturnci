@@ -14,7 +14,6 @@ describe "Duration", type: :system do
 
     visit project_path(project)
 
-    binding.pry
     expect(page).to have_content("5m 10s")
   end
 end
