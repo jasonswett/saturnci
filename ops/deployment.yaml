@@ -63,3 +63,53 @@ spec:
             secretKeyRef:
               name: saturn-secrets
               key: SATURNCI_API_PASSWORD
+      initContainers:
+      - name: mednote-migrations
+        image: 588695668471.dkr.ecr.us-east-2.amazonaws.com/saturn:$TAG
+        command: ['sh', '-c', 'rails db:migrate:concurrent']
+        env:
+        - name: DATABASE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: DATABASE_USERNAME
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: DATABASE_PASSWORD
+        - name: DATABASE_HOST
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: DATABASE_HOST
+        - name: DATABASE_PORT
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: DATABASE_PORT
+        - name: RAILS_ENV
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: RAILS_ENV
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: AWS_ACCESS_KEY_ID
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: AWS_SECRET_ACCESS_KEY
+        - name: SATURNCI_API_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: SATURNCI_API_USERNAME
+        - name: SATURNCI_API_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: SATURNCI_API_PASSWORD
