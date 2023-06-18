@@ -63,6 +63,8 @@ gem "aws-sdk-ec2"
 
 # For GitHub authentication
 gem "octokit", require: false
+gem "omniauth-github"
+gem "omniauth-rails_csrf_protection"
 gem "jwt", require: false
 gem "faraday-retry", require: false
 gem "aws-sdk-secretsmanager", require: false

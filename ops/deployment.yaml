@@ -63,6 +63,16 @@ spec:
             secretKeyRef:
               name: saturn-secrets
               key: SATURNCI_API_PASSWORD
+        - name: GITHUB_OAUTH_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: GITHUB_OAUTH_CLIENT_ID
+        - name: GITHUB_OAUTH_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: GITHUB_OAUTH_CLIENT_SECRET
       initContainers:
       - name: mednote-migrations
         image: 588695668471.dkr.ecr.us-east-2.amazonaws.com/saturn:$TAG
@@ -113,3 +123,13 @@ spec:
             secretKeyRef:
               name: saturn-secrets
               key: SATURNCI_API_PASSWORD
+        - name: GITHUB_OAUTH_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: GITHUB_OAUTH_CLIENT_ID
+        - name: GITHUB_OAUTH_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: GITHUB_OAUTH_CLIENT_SECRET
