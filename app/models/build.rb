@@ -1,6 +1,6 @@
 class Build < ApplicationRecord
   belongs_to :project
-  has_many :build_events
+  has_many :build_events, dependent: :destroy
   alias_attribute :started_at, :created_at
 
   def start!
