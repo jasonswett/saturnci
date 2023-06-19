@@ -7,10 +7,17 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= button_to "Sign up with GitHub", user_github_omniauth_authorize_path, method: :post %>
+    <% if current_user.present? %>
+      <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete } %>
+    <% else %>
+      <div data-turbo="false">
+        <%= button_to "Sign up with GitHub", user_github_omniauth_authorize_path, method: :post %>
+      </div>
+    <% end %>
 
     <%= yield %>
   </body>
