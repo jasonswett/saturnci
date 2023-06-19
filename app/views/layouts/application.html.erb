@@ -12,11 +12,11 @@
 
   <body>
     <% if current_user.present? %>
+      Signed in as <%= current_user.name %>
       <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete } %>
     <% else %>
-      <div data-turbo="false">
-        <%= button_to "Sign up with GitHub", user_github_omniauth_authorize_path, method: :post %>
-      </div>
+      <%= link_to "Sign in", new_user_session_path %>
+      <%= link_to "Sign up", new_user_registration_path %>
     <% end %>
 
     <%= yield %>
