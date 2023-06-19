@@ -73,6 +73,8 @@ spec:
             secretKeyRef:
               name: saturn-secrets
               key: GITHUB_OAUTH_CLIENT_SECRET
+        - name: RAILS_SERVE_STATIC_FILES
+          value: "true"
       initContainers:
       - name: mednote-migrations
         image: 588695668471.dkr.ecr.us-east-2.amazonaws.com/saturn:$TAG
@@ -133,3 +135,5 @@ spec:
             secretKeyRef:
               name: saturn-secrets
               key: GITHUB_OAUTH_CLIENT_SECRET
+        - name: RAILS_SERVE_STATIC_FILES
+          value: "true"
