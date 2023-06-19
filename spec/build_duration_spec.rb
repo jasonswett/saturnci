@@ -12,6 +12,8 @@ describe "Duration", type: :system do
       created_at: build.created_at + ((5 * 60) + 10).seconds
     )
 
+    user = create(:user)
+    login_as(user, scope: :user)
     visit project_path(project)
 
     expect(page).to have_content("5m 10s")
