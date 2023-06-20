@@ -1,7 +1,7 @@
 require "jwt"
 require "octokit"
 
-class OctokitClient
+class OctokitClientFactory
   APP_ID = 345077
 
   def self.create
