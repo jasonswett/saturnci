@@ -6,6 +6,7 @@ class ProjectIntegrationsController < ApplicationController
     client = Octokit::Client.new(
       access_token: session[:github_oauth_token]
     )
+    client.auto_paginate = true
 
     @repositories = client.repositories
   end
