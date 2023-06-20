@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   end
 
   resources :projects
+  resources :project_integrations, only: %i(new create)
   resources :builds, only: %i(show create)
   root "projects#index"
 end
