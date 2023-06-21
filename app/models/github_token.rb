@@ -3,7 +3,7 @@ require "octokit"
 
 class GitHubToken
   APP_ID = 345077
-  INSTALLATION_ID = 38411118
+  INSTALLATION_ID = 38785492
 
   def self.generate
     private_pem = AWSSecret.read("github-private-key")
