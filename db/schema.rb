@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_21_215613) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_22_222738) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,6 +41,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_21_215613) do
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
+  create_table "saturn_installations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.string "github_installation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "github_installation_id"], name: "index_saturn_installations_on_user_and_github_id", unique: true
+    t.index ["user_id"], name: "index_saturn_installations_on_user_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -65,4 +74,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_21_215613) do
   add_foreign_key "build_events", "builds"
   add_foreign_key "builds", "projects"
   add_foreign_key "projects", "users"
+  add_foreign_key "saturn_installations", "users"
 end
