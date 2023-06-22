@@ -6,7 +6,7 @@ class GitHubToken
   INSTALLATION_ID = 38785492
 
   def self.generate
-    private_pem = AWSSecret.read("github-private-key")
+    private_pem = AWSSecret.read(ENV["GITHUB_PRIVATE_KEY_NAME"])
     private_key = OpenSSL::PKey::RSA.new(private_pem)
 
     payload = {

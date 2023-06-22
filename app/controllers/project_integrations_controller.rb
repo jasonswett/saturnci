@@ -19,7 +19,7 @@ class ProjectIntegrationsController < ApplicationController
     repo_full_name = params[:repo_full_name]
     repo = client.repo(repo_full_name)
 
-    project = Project.create!(
+    project = current_user.projects.create!(
       name: repo_full_name,
       github_repo_full_name: repo_full_name
     )
