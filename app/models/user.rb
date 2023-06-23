@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :projects
+  has_many :saturn_installations
 
   devise(
     :database_authenticatable,

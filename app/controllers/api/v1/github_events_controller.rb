@@ -9,17 +9,36 @@ module API
         payload = JSON.parse(payload_raw)
         Rails.logger.info "GitHub webhook payload: #{payload.inspect}"
 
+        case payload["action"]
+        when "installation"
+          handle_installation_event(payload)
+        else
+          handle_push_event(payload)
+        end
+
+        head :ok
+      end
+
+      private
+
+      def handle_installation_event(payload)
+        github_installation_id = payload["installation"]["id"]
+        github_account_id = payload["installation"]["account"]["id"]
+
+        user = User.find_by(uid: github_account_id, provider: "github")
+        user&.saturn_installations&.create!(github_installation_id: github_installation_id)
+      end
+
+      def handle_push_event(payload)
         repo_full_name = params[:repository][:full_name]
         @project = Project.find_by!(github_repo_full_name: repo_full_name)
         build = Build.new(project: @project)
 
-        ref_path = payload['ref']
-        branch_name = ref_path.split('/').last
+        ref_path = payload["ref"]
+        branch_name = ref_path.split("/").last
         build.branch_name = branch_name
         Rails.logger.info "Branch name: #{build.branch_name}"
         build.start!
-
-        head :ok
       end
     end
   end
