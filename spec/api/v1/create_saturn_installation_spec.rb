@@ -7,7 +7,7 @@ RSpec.describe API::V1::GitHubEventsController, type: :controller do
 
   let(:payload) do
     {
-      "action" => "installation",
+      "action" => "created",
       "installation" => {
         "id" => "12345",
         "account" => {

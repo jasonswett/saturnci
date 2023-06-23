@@ -10,7 +10,7 @@ module API
         Rails.logger.info "GitHub webhook payload: #{payload.inspect}"
 
         case payload["action"]
-        when "installation"
+        when "created"
           handle_installation_event(payload)
         else
           handle_push_event(payload)
