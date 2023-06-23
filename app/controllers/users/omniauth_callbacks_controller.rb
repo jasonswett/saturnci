@@ -6,9 +6,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if @user.persisted?
       session[:github_oauth_token] = request.env["omniauth.auth"].credentials.token
-
-      @user.saturn_installations.create!(github_installation_id: params[:installation_id])
-
       sign_in_and_redirect @user, event: :authentication
       set_flash_message(:notice, :success, kind: "Github") if is_navigational_format?
     else
