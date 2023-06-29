@@ -1,4 +1,4 @@
-class GithubInstallationsController < ApplicationController
+class GitHubInstallationsController < ApplicationController
   def create
     client = Octokit::Client.new(access_token: session[:github_oauth_token])
     response = client.post('/user/installations', { app_slug: "your_github_app_slug" }, accept: 'application/vnd.github.machine-man-preview+json')
