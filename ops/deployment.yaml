@@ -63,6 +63,12 @@ spec:
             secretKeyRef:
               name: saturn-secrets
               key: SATURNCI_API_PASSWORD
+        - name: SATURNCI_INSTALLATION_URL
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: SATURNCI_INSTALLATION_URL
+        - name: GITHUB_OAUTH_CLIENT_ID
         - name: GITHUB_OAUTH_CLIENT_ID
           valueFrom:
             secretKeyRef:
@@ -125,6 +131,11 @@ spec:
             secretKeyRef:
               name: saturn-secrets
               key: SATURNCI_API_PASSWORD
+        - name: SATURNCI_INSTALLATION_URL
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: SATURNCI_INSTALLATION_URL
         - name: GITHUB_OAUTH_CLIENT_ID
           valueFrom:
             secretKeyRef:
