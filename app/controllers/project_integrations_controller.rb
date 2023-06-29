@@ -3,18 +3,20 @@ require "octokit"
 
 class ProjectIntegrationsController < ApplicationController
   def new
-    client = Octokit::Client.new(
-      access_token: session[:github_oauth_token]
-    )
-    client.auto_paginate = true
+    client = Octokit::Client.new(bearer_token: GitHubToken.generate(current_user.github_installation_id))
 
-    @repositories = client.repositories
+    @repositories = []
+    page = 0
+
+    begin
+      page += 1
+      current_page_repositories = client.get("/installation/repositories", page: page)
+      @repositories += current_page_repositories.repositories
+    end while current_page_repositories.total_count > @repositories.size
   end
 
   def create
-    client = Octokit::Client.new(
-      access_token: session[:github_oauth_token]
-    )
+    client = Octokit::Client.new(bearer_token: GitHubToken.generate(current_user.github_installation_id))
 
     repo_full_name = params[:repo_full_name]
     repo = client.repo(repo_full_name)
