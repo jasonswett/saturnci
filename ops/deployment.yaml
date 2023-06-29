@@ -84,6 +84,11 @@ spec:
             secretKeyRef:
               name: saturn-secrets
               key: GITHUB_APP_ID
+        - name: GITHUB_PRIVATE_KEY_NAME
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: GITHUB_PRIVATE_KEY_NAME
         - name: RAILS_SERVE_STATIC_FILES
           value: "true"
       initContainers:
@@ -156,5 +161,10 @@ spec:
             secretKeyRef:
               name: saturn-secrets
               key: GITHUB_APP_ID
+        - name: GITHUB_PRIVATE_KEY_NAME
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: GITHUB_PRIVATE_KEY_NAME
         - name: RAILS_SERVE_STATIC_FILES
           value: "true"
