@@ -3,7 +3,7 @@
 <h1>Projects</h1>
 
 <% if current_user.saturn_installations.empty? %>
-  <%= link_to "Install Saturn", "https://github.com/apps/saturnci-development/installations/new" %>
+  <%= link_to "Install Saturn", ENV["SATURNCI_INSTALLATION_URL"] %>
 <% end %>
 
 <p><%= link_to "Add project", new_project_integration_path %></p>
