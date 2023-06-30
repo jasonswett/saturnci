@@ -16,7 +16,7 @@
       <tr>
         <td><%= link_to build.created_at, build %></td>
         <td><%= build.branch_name %></td>
-        <td><%= build.commit %></td>
+        <td><code><%= build.commit[0..7] %></code></td>
         <td><%= build.status %></td>
         <td><%= build.duration_formatted %></td>
       </tr>
