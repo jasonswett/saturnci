@@ -34,7 +34,7 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
-echo "Cloning repo"
+echo "Cloning user repo"
 TOKEN=$(api_request "POST" "github_tokens" "{\"github_installation_id\":\"$GITHUB_INSTALLATION_ID\"}")
 USER_DIR=/home/ubuntu
 PROJECT_DIR=$USER_DIR/project
@@ -42,6 +42,7 @@ git clone https://x-access-token:$TOKEN@github.com/$GITHUB_REPO_FULL_NAME $PROJE
 cd $PROJECT_DIR
 api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"repository_cloned"}'
 
+echo "Cloning Saturn"
 git clone https://x-access-token:$TOKEN@github.com/jasonswett/saturnci $USER_DIR/saturnci
 cp $USER_DIR/saturnci/lib/custom_formatter.rb $PROJECT_DIR
 
