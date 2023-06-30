@@ -63,6 +63,7 @@ echo "Sending report"
 RESULTS_CONTENT=$(cat $RESULTS_FILENAME)
 api_request "POST" "builds/$BUILD_ID/build_reports" "$RESULTS_CONTENT"
 
+echo "Sending logs"
 curl -u $SATURNCI_API_USERNAME:$SATURNCI_API_PASSWORD \
   -X POST \
   -H "Content-Type: text/plain" \
