@@ -7,6 +7,7 @@
     <tr>
       <th>Start</th>
       <th>Branch</th>
+      <th>Commit</th>
       <th>Status</th>
       <th>Duration</th>
     </tr>
@@ -15,6 +16,7 @@
       <tr>
         <td><%= link_to build.created_at, build %></td>
         <td><%= build.branch_name %></td>
+        <td><%= build.commit %></td>
         <td><%= build.status %></td>
         <td><%= build.duration_formatted %></td>
       </tr>
