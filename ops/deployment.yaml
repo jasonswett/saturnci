@@ -92,7 +92,7 @@ spec:
         - name: RAILS_SERVE_STATIC_FILES
           value: "true"
       initContainers:
-      - name: mednote-migrations
+      - name: saturn-migrations
         image: 588695668471.dkr.ecr.us-east-2.amazonaws.com/saturn:$TAG
         command: ['sh', '-c', 'rails db:migrate:concurrent']
         env:

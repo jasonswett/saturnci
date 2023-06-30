@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Example usage: ./deploy mednote production
+# Example usage: ./deploy production
 
 APP_VERSION=$(date +%s)
 ENVIRONMENT=$1
