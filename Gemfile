@@ -69,11 +69,11 @@ gem "faraday-retry", require: false
 gem "aws-sdk-secretsmanager", require: false
 
 group :development, :test do
-  gem "dotenv-rails"
   gem "capybara", ">= 3.37.1"
   gem "webdrivers"
   gem "factory_bot_rails"
   gem "faker"
   gem "rspec-rails"
   gem "webmock"
+  gem "dotenv-rails"
 end
