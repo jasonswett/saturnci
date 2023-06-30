@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: saturn
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: saturn
@@ -68,7 +68,6 @@ spec:
             secretKeyRef:
               name: saturn-secrets
               key: SATURNCI_INSTALLATION_URL
-        - name: GITHUB_OAUTH_CLIENT_ID
         - name: GITHUB_OAUTH_CLIENT_ID
           valueFrom:
             secretKeyRef:
