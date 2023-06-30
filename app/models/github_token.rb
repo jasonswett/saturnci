@@ -4,10 +4,10 @@ require "octokit"
 class GitHubToken
   def self.generate(installation_id)
     raise "Installation ID is missing" if installation_id.blank?
-    token
+    token(installation_id)
   end
 
-  def self.token
+  def self.token(installation_id)
     private_pem = AWSSecret.read(ENV["GITHUB_PRIVATE_KEY_NAME"])
     private_key = OpenSSL::PKey::RSA.new(private_pem)
 
