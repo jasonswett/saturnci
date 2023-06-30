@@ -53,7 +53,9 @@ group :development do
   gem "web-console"
 end
 
+# For soft deletion
 gem "paranoia"
+
 gem "audited"
 gem "devise"
 gem "aws-sdk-ec2"
