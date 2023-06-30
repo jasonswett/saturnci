@@ -14,7 +14,7 @@ RSpec.describe "GitHub Events", type: :request do
     allow(SpotInstanceRequest).to receive(:new).and_return(spot_instance_request_stub)
   end
 
-  describe "POST /api/v1/github_events" do
+  describe "git push event" do
     let!(:payload) do
       {
         "ref": "refs/heads/main",
