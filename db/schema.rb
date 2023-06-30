@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_22_222738) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_30_023525) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_222738) do
     t.datetime "updated_at", null: false
     t.index ["build_id", "type"], name: "index_build_events_on_build_id_and_type", unique: true
     t.index ["build_id"], name: "index_build_events_on_build_id"
+  end
+
+  create_table "build_logs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "build_id", null: false
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["build_id"], name: "index_build_logs_on_build_id"
   end
 
   create_table "builds", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -72,6 +80,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_222738) do
   end
 
   add_foreign_key "build_events", "builds"
+  add_foreign_key "build_logs", "builds"
   add_foreign_key "builds", "projects"
   add_foreign_key "projects", "users"
   add_foreign_key "saturn_installations", "users"
