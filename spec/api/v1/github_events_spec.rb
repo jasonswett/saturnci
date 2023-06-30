@@ -2,7 +2,13 @@ require "rails_helper"
 include APIAuthenticationHelper
 
 RSpec.describe "GitHub Events", type: :request do
-  let!(:project) { create(:project, github_repo_full_name: "user/test") }
+  let!(:project) do
+    create(:project, github_repo_full_name: "user/test") do |project|
+      project.user.saturn_installations.create!(
+        github_installation_id: "1111111"
+      )
+    end
+  end
 
   before do
     allow(SpotInstanceRequest).to receive(:new).and_return(spot_instance_request_stub)
@@ -32,7 +38,7 @@ RSpec.describe "GitHub Events", type: :request do
 
     let(:spot_instance_request_stub) do
       instance_double("SpotInstanceRequest").tap do |stub|
-        allow(stub).to receive(:send!)
+        allow(stub).to receive(:create!)
       end
     end
 

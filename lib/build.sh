@@ -35,7 +35,7 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 
 echo "Cloning repo"
-TOKEN=$(api_request "POST" "github_tokens")
+TOKEN=$(api_request "POST" "github_tokens" "{\"github_installation_id\":\"$GITHUB_INSTALLATION_ID\"")
 USER_DIR=/home/ubuntu
 PROJECT_DIR=$USER_DIR/project
 git clone https://x-access-token:$TOKEN@github.com/$GITHUB_REPO_FULL_NAME $PROJECT_DIR

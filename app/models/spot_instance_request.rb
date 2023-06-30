@@ -1,11 +1,12 @@
 require "aws-sdk-ec2"
 
 class SpotInstanceRequest
-  def initialize(build)
+  def initialize(build:, github_installation_id:)
     @build = build
+    @github_installation_id = github_installation_id
   end
 
-  def send!
+  def create!
     ec2_client = Aws::EC2::Client.new(region: "us-east-2")
     ec2_client.request_spot_instances({
       dry_run: false,
@@ -30,6 +31,7 @@ class SpotInstanceRequest
       #!/usr/bin/bash
       HOST="https://app.saturnci.com"
       BUILD_ID=#{@build.id}
+      GITHUB_INSTALLATION_ID=#{@github_installation_id}
       GITHUB_REPO_FULL_NAME=#{@build.project.github_repo_full_name}
       SATURNCI_API_USERNAME=#{ENV["SATURNCI_API_USERNAME"]}
       SATURNCI_API_PASSWORD=#{ENV["SATURNCI_API_PASSWORD"]}

@@ -8,7 +8,7 @@ RSpec.describe Build, type: :model do
 
     before do
       allow(build).to receive(:spot_instance_request).and_return(fake_spot_instance_request)
-      allow(fake_spot_instance_request).to receive(:send!)
+      allow(fake_spot_instance_request).to receive(:create!)
     end
 
     it "creates a new build_event with type spot_instance_requested" do

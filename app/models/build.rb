@@ -7,7 +7,7 @@ class Build < ApplicationRecord
     transaction do
       save!
       build_events.create!(type: :spot_instance_requested)
-      spot_instance_request.send!
+      spot_instance_request.create!
     end
   end
 
@@ -40,6 +40,9 @@ class Build < ApplicationRecord
   end
 
   def spot_instance_request
-    SpotInstanceRequest.new(self)
+    SpotInstanceRequest.new(
+      build: self,
+      github_installation_id: project.user.github_installation_id
+    )
   end
 end
