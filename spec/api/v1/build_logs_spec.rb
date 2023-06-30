@@ -9,8 +9,8 @@ RSpec.describe "build logs", type: :request do
       expect {
         post(
           api_v1_build_build_logs_path(build),
-          params: { content: "these are some logs" },
-          headers: api_authorization_headers
+          params: "log file content",
+          headers: api_authorization_headers.merge({ "CONTENT_TYPE" => "text/plain" })
         )
       }.to change(BuildLog, :count).by(1)
     end
@@ -18,8 +18,8 @@ RSpec.describe "build logs", type: :request do
     it "returns an empty 200 response" do
       post(
         api_v1_build_build_logs_path(build),
-        params: { content: "these are some logs" },
-        headers: api_authorization_headers
+        params: "log file content",
+        headers: api_authorization_headers.merge({ "CONTENT_TYPE" => "text/plain" })
       )
       expect(response).to have_http_status(200)
       expect(response.body).to be_empty

@@ -62,4 +62,8 @@ echo "Sending report"
 RESULTS_CONTENT=$(cat $RESULTS_FILENAME)
 api_request "POST" "builds/$BUILD_ID/build_reports" "$RESULTS_CONTENT"
 
+curl -X POST \
+  -H "Content-Type: text/plain" \
+  --data-binary "@/var/log/syslog" "${HOST}/api/v1/build_logs"
+
 sudo poweroff

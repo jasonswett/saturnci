@@ -3,7 +3,9 @@ module API
     class BuildLogsController < APIController
       def create
         build = Build.find(params[:build_id])
-        build.build_logs.create!(content: params[:content])
+        request.body.rewind
+        build.build_logs.create!(content: request.body.read)
+
         head :ok
       end
     end
