@@ -21,18 +21,24 @@ class SpotInstanceRequest
       }
     })
 
+    request_id = response.spot_instance_requests.first.spot_instance_request_id
+
     ec2_client.wait_until(
       :spot_instance_request_fulfilled,
-      spot_instance_request_ids: [response.spot_instance_requests.first.spot_instance_request_id]
+      spot_instance_request_ids: [request_id]
     )
 
-    instance_id = response.spot_instance_requests.first.instance_id
+    response_after_fulfillment = ec2_client.describe_spot_instance_requests({
+      spot_instance_request_ids: [request_id]
+    })
+
+    instance_id = response_after_fulfillment.spot_instance_requests.first.instance_id
 
     ec2_client.create_tags({
       resources: [instance_id],
       tags: [{
         key: 'Name',
-        value: "#{ENV["RAILS_ENV"]}_#{@build.id}"
+        value: "#{ENV["RAILS_ENV"]}-#{@build.id}"
       }]
     })
   end
