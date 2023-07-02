@@ -74,6 +74,6 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
   gem "rspec-rails"
-  gem "webmock"
   gem "dotenv-rails"
+  gem "webmock"
 end
