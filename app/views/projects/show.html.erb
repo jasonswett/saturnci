@@ -10,6 +10,7 @@
       <th>Commit</th>
       <th>Status</th>
       <th>Duration</th>
+      <th></th>
     </tr>
 
     <% @builds.each do |build| %>
@@ -19,6 +20,9 @@
         <td><code><%= build.commit[0..7] %></code></td>
         <td><%= build.status %></td>
         <td><%= build.duration_formatted %></td>
+        <td>
+          <%= button_to "Rerun Build", rebuilds_path(build_id: build.id), method: :post %>
+        </td>
       </tr>
     <% end %>
   </table>
