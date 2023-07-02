@@ -62,6 +62,7 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.include Warden::Test::Helpers, type: :system
+  config.include Warden::Test::Helpers, type: :request
 
   config.before :suite do
     Warden.test_mode!
