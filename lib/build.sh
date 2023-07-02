@@ -68,3 +68,5 @@ curl -u $SATURNCI_API_USERNAME:$SATURNCI_API_PASSWORD \
   -X POST \
   -H "Content-Type: text/plain" \
   --data-binary "@/var/log/syslog" "${HOST}/api/v1/builds/$BUILD_ID/build_logs"
+
+sudo poweroff
