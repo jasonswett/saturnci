@@ -7,8 +7,7 @@ class GitHubToken
   end
 
   def self.token(installation_id)
-    jwt = GitHubJWT.generate(installation_id)
-    client = Octokit::Client.new(bearer_token: jwt)
+    client = Octokit::Client.new(bearer_token: GitHubJWT.generate)
     installation_token = client.create_app_installation_access_token(installation_id)
     installation_token[:token]
   end

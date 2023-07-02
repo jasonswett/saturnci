@@ -1,9 +1,7 @@
 require "jwt"
 
 class GitHubJWT
-  def self.generate(installation_id)
-    raise "Installation ID is missing" if installation_id.blank?
-
+  def self.generate
     private_pem = AWSSecret.read(ENV["GITHUB_PRIVATE_KEY_NAME"])
     private_key = OpenSSL::PKey::RSA.new(private_pem)
 
