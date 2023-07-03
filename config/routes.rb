@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :builds, only: :create do
+      resources :builds, only: [] do
         resources :build_events, only: :create
         resources :build_reports, only: :create
         resources :build_logs, only: :create
