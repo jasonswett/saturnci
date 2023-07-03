@@ -8,6 +8,7 @@
       <th>Start</th>
       <th>Branch</th>
       <th>Commit</th>
+      <th>Commit Message</th>
       <th>Status</th>
       <th>Duration</th>
       <th>Actions</th>
@@ -18,6 +19,7 @@
         <td><%= link_to build.created_at, build %></td>
         <td><%= build.branch_name %></td>
         <td><code><%= build.commit_hash[0..7] %></code></td>
+        <td><%= build.commit_message %></td>
         <td><%= build.status %></td>
         <td><%= build.duration_formatted %></td>
         <td>

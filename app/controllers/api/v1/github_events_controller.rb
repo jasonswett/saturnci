@@ -34,9 +34,12 @@ module API
         @project = Project.find_by!(github_repo_full_name: repo_full_name)
 
         ref_path = payload["ref"]
+        head_commit = payload["head_commit"]
+
         build = Build.new(project: @project)
         build.branch_name = ref_path.split("/").last
-        build.commit_hash = payload["after"]
+        build.commit_hash = head_commit["id"]
+        build.commit_message = head_commit["message"]
         build.start!
       end
     end
