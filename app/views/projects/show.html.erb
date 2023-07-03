@@ -7,6 +7,7 @@
     <tr>
       <th>Start</th>
       <th>Branch</th>
+      <th>Author</th>
       <th>Commit</th>
       <th>Commit Message</th>
       <th>Status</th>
@@ -18,6 +19,7 @@
       <tr>
         <td><%= link_to build.created_at, build %></td>
         <td><%= build.branch_name %></td>
+        <td><%= build.author_name %></td>
         <td><code><%= build.commit_hash[0..7] %></code></td>
         <td><%= build.commit_message.truncate(50) %></td>
         <td><%= build.status %></td>
