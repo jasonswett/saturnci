@@ -36,7 +36,7 @@ module API
         ref_path = payload["ref"]
         build = Build.new(project: @project)
         build.branch_name = ref_path.split("/").last
-        build.commit = payload["after"]
+        build.commit_hash = payload["after"]
         build.start!
       end
     end
