@@ -28,6 +28,11 @@ RSpec.describe "GitHub Events", type: :request do
         },
         "head_commit": {
           "id": "abc123",
+          "message": "commit message",
+          "author": {
+            "name": "author name",
+            "email": "author email",
+          },
         },
       }.to_json
     end

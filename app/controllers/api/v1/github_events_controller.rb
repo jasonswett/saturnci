@@ -38,7 +38,7 @@ module API
 
         build = Build.new(project: @project)
         build.branch_name = ref_path.split("/").last
-        build.commit_author_name = head_commit["author"]["name"]
+        build.author_name = head_commit["author"]["name"]
         build.commit_hash = head_commit["id"]
         build.commit_message = head_commit["message"]
         build.start!
