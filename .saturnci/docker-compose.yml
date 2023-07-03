@@ -21,6 +21,7 @@ services:
       - redis
       - chrome
     environment:
+      DOCKER_ENV: "true"
       DATABASE_USERNAME: saturn
       DATABASE_PASSWORD: ""
       DATABASE_HOST: postgres

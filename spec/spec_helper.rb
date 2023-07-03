@@ -16,7 +16,15 @@
 
 require "factory_bot_rails"
 require "webmock/rspec"
-WebMock.disable_net_connect!(allow_localhost: true, allow: ["chrome:4444", "172.28.0.5"])
+
+WebMock.disable_net_connect!(
+  allow_localhost: true,
+  allow: [
+    "chrome:4444",
+    "172.28.0.5",
+    "chromedriver.storage.googleapis.com"
+  ]
+)
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
