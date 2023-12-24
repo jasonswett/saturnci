@@ -17,7 +17,6 @@ class ProjectIntegrationsController < ApplicationController
 
   def create
     client = Octokit::Client.new(bearer_token: GitHubToken.generate(current_user.github_installation_id))
-
     repo_full_name = params[:repo_full_name]
     repo = client.repo(repo_full_name)
 
