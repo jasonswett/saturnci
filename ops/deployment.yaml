@@ -43,16 +43,6 @@ spec:
             secretKeyRef:
               name: saturn-secrets
               key: RAILS_ENV
-        - name: AWS_ACCESS_KEY_ID
-          valueFrom:
-            secretKeyRef:
-              name: saturn-secrets
-              key: AWS_ACCESS_KEY_ID
-        - name: AWS_SECRET_ACCESS_KEY
-          valueFrom:
-            secretKeyRef:
-              name: saturn-secrets
-              key: AWS_SECRET_ACCESS_KEY
         - name: SATURNCI_API_USERNAME
           valueFrom:
             secretKeyRef:
@@ -125,16 +115,6 @@ spec:
             secretKeyRef:
               name: saturn-secrets
               key: RAILS_ENV
-        - name: AWS_ACCESS_KEY_ID
-          valueFrom:
-            secretKeyRef:
-              name: saturn-secrets
-              key: AWS_ACCESS_KEY_ID
-        - name: AWS_SECRET_ACCESS_KEY
-          valueFrom:
-            secretKeyRef:
-              name: saturn-secrets
-              key: AWS_SECRET_ACCESS_KEY
         - name: SATURNCI_API_USERNAME
           valueFrom:
             secretKeyRef:
