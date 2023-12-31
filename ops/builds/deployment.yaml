@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
       - name: ${TAG}
-        image: 588695668471.dkr.ecr.us-east-2.amazonaws.com/builds:${TAG}
+        image: registry.digitalocean.com/saturnci/${TAG}
