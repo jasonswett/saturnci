@@ -1,17 +1,26 @@
-FROM ruby:3.1.2
+FROM ruby:3.1.2-slim as Builder
 
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev postgresql-client
-
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+RUN apt-get update -qq \
+    && apt-get install -y build-essential libpq-dev postgresql-client \
+    && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV INSTALL_PATH /myapp
 WORKDIR $INSTALL_PATH
 
-COPY Gemfile* $INSTALL_PATH
+COPY Gemfile* $INSTALL_PATH/
 
-RUN bundle install
+RUN bundle config set without 'development test' \
+    && bundle install --jobs 4 --retry 3
 
 COPY . $INSTALL_PATH
+
+ENV DATABASE_USERNAME dummy_username
+ENV DATABASE_PASSWORD dummy_password
+ENV DATABASE_HOST localhost
+ENV DATABASE_PORT 5432
+ENV RAILS_MAX_THREADS 5
+ENV RAILS_ENV production
 
 RUN bundle exec rails assets:precompile
 
