@@ -14,6 +14,7 @@
     <% if current_user.present? %>
       Signed in as <%= current_user.name %>
       <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete } %>
+      <%= link_to "Projects", projects_path %>
     <% else %>
       <%= link_to "Sign in", new_user_session_path %>
       <%= link_to "Sign up", new_user_registration_path %>
