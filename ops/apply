@@ -6,4 +6,4 @@ DEPLOYMENT_FILENAME="deployment-$TAG.yaml"
 
 cat deployment.yaml | sed "s/\$TAG/$TAG/g" > $DEPLOYMENT_FILENAME
 kubectl -n $ENVIRONMENT apply -f $DEPLOYMENT_FILENAME
-#rm $DEPLOYMENT_FILENAME
+rm $DEPLOYMENT_FILENAME
