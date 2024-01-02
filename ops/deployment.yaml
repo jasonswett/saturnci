@@ -18,6 +18,11 @@ spec:
         ports:
         - containerPort: 8080
         env:
+        - name: DATABASE_NAME
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: DATABASE_NAME
         - name: DATABASE_USERNAME
           valueFrom:
             secretKeyRef:
@@ -90,6 +95,11 @@ spec:
         image: registry.digitalocean.com/saturnci/$TAG
         command: ['sh', '-c', 'rails db:migrate:concurrent']
         env:
+        - name: DATABASE_NAME
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: DATABASE_NAME
         - name: DATABASE_USERNAME
           valueFrom:
             secretKeyRef:
