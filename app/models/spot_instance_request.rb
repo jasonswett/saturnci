@@ -1,4 +1,4 @@
-require "aws-sdk-ec2"
+require 'droplet_kit'
 
 class SpotInstanceRequest
   def initialize(build:, github_installation_id:)
@@ -7,50 +7,34 @@ class SpotInstanceRequest
   end
 
   def create!
-    ec2_client = Aws::EC2::Client.new(region: "us-east-2")
-    response = ec2_client.request_spot_instances({
-      dry_run: false,
-      spot_price: "0.05",
-      instance_count: 1,
-      type: "one-time",
-      launch_specification: {
-        image_id: "ami-024e6efaf93d85776",
-        instance_type: "t3.medium",
-        key_name: "saturn",
-        user_data: user_data
-      }
-    })
+    client = DropletKit::Client.new(access_token: ENV['DIGITALOCEAN_ACCESS_TOKEN'])
 
-    request_id = response.spot_instance_requests.first.spot_instance_request_id
-
-    ec2_client.wait_until(
-      :spot_instance_request_fulfilled,
-      spot_instance_request_ids: [request_id]
+    droplet = DropletKit::Droplet.new(
+      name: "#{@build.project.name}-build-#{@build.id}",
+      region: 'nyc1',
+      image: 'ubuntu-20-04-x64',
+      size: 's-1vcpu-1gb',
+      user_data: user_data,
+      tags: ['saturnci'],
+      ssh_keys: []
     )
 
-    response_after_fulfillment = ec2_client.describe_spot_instance_requests({
-      spot_instance_request_ids: [request_id]
-    })
+    created_droplet = client.droplets.create(droplet)
 
-    instance_id = response_after_fulfillment.spot_instance_requests.first.instance_id
+    begin
+      sleep(10)
+      created_droplet = client.droplets.find(id: created_droplet.id)
+    end while created_droplet.status != 'active'
 
-    ec2_client.create_tags({
-      resources: [instance_id],
-      tags: [{
-        key: 'Name',
-        value: "#{ENV["RAILS_ENV"]}-#{@build.id}"
-      }]
-    })
+    created_droplet
   end
 
   private
 
-  # Run curl http://169.254.169.254/latest/user-data on the
-  # spot instance to see the contents of the script
   def user_data
-    script_filename = File.join(Rails.root, "app", "models", "spot_instance_script.rb")
+    script_filename = File.join(Rails.root, "lib", "build.sh")
 
-    script_content = <<~SCRIPT
+    <<~SCRIPT
       #!/usr/bin/bash
       HOST=#{ENV["SATURNCI_HOST"]}
       BUILD_ID=#{@build.id}
@@ -59,9 +43,7 @@ class SpotInstanceRequest
       SATURNCI_API_USERNAME=#{ENV["SATURNCI_API_USERNAME"]}
       SATURNCI_API_PASSWORD=#{ENV["SATURNCI_API_PASSWORD"]}
 
-      #{File.read(Rails.root.join("lib", "build.sh"))}
+      #{File.read(script_filename)}
     SCRIPT
-
-    Base64.encode64(script_content)
   end
 end

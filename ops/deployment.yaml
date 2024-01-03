@@ -90,6 +90,11 @@ spec:
               key: GITHUB_PRIVATE_PEM
         - name: RAILS_SERVE_STATIC_FILES
           value: "true"
+        - name: DIGITALOCEAN_ACCESS_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: DIGITALOCEAN_ACCESS_TOKEN
       initContainers:
       - name: saturn-migrations
         image: registry.digitalocean.com/saturnci/$TAG
@@ -167,3 +172,8 @@ spec:
               key: GITHUB_PRIVATE_PEM
         - name: RAILS_SERVE_STATIC_FILES
           value: "true"
+        - name: DIGITALOCEAN_ACCESS_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: saturn-secrets
+              key: DIGITALOCEAN_ACCESS_TOKEN
