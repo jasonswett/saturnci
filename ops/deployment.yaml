@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: saturn
-        image: registry.digitalocean.com/saturnci/$TAG
+        image: registry.digitalocean.com/saturnci/saturnci:$TAG
         ports:
         - containerPort: 8080
         env:
@@ -97,7 +97,7 @@ spec:
               key: DIGITALOCEAN_ACCESS_TOKEN
       initContainers:
       - name: saturn-migrations
-        image: registry.digitalocean.com/saturnci/$TAG
+        image: registry.digitalocean.com/saturnci/saturnci:$TAG
         command: ['sh', '-c', 'rails db:migrate:concurrent']
         env:
         - name: DATABASE_NAME
