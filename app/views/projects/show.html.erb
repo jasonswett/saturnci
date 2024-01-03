@@ -29,7 +29,7 @@
         <td><%= build.author_name %></td>
         <td><code><%= build.commit_hash[0..7] %></code></td>
         <td><%= build.commit_message.truncate(50) %></td>
-        <td><%= build.status %></td>
+        <td class="build-status-<%= build.status.downcase %>"><%= build.status %></td>
         <td><%= build.duration_formatted %></td>
         <td>
           <%= button_to "Rerun", rebuilds_path(build_id: build.id), method: :post %>

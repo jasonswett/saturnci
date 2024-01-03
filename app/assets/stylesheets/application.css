@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+
+.build-status-passed {
+  background-color: #0F0;
+}
+
+.build-status-failed {
+  background-color: #F00;
+}
