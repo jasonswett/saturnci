@@ -3,7 +3,7 @@
 <h2>Builds</h2>
 
 <%= form_tag(project_path(@project), method: :get) do %>
-  <%= select_tag "branch_name", options_for_select(@branch_names), prompt: "Select a branch" %>
+  <%= select_tag "branch_name", options_for_select(@branch_names), prompt: "Branch" %>
   <%= submit_tag "Apply" %>
 <% end %>
 
