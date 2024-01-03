@@ -35,7 +35,7 @@ class SpotInstanceRequest
   def user_data
     script_filename = File.join(Rails.root, "lib", "build.sh")
 
-    script_content = <<~SCRIPT
+    <<~SCRIPT
       #!/usr/bin/bash
       HOST=#{ENV["SATURNCI_HOST"]}
       BUILD_ID=#{@build.id}
@@ -46,7 +46,5 @@ class SpotInstanceRequest
 
       #{File.read(script_filename)}
     SCRIPT
-
-    Base64.encode64(script_content)
   end
 end
