@@ -8,7 +8,7 @@ class Build < ApplicationRecord
     transaction do
       save!
       build_events.create!(type: :spot_instance_requested)
-      spot_instance_request.create!
+      build_machine_request.create!
     end
   end
 
@@ -40,8 +40,8 @@ class Build < ApplicationRecord
     build_events.test_suite_finished.first
   end
 
-  def spot_instance_request
-    SpotInstanceRequest.new(
+  def build_machine_request
+    BuildMachineRequest.new(
       build: self,
       github_installation_id: project.user.github_installation_id
     )
