@@ -12,7 +12,7 @@ class SpotInstanceRequest
     droplet = DropletKit::Droplet.new(
       name: "#{ENV['RAILS_ENV']}-#{@build.id}",
       region: 'nyc1',
-      image: 'ubuntu-18-04-x64',
+      image: 'ubuntu-20-04-x64',
       size: 's-1vcpu-1gb',
       user_data: user_data,
       tags: ['saturnci'],
