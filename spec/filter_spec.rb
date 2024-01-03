@@ -4,25 +4,39 @@ describe "Filter", type: :system do
   let!(:project) { create(:project) }
 
   before do
-    create(:build, project: project, branch_name: "main")
-    create(:build, project: project, branch_name: "filters")
+    create(:build, project: project, branch_name: "main", commit_message: "Main commit")
+    create(:build, project: project, branch_name: "filters", commit_message: "Filter commit")
 
     user = create(:user)
     login_as(user, scope: :user)
   end
 
-  it "only shows builds from the main branch" do
-    visit project_path(project)
+  context "main branch" do
+    it "only shows builds from the main branch" do
+      visit project_path(project)
 
-    select "main", from: "branch_name"
-    click_button "Apply"
-    expect(page).not_to have_content("filters")
+      select "main", from: "branch_name"
+      click_button "Apply"
+      expect(page).not_to have_content("Filter commit")
+    end
+
+    it "includes all branches as an option even after selection" do
+      visit project_path(project)
+
+      select "main", from: "branch_name"
+      click_button "Apply"
+      expect(page).not_to have_content("Filter commit")
+      expect(page).to have_select("branch_name", with_options: ["main", "filters"])
+    end
   end
 
-  it "only shows builds from the main branch" do
-    visit project_path(project)
+  context "filters branch" do
+    it "only shows builds from the filters branch" do
+      visit project_path(project)
 
-    select "filters", from: "branch_name"
-    click_button "Apply"
+      select "filters", from: "branch_name"
+      click_button "Apply"
+      expect(page).not_to have_content("Main commit")
+    end
   end
 end

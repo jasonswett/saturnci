@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
       @builds = @builds.where(branch_name: params[:branch_name])
     end
 
-    @branch_names = @builds.map(&:branch_name).uniq
+    @branch_names = @project.builds.map(&:branch_name).uniq
   end
 
   def new
