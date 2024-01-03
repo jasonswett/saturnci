@@ -13,7 +13,7 @@ class BuildMachineRequest
       name: "#{@build.project.name.gsub("/", "-")}-build-#{@build.id}",
       region: 'nyc1',
       image: 'ubuntu-20-04-x64',
-      size: 's-1vcpu-1gb',
+      size: 's-4vcpu-8gb',
       user_data: user_data,
       tags: ['saturnci'],
       ssh_keys: []
