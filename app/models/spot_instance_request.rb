@@ -45,8 +45,6 @@ class SpotInstanceRequest
 
   private
 
-  # Run curl http://169.254.169.254/latest/user-data on the
-  # spot instance to see the contents of the script
   def user_data
     script_filename = File.join(Rails.root, "app", "models", "spot_instance_script.rb")
 
