@@ -21,8 +21,9 @@ class SpotInstanceRequest
 
     created_droplet = client.droplets.create(droplet)
 
+    # Poll the droplet status until it's active
     begin
-      sleep(10)
+      sleep(10) # Wait 10 seconds before re-checking the droplet status
       created_droplet = client.droplets.find(id: created_droplet.id)
     end while created_droplet.status != 'active'
 
