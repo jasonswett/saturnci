@@ -9,7 +9,7 @@ RSpec.describe "build events", type: :request do
       expect {
         post(
           api_v1_build_build_events_path(build), 
-          params: { type: "spot_instance_ready" },
+          params: { type: "build_machine_ready" },
           headers: api_authorization_headers
         )
       }.to change(BuildEvent, :count).by(1)
@@ -18,7 +18,7 @@ RSpec.describe "build events", type: :request do
     it "returns an empty 200 response" do
       post(
         api_v1_build_build_events_path(build),
-        params: { type: "spot_instance_ready" },
+        params: { type: "build_machine_ready" },
         headers: api_authorization_headers
       )
       expect(response).to have_http_status(200)

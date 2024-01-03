@@ -7,7 +7,7 @@ class Build < ApplicationRecord
   def start!
     transaction do
       save!
-      build_events.create!(type: :spot_instance_requested)
+      build_events.create!(type: :build_machine_requested)
       build_machine_request.create!
     end
   end
