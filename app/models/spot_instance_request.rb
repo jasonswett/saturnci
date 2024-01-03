@@ -10,7 +10,7 @@ class SpotInstanceRequest
     client = DropletKit::Client.new(access_token: ENV['DIGITALOCEAN_ACCESS_TOKEN'])
 
     droplet = DropletKit::Droplet.new(
-      name: "#{ENV['RAILS_ENV']}-#{@build.id}",
+      name: "#{@build.project.name}-build-#{@build.id}",
       region: 'nyc1',
       image: 'ubuntu-20-04-x64',
       size: 's-1vcpu-1gb',
