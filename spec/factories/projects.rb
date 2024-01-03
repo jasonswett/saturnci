@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :project do
     user
-    name { "MyString" }
+    name { "My Project" }
   end
 end
