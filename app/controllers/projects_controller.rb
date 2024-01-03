@@ -1,26 +1,27 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[ show edit update destroy ]
 
-  # GET /projects or /projects.json
   def index
     @projects = Project.all
   end
 
-  # GET /projects/1 or /projects/1.json
   def show
     @builds = @project.builds.order("created_at desc")
+
+    if params[:branch_name].present?
+      @builds = @builds.where(branch_name: params[:branch_name])
+    end
+
+    @branch_names = @builds.map(&:branch_name).uniq
   end
 
-  # GET /projects/new
   def new
     @project = Project.new
   end
 
-  # GET /projects/1/edit
   def edit
   end
 
-  # POST /projects or /projects.json
   def create
     @project = Project.new(project_params)
 
@@ -35,7 +36,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /projects/1 or /projects/1.json
   def update
     respond_to do |format|
       if @project.update(project_params)
@@ -48,7 +48,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # DELETE /projects/1 or /projects/1.json
   def destroy
     @project.destroy
 
