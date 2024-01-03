@@ -8,7 +8,7 @@ class GitHubToken
   end
 
   def self.token(installation_id)
-    private_pem = AWSSecret.read(ENV["GITHUB_PRIVATE_KEY_NAME"])
+    private_pem = ENV["GITHUB_PRIVATE_PEM"]
     private_key = OpenSSL::PKey::RSA.new(private_pem)
 
     payload = {
