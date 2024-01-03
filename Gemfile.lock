@@ -77,14 +77,15 @@ GEM
       aws-partitions (~> 1, >= 1.651.0)
       aws-sigv4 (~> 1.5)
       jmespath (~> 1, >= 1.6.1)
-    aws-sdk-ec2 (1.382.0)
-      aws-sdk-core (~> 3, >= 3.174.0)
-      aws-sigv4 (~> 1.1)
     aws-sdk-secretsmanager (1.76.0)
       aws-sdk-core (~> 3, >= 3.174.0)
       aws-sigv4 (~> 1.1)
     aws-sigv4 (1.5.2)
       aws-eventstream (~> 1, >= 1.0.2)
+    axiom-types (0.1.1)
+      descendants_tracker (~> 0.0.4)
+      ice_nine (~> 0.11.0)
+      thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.18)
     bindex (0.8.1)
     bootsnap (1.13.0)
@@ -100,6 +101,8 @@ GEM
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
     coderay (1.1.3)
+    coercible (1.0.0)
+      descendants_tracker (~> 0.0.1)
     concurrent-ruby (1.2.2)
     crack (0.4.5)
       rexml
@@ -107,6 +110,8 @@ GEM
     debug (1.6.3)
       irb (>= 1.3.6)
       reline (>= 0.3.1)
+    descendants_tracker (0.0.4)
+      thread_safe (~> 0.3, >= 0.3.1)
     devise (4.8.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -118,6 +123,12 @@ GEM
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
+    droplet_kit (3.20.0)
+      faraday (>= 0.15)
+      faraday-retry (~> 2.2.0)
+      kartograph (~> 0.2.8)
+      resource_kit (~> 0.1.5)
+      virtus (>= 1.0.3, <= 3)
     erubi (1.11.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -138,6 +149,7 @@ GEM
     hashie (5.0.0)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
+    ice_nine (0.11.2)
     importmap-rails (1.1.5)
       actionpack (>= 6.0.0)
       railties (>= 6.0.0)
@@ -149,6 +161,7 @@ GEM
       activesupport (>= 5.0.0)
     jmespath (1.6.2)
     jwt (2.7.1)
+    kartograph (0.2.8)
     loofah (2.19.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -243,6 +256,8 @@ GEM
     regexp_parser (2.8.1)
     reline (0.3.1)
       io-console (~> 0.5)
+    resource_kit (0.1.8)
+      addressable (>= 2.3.6, < 3.0.0)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -286,6 +301,7 @@ GEM
     stimulus-rails (1.1.1)
       railties (>= 6.0.0)
     thor (1.2.1)
+    thread_safe (0.3.6)
     timeout (0.3.0)
     turbo-rails (1.3.2)
       actionpack (>= 6.0.0)
@@ -294,6 +310,10 @@ GEM
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     version_gem (1.1.3)
+    virtus (2.0.0)
+      axiom-types (~> 0.1)
+      coercible (~> 1.0)
+      descendants_tracker (~> 0.0, >= 0.0.3)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.0)
@@ -323,13 +343,13 @@ PLATFORMS
 
 DEPENDENCIES
   audited
-  aws-sdk-ec2
   aws-sdk-secretsmanager
   bootsnap
   capybara (>= 3.37.1)
   debug
   devise
   dotenv-rails
+  droplet_kit
   factory_bot_rails
   faker
   faraday-retry

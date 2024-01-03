@@ -58,7 +58,7 @@ gem "paranoia"
 
 gem "audited"
 gem "devise"
-gem "aws-sdk-ec2"
+gem 'droplet_kit'
 
 # For GitHub authentication
 gem "octokit", require: false
