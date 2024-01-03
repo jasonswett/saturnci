@@ -11,9 +11,9 @@ RSpec.describe "rebuilds", type: :request do
     end
 
     before do
-      spot_instance_request_double = instance_double(SpotInstanceRequest)
-      allow(SpotInstanceRequest).to receive(:new).and_return(spot_instance_request_double)
-      allow(spot_instance_request_double).to receive(:create!)
+      build_machine_request_double = instance_double(BuildMachineRequest)
+      allow(BuildMachineRequest).to receive(:new).and_return(build_machine_request_double)
+      allow(build_machine_request_double).to receive(:create!)
     end
 
     it "increases the count of builds by 1" do

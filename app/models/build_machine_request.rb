@@ -1,6 +1,6 @@
 require 'droplet_kit'
 
-class SpotInstanceRequest
+class BuildMachineRequest
   def initialize(build:, github_installation_id:)
     @build = build
     @github_installation_id = github_installation_id
