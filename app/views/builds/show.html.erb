@@ -20,6 +20,11 @@
   Waiting for build machine
 <% end %>
 
+<% if @build.report.present? %>
+  <hr>
+  <pre><%= @build.report %></pre>
+<% end %>
+
 <% if @build.build_logs.any? %>
   <hr>
   <pre><%= @build.build_logs.first.content.gsub("\n", "<br>").html_safe %></pre>
