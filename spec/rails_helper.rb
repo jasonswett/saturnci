@@ -12,6 +12,7 @@ WebMock.disable_net_connect!(
     '127.0.0.1',
     '0.0.0.0:3000',
     'googlechromelabs.github.io',
+    'chrome:4444',
     'edgedl.me.gvt1.com'
   ]
 )
