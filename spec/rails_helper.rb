@@ -10,6 +10,7 @@ require 'rspec/rails'
 WebMock.disable_net_connect!(
   allow: [
     '127.0.0.1',
+    '0.0.0.0:3000',
     'googlechromelabs.github.io',
     'edgedl.me.gvt1.com'
   ]
