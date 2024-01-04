@@ -10,7 +10,7 @@ class BuildMachineRequest
     client = DropletKit::Client.new(access_token: ENV['DIGITALOCEAN_ACCESS_TOKEN'])
 
     droplet = DropletKit::Droplet.new(
-      name: "#{@build.project.name.gsub("/", "-")}-build-#{@build.id}",
+      name: droplet_name,
       region: 'nyc1',
       image: 'ubuntu-20-04-x64',
       size: 's-4vcpu-8gb',
@@ -23,6 +23,10 @@ class BuildMachineRequest
   end
 
   private
+
+  def droplet_name
+    "#{@build.project.name.gsub("/", "-")}-build-#{@build.id}"
+  end
 
   def user_data
     script_filename = File.join(Rails.root, "lib", "build.sh")
