@@ -19,7 +19,8 @@ class BuildMachineRequest
       ssh_keys: []
     )
 
-    client.droplets.create(droplet)
+    droplet_request = client.droplets.create(droplet)
+    @build.update!(build_machine_id: droplet_request.id)
   end
 
   private
