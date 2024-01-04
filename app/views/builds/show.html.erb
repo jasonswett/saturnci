@@ -22,7 +22,7 @@
 
 <% if @build.report.present? %>
   <hr>
-  <pre><%= @build.report %></pre>
+  <pre><%= JSON.pretty_generate(@build.report) %></pre>
 <% end %>
 
 <% if @build.build_logs.any? %>
