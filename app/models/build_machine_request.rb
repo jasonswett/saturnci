@@ -19,14 +19,7 @@ class BuildMachineRequest
       ssh_keys: []
     )
 
-    created_droplet = client.droplets.create(droplet)
-
-    begin
-      sleep(10)
-      created_droplet = client.droplets.find(id: created_droplet.id)
-    end while created_droplet.status != 'active'
-
-    created_droplet
+    client.droplets.create(droplet)
   end
 
   private
