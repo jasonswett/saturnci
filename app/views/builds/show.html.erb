@@ -1,14 +1,16 @@
 <%= turbo_frame_tag "build_frame" do %>
   <% if @build.report.present? %>
-    <h3>Failures (<%= @build.report.count =%>)</h3>
-    <table border>
-      <% @build.report.each do |failure| %>
-        <tr>
-          <td><%= failure["filename"] %>:<%= failure["line_number"] %></td>
-          <td><%= failure["full_description"] %></td>
-        </tr>
-      <% end %>
-    </table>
+    <div style="background-color: yellow">
+      <b>Failures (<%= @build.report.count =%>)</b>
+      <table border>
+        <% @build.report.each do |failure| %>
+          <tr>
+            <td><%= failure["filename"] %>:<%= failure["line_number"] %></td>
+            <td><%= failure["full_description"] %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
     <pre><%= JSON.pretty_generate(@build.report) %></pre>
   <% end %>
 
