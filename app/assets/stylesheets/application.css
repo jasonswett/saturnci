@@ -14,12 +14,29 @@
  *= require_self
  */
 
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding: 0;
-  margin: 0;
+}
+
+.build-wrapper {
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.build-list, .build-detail {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
 }
 
 .build-status-passed {
@@ -28,13 +45,4 @@ body {
 
 .build-status-failed {
   background-color: #F00;
-}
-
-.build-list {
-  overflow: scroll;
-}
-
-.build-detail {
-  width: 600px;
-  overflow: scroll;
 }
