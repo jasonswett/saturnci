@@ -6,37 +6,44 @@
   <%= select_tag "branch_name", options_for_select(@branch_names), prompt: "Branch" %>
   <%= submit_tag "Apply" %>
 <% end %>
-
 <br>
 
-<% if @builds.any? %>
-  <table border>
-    <tr>
-      <th>Start</th>
-      <th>Branch</th>
-      <th>Author</th>
-      <th>Commit</th>
-      <th>Commit Message</th>
-      <th>Status</th>
-      <th>Duration</th>
-      <th>Actions</th>
-    </tr>
+<div style="display: flex">
+  <div class="build-list">
+    <% if @builds.any? %>
+      <table border>
+        <tr>
+          <th>Start</th>
+          <th>Branch</th>
+          <th>Author</th>
+          <th>Commit</th>
+          <th>Commit Message</th>
+          <th>Status</th>
+          <th>Duration</th>
+          <th>Actions</th>
+        </tr>
 
-    <% @builds.each do |build| %>
-      <tr>
-        <td><%= link_to build.created_at, build %></td>
-        <td><%= build.branch_name %></td>
-        <td><%= build.author_name %></td>
-        <td><code><%= build.commit_hash[0..7] %></code></td>
-        <td><%= build.commit_message.truncate(50) %></td>
-        <td class="build-status-<%= build.status.downcase %>"><%= build.status %></td>
-        <td><%= build.duration_formatted %></td>
-        <td>
-          <%= button_to "Rerun", rebuilds_path(build_id: build.id), method: :post %>
-        </td>
-      </tr>
+        <% @builds.each do |build| %>
+          <tr>
+            <td><%= link_to build.created_at, build, data: { turbo_frame: "build_frame" } %></td>
+            <td><%= build.branch_name %></td>
+            <td><%= build.author_name %></td>
+            <td><code><%= build.commit_hash[0..7] %></code></td>
+            <td><%= build.commit_message.truncate(50) %></td>
+            <td class="build-status-<%= build.status.downcase %>"><%= build.status %></td>
+            <td><%= build.duration_formatted %></td>
+            <td>
+              <%= button_to "Rerun", rebuilds_path(build_id: build.id), method: :post %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    <% else %>
+      (No builds)
     <% end %>
-  </table>
-<% else %>
-  (No builds)
-<% end %>
+  </div>
+
+  <div class="build-detail">
+    <%= turbo_frame_tag "build_frame" %>
+  </div>
+</div>

@@ -1,31 +1,33 @@
-<%= link_to @build.project.name, project_path(@build.project) %>
+<%= turbo_frame_tag "build_frame" do %>
+  Commit: <%= @build.commit_hash %>
+  <br>
+  <br>
 
-<h1>Build</h1>
-
-<% if @build.build_events.any? %>
-  <table border>
-    <tr>
-      <th>Time</th>
-      <th>Event</th>
-    </tr>
-
-    <% @build.build_events.each do |build_event| %>
+  <% if @build.build_events.any? %>
+    <table border>
       <tr>
-        <td><%= build_event.created_at %></td>
-        <td><%= build_event.type %></td>
+        <th>Time</th>
+        <th>Event</th>
       </tr>
-    <% end %>
-  </table>
-<% else %>
-  Waiting for build machine
-<% end %>
 
-<% if @build.report.present? %>
-  <hr>
-  <pre><%= JSON.pretty_generate(@build.report) %></pre>
-<% end %>
+      <% @build.build_events.each do |build_event| %>
+        <tr>
+          <td><%= build_event.created_at %></td>
+          <td><%= build_event.type %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    Waiting for build machine
+  <% end %>
 
-<% if @build.build_logs.any? %>
-  <hr>
-  <pre><%= @build.build_logs.first.content.gsub("\n", "<br>").html_safe %></pre>
+  <% if @build.report.present? %>
+    <hr>
+    <pre><%= JSON.pretty_generate(@build.report) %></pre>
+  <% end %>
+
+  <% if @build.build_logs.any? %>
+    <hr>
+    <pre><%= @build.build_logs.first.content.gsub("\n", "<br>").html_safe %></pre>
+  <% end %>
 <% end %>
