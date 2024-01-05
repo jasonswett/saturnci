@@ -62,11 +62,14 @@ api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"test_suite_started"
 #--------------------------------------------------------------------------------
 
 echo "Running tests"
+
 RESULTS_FILENAME=$USER_DIR/build_report.json
+TEST_OUTPUT_FILENAME=$USER_DIR/test_output.txt
+
 sudo docker-compose -f .saturnci/docker-compose.yml run \
   app bundle exec rspec \
   --require ./custom_formatter.rb \
-  --format CustomFormatter > $RESULTS_FILENAME
+  --format CustomFormatter > $RESULTS_FILENAME 2>&1 | tee $TEST_OUTPUT_FILENAME
 
 #--------------------------------------------------------------------------------
 
@@ -75,9 +78,15 @@ api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"test_suite_finished
 
 #--------------------------------------------------------------------------------
 
+echo "Sending test output"
+api_request "POST" "builds/$BUILD_ID/test_outputs" '{"test_output":"$(cat $TEST_OUTPUT_FILENAME)"}'
+
+#--------------------------------------------------------------------------------
+
 echo "Sending report"
 RESULTS_CONTENT=$(cat $RESULTS_FILENAME)
 api_request "POST" "builds/$BUILD_ID/build_reports" "$RESULTS_CONTENT"
+test_output
 
 #--------------------------------------------------------------------------------
 
