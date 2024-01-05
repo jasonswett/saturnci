@@ -23,6 +23,8 @@
 }
 
 .build-list {
+  height: 500px;
+  overflow: scroll;
 }
 
 .build-detail {
