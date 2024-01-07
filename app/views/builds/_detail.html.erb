@@ -1,4 +1,7 @@
-<h3>Commit <%= abbreviated_hash(@build.commit_hash) %></h3>
+<div><b>Commit <%= abbreviated_hash(@build.commit_hash) %></b></div>
+<div><%= @build.commit_message %></div>
+
+<br>
 
 <% if @build.report.present? %>
   <div style="background-color: yellow">
