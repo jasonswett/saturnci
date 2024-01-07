@@ -23,7 +23,7 @@
 
         <% @builds.each do |build| %>
           <tr>
-            <td><%= link_to build.created_at, build, data: { turbo_frame: "build_frame" } %></td>
+            <td><%= link_to build.created_at, project_build_path(@project, build), data: { turbo_frame: "build_frame" } %></td>
             <td><code><%= build.branch_name.truncate(20) %></code></td>
             <td><%= build.author_name %></td>
             <td><code><%= abbreviated_hash(build.commit_hash) %></code></td>

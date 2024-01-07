@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
+  resources :projects do
+    resources :builds, only: %i(show create)
+  end
+
+  resources :project_integrations, only: %i(new create)
+  resources :rebuilds, only: :create
+  root "projects#index"
+
   namespace :api do
     namespace :v1 do
       resources :builds, only: [] do
@@ -14,10 +22,4 @@ Rails.application.routes.draw do
       resources :github_tokens, only: :create
     end
   end
-
-  resources :projects
-  resources :project_integrations, only: %i(new create)
-  resources :builds, only: %i(show create)
-  resources :rebuilds, only: :create
-  root "projects#index"
 end
