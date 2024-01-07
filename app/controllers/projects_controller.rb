@@ -6,14 +6,8 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @builds = @project.builds.order("created_at desc")
-
-    if params[:branch_name].present?
-      @builds = @builds.where(branch_name: params[:branch_name])
-    end
-
-    @branch_names = @project.builds.map(&:branch_name).uniq
-    @build = @builds.order("created_at").first
+    build = @project.builds.order("created_at desc").first
+    redirect_to project_build_path(@project, build)
   end
 
   def new
