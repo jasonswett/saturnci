@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "build_frame" do %>
-  <h3>Build <%= @build.id[0..7] %></h3>
+  <h3>Build <%= abbreviated_hash(@build.id) %></h3>
 
   <% if @build.report.present? %>
     <div style="background-color: yellow">
