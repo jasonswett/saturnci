@@ -25,7 +25,7 @@
           <tr>
             <td>
               <%= link_to build.created_at,
-                build,
+                project_build_path(@project, build),
                 data: { turbo_frame: "build_frame" },
                 id: "build_link_#{build.id}" %>
             </td>
