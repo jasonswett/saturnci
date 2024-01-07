@@ -13,6 +13,7 @@ class ProjectsController < ApplicationController
     end
 
     @branch_names = @project.builds.map(&:branch_name).uniq
+    @build = @builds.order("created_at").first
   end
 
   def new

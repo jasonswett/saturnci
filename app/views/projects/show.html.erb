@@ -42,6 +42,8 @@
   </div>
 
   <div class="build-detail">
-    <%= turbo_frame_tag "build_frame" %>
+    <%= turbo_frame_tag "build_frame" do %>
+      <%= render "builds/detail" %>
+    <% end %>
   </div>
 </div>
