@@ -1,4 +1,6 @@
 <%= turbo_frame_tag "build_frame" do %>
+  <h3>Build <%= @build.id[0..7] %></h3>
+
   <% if @build.report.present? %>
     <div style="background-color: yellow">
       <b>Failures (<%= @build.report.count =%>)</b>
