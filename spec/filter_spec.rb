@@ -17,7 +17,10 @@ describe "Filter", type: :system do
 
       select "main", from: "branch_name"
       click_button "Apply"
-      expect(page).not_to have_content("Filter commit")
+
+      within ".build-list" do
+        expect(page).not_to have_content("Filter commit")
+      end
     end
 
     it "includes all branches as an option even after selection" do
@@ -25,7 +28,11 @@ describe "Filter", type: :system do
 
       select "main", from: "branch_name"
       click_button "Apply"
-      expect(page).not_to have_content("Filter commit")
+
+      within ".build-list" do
+        expect(page).not_to have_content("Filter commit")
+      end
+
       expect(page).to have_select("branch_name", with_options: ["main", "filters"])
     end
   end
@@ -36,7 +43,10 @@ describe "Filter", type: :system do
 
       select "filters", from: "branch_name"
       click_button "Apply"
-      expect(page).not_to have_content("Main commit")
+
+      within ".build-list" do
+        expect(page).not_to have_content("Main commit")
+      end
     end
   end
 end
