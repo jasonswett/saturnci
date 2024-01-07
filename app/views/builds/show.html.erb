@@ -3,7 +3,7 @@
 
   <% if @build.report.present? %>
     <div style="background-color: yellow">
-      <b>Failures (<%= @build.report.count =%>)</b>
+      <b>Failures (<%= @build.report.count %>)</b>
       <table border>
         <% @build.report.each do |failure| %>
           <tr>
