@@ -33,10 +33,4 @@
   <% else %>
     Waiting for build machine
   <% end %>
-
-
-  <% if @build.build_logs.any? %>
-    <hr>
-    <pre><%= @build.build_logs.first.content.gsub("\n", "<br>").html_safe %></pre>
-  <% end %>
 <% end %>
