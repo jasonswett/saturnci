@@ -4,6 +4,7 @@
       <li>
         <%= link_to project_build_path(@project, build),
           data: { turbo_frame: "build_frame", action: "click->build-list#makeActive", build_list_target: "link" },
+          class: build == @build ? "active" : "",
           id: "build_link_#{build.id}" do %>
 
           <div style="display: flex; justify-content: space-between">
