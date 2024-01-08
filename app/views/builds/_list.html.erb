@@ -6,20 +6,31 @@
           data: { turbo_frame: "build_frame", action: "click->build-list#makeActive", build_list_target: "link" },
           id: "build_link_#{build.id}" do %>
 
-          <div>
-            <code><%= build.branch_name.truncate(20) %></code>
-            <code><%= abbreviated_hash(build.commit_hash) %></code>
-            <%= build.commit_message.truncate(100) %>
-          </div>
+          <div style="display: flex; justify-content: space-between">
+            <div>
+              <div>
+                <div>
+                  <%= build.commit_message.truncate(100) %>
+                </div>
 
-          <div>
-            <%= build.created_at %>
-            <%= build.author_name %>
-          </div>
+                <div style="margin: 6px 0">
+                  <span style="background-color: #BBB; padding: 2px 6px">
+                    <code><%= build.branch_name.truncate(20) %></code>
+                    <code><%= abbreviated_hash(build.commit_hash) %></code>
+                  </span>
 
-          <div style="display: flex">
-            <div class="build-status-<%= build.status.downcase %>"><%= build.status %></div>
-            <%= build.duration_formatted %>
+                  <span style="color: #999; margin-left: 6px">
+                    <%= build.created_at %>
+                    <%= build.author_name %>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div style="width: 100px">
+              <div class="build-status-<%= build.status.downcase %>"><%= build.status %></div>
+              <%= build.duration_formatted %>
+            </div>
           </div>
         <% end %>
       </li>
