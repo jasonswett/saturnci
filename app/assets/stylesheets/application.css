@@ -62,3 +62,7 @@ header {
 .build-status-failed {
   background-color: #F00;
 }
+
+.build-status-running {
+  background-color: #DDD;
+}
