@@ -1,10 +1,9 @@
 <% if @builds.any? %>
-  <ul>
+  <ul data-controller="build">
     <% @builds.each do |build| %>
       <li>
         <%= link_to project_build_path(@project, build),
-          data: { turbo_frame: "build_frame" },
-          class: build == @build ? "active" : "",
+          data: { turbo_frame: "build_frame", action: "click->build#makeActive", build_target: "link" },
           id: "build_link_#{build.id}" do %>
 
           <div>
