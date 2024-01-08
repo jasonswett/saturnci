@@ -42,10 +42,16 @@ header {
   min-height: 0;
 }
 
-.build-list, .build-detail {
+.build-detail {
   flex: 1;
   overflow-y: auto;
   min-height: 0;
+}
+
+.build-list {
+  overflow-y: auto;
+  min-height: 0;
+  width: 600px; /* Set the width to 800px */
 }
 
 .build-status-passed {
