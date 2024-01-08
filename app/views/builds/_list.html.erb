@@ -28,9 +28,12 @@
               </div>
             </div>
 
-            <div style="width: 100px">
-              <div class="build-status-<%= build.status.downcase %>"><%= build.status %></div>
-              <%= build.duration_formatted %>
+            <div style="width: 80px; text-align: center">
+              <div class="build-status-<%= build.status.downcase %>" style="border: 1px solid #000; padding: 4px; margin-bottom: 4px">
+                <%= build.status %>
+              </div>
+
+              <span style="color: #999"><%= build.duration_formatted %></span>
             </div>
           </div>
         <% end %>
