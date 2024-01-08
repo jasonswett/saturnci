@@ -1,5 +1,5 @@
 <div><%= @build.commit_message %></div>
-<div><%= abbreviated_hash(@build.commit_hash) %></div>
+<div>Commit <%= abbreviated_hash(@build.commit_hash) %></div>
 <hr>
 
 <% if @build.report.present? %>
