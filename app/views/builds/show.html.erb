@@ -1,8 +1,3 @@
-<%= form_tag(project_build_path(@project, @build), method: :get) do %>
-  <%= select_tag "branch_name", options_for_select(@branch_names), prompt: "Branch" %>
-  <%= submit_tag "Apply" %>
-<% end %>
-
 <div class="build-wrapper">
   <div class="build-list">
     <%= render "builds/list" %>
