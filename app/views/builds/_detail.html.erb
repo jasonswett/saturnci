@@ -1,5 +1,14 @@
-<div><%= @build.commit_message %></div>
-<div>Commit <%= abbreviated_hash(@build.commit_hash) %></div>
+<div style="display: flex; flex-direction: row; align-items: flex-start; justify-content: space-between">
+  <div>
+    <div><%= @build.commit_message %></div>
+    <div>Commit <%= abbreviated_hash(@build.commit_hash) %></div>
+  </div>
+
+  <div>
+    <%= button_to "Rerun", rebuilds_path(build_id: @build.id), method: :post %>
+  </div>
+</div>
+
 <hr>
 
 <% if @build.report.present? %>
