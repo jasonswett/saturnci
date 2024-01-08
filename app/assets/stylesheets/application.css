@@ -33,9 +33,11 @@ ul, li {
 
 header {
   margin-top: 5px;
+  margin-bottom: 20px;
 }
 
 .build-wrapper {
+  margin-top: 10px;
   display: flex;
   flex-grow: 1;
   overflow: hidden;

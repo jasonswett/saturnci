@@ -17,6 +17,10 @@
           <div>
             <b><%= link_to "SaturnCI", root_path %></b>
             <%= link_to "Projects", projects_path %>
+
+            <% if @project.present? %>
+              <%= link_to @project, @project %>
+            <% end %>
           </div>
 
           <div>
