@@ -20,7 +20,7 @@
                 </div>
 
                 <div style="margin-bottom: 6px">
-                  <span style="background-color: #DDD; padding: 2px 2px 2px 6px">
+                  <span class="build-commit">
                     <code><%= build.branch_name.truncate(20) %></code>
                     <code><%= abbreviated_hash(build.commit_hash) %></code>
                   </span>
@@ -34,7 +34,7 @@
             </div>
 
             <div style="width: 80px; text-align: center">
-              <div class="build-status-<%= build.status.downcase %>" style="padding: 4px; margin-bottom: 4px">
+              <div class="build-status build-status-<%= build.status.downcase %>">
                 <%= build.status %>
               </div>
 

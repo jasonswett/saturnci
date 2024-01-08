@@ -54,15 +54,3 @@ header {
   min-height: 0;
   width: 600px; /* Set the width to 800px */
 }
-
-.build-status-passed {
-  background-color: #0F0;
-}
-
-.build-status-failed {
-  background-color: #F00;
-}
-
-.build-status-running {
-  background-color: #DDD;
-}
