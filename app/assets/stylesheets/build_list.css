@@ -1,22 +1,22 @@
 .build-list {
-  border: 4px solid blue;
-  border-right: 2px solid blue;
+  border: 2px solid #DDD;
+  border-right: 1px solid #DDD;
 }
 
 .build-detail {
-  border: 4px solid blue;
-  border-left: 2px solid blue;
+  border: 2px solid #DDD;
+  border-left: 1px solid #DDD;
   padding: 8px;
 }
 
 .build-list ul {
-  border-bottom: 1px solid blue;
+  border-bottom: 1px solid #DDD;
   margin: 0;
   padding: 0;
 }
 
 .build-list li {
-  border-bottom: 4px solid #CCC;
+  border-bottom: 2px solid #DDD;
 }
 
 .build-list a {
