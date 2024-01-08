@@ -1,7 +1,6 @@
-<div><b>Commit <%= abbreviated_hash(@build.commit_hash) %></b></div>
 <div><%= @build.commit_message %></div>
-
-<br>
+<div><%= abbreviated_hash(@build.commit_hash) %></div>
+<hr>
 
 <% if @build.report.present? %>
   <div style="background-color: yellow">
@@ -16,6 +15,12 @@
     </table>
   </div>
   <pre><%= JSON.pretty_generate(@build.report) %></pre>
+<% end %>
+
+<% if @build.build_logs.any? %>
+  <% @build.build_logs.each do |build_log| %>
+    <pre><%= build_log.content %></pre>
+  <% end %>
 <% end %>
 
 <% if @build.build_events.any? %>
