@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_04_174023) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_09_205930) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -35,12 +35,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_04_174023) do
     t.uuid "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.jsonb "report"
+    t.string "report"
     t.string "branch_name", null: false
     t.string "commit_hash", null: false
     t.string "commit_message", null: false
     t.string "author_name", null: false
     t.string "build_machine_id"
+    t.text "test_output"
     t.index ["project_id"], name: "index_builds_on_project_id"
   end
 

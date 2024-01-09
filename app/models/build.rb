@@ -14,7 +14,7 @@ class Build < ApplicationRecord
 
   def status
     return "Running" if report.nil?
-    return "Passed" if report.empty?
+    return "Passed" if !report.include?("failed")
     "Failed"
   end
 

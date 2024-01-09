@@ -56,7 +56,7 @@ api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"repository_cloned"}
 
 echo "Cloning Saturn"
 git clone https://x-access-token:$TOKEN@github.com/jasonswett/saturnci $USER_DIR/saturnci
-cp $USER_DIR/saturnci/lib/custom_formatter.rb $PROJECT_DIR
+cp $USER_DIR/saturnci/lib/example_status_persistence.rb $PROJECT_DIR
 
 sudo docker-compose -f .saturnci/docker-compose.yml run app rails db:create
 api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"test_suite_started"}'
@@ -64,8 +64,8 @@ api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"test_suite_started"
 #--------------------------------------------------------------------------------
 
 echo "Running tests"
-RESULTS_FILENAME=$USER_DIR/build_report.json
-script -c "sudo docker-compose -f .saturnci/docker-compose.yml run app bundle exec rspec --format=documentation" -f "$TEST_OUTPUT_FILENAME"
+TEST_RESULTS_FILENAME=$USER_DIR/test_results.txt
+script -c "sudo docker-compose -f .saturnci/docker-compose.yml run -e TEST_RESULTS_FILENAME=$TEST_RESULTS_FILENAME app bundle exec rspec --require ./example_status_persistence.rb --format=documentation" -f "$TEST_OUTPUT_FILENAME"
 
 #--------------------------------------------------------------------------------
 
@@ -75,8 +75,8 @@ api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"test_suite_finished
 #--------------------------------------------------------------------------------
 
 echo "Sending report"
-RESULTS_CONTENT=$(cat $RESULTS_FILENAME)
-api_request "POST" "builds/$BUILD_ID/build_reports" "$RESULTS_CONTENT"
+TEST_RESULTS_CONTENT=$(cat $TEST_RESULTS_FILENAME)
+api_request "POST" "builds/$BUILD_ID/build_reports" "$TEST_RESULTS_CONTENT"
 
 #--------------------------------------------------------------------------------
 
