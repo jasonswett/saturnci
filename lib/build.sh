@@ -1,9 +1,5 @@
 #!/bin/bash
 
-USER_DIR=/home/ubuntu
-OUTPUT_FILENAME=$USER_DIR/build_log.txt
-script -c "$0" -f "$OUTPUT_FILENAME"
-
 # Function to perform API request
 function api_request() {
     local method=$1
@@ -48,6 +44,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 echo "Cloning user repo"
 TOKEN=$(api_request "POST" "github_tokens" "{\"github_installation_id\":\"$GITHUB_INSTALLATION_ID\"}")
+USER_DIR=/home/ubuntu
 PROJECT_DIR=$USER_DIR/project
 git clone https://x-access-token:$TOKEN@github.com/$GITHUB_REPO_FULL_NAME $PROJECT_DIR
 cd $PROJECT_DIR
@@ -88,6 +85,6 @@ echo "Sending logs"
 curl -u $SATURNCI_API_USERNAME:$SATURNCI_API_PASSWORD \
   -X POST \
   -H "Content-Type: text/plain" \
-  --data-binary "@$OUTPUT_FILENAME" "${HOST}/api/v1/builds/$BUILD_ID/build_logs"
+  --data-binary "@/var/log/syslog" "${HOST}/api/v1/builds/$BUILD_ID/build_logs"
 
 api_request "DELETE" "builds/$BUILD_ID/build_machine"
