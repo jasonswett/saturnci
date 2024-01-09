@@ -66,7 +66,7 @@ RESULTS_FILENAME=$USER_DIR/build_report.json
 sudo docker-compose -f .saturnci/docker-compose.yml run \
   app bundle exec rspec \
   --require ./custom_formatter.rb \
-  --format CustomFormatter > $RESULTS_FILENAME
+  --format CustomFormatter | tee $RESULTS_FILENAME
 
 #--------------------------------------------------------------------------------
 
@@ -87,4 +87,4 @@ curl -u $SATURNCI_API_USERNAME:$SATURNCI_API_PASSWORD \
   -H "Content-Type: text/plain" \
   --data-binary "@/var/log/syslog" "${HOST}/api/v1/builds/$BUILD_ID/build_logs"
 
-api_request "DELETE" "builds/$BUILD_ID/build_machine"
+# api_request "DELETE" "builds/$BUILD_ID/build_machine"
