@@ -11,18 +11,7 @@
 
 <div class="build-detail-content">
   <% if @build.report.present? %>
-    <div style="background-color: yellow">
-      <b>Failures (<%= @build.report.count %>)</b>
-      <table border>
-        <% @build.report.each do |failure| %>
-          <tr>
-            <td><%= failure["filename"] %>:<%= failure["line_number"] %></td>
-            <td><%= failure["full_description"] %></td>
-          </tr>
-        <% end %>
-      </table>
-    </div>
-    <pre><%= JSON.pretty_generate(@build.report) %></pre>
+    <pre class="terminal"><%= @build.report %></pre>
   <% end %>
 
   <% if @build.build_logs.any? %>
