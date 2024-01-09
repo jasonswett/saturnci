@@ -1,0 +1,31 @@
+.build-detail {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  border: 2px solid #DDD;
+  border-left: 1px solid #DDD;
+}
+
+.build-detail-header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  border-bottom: 2px solid #DDD;
+}
+
+.build-detail-header h2 {
+  color: #444;
+}
+
+.build-detail-header h3 {
+  color: #888;
+  font-weight: normal;
+}
+
+.build-detail-header, .build-detail-content {
+  padding: 8px;
+}

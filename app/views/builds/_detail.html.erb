@@ -1,7 +1,7 @@
-<div style="display: flex; flex-direction: row; align-items: flex-start; justify-content: space-between">
+<div class="build-detail-header">
   <div>
-    <div><%= @build.commit_message %></div>
-    <div>Commit <%= abbreviated_hash(@build.commit_hash) %></div>
+    <h2><%= @build.commit_message %></h2>
+    <h3>Commit <code><%= abbreviated_hash(@build.commit_hash) %></code></h3>
   </div>
 
   <div>
@@ -9,43 +9,43 @@
   </div>
 </div>
 
-<hr>
+<div class="build-detail-content">
+  <% if @build.report.present? %>
+    <div style="background-color: yellow">
+      <b>Failures (<%= @build.report.count %>)</b>
+      <table border>
+        <% @build.report.each do |failure| %>
+          <tr>
+            <td><%= failure["filename"] %>:<%= failure["line_number"] %></td>
+            <td><%= failure["full_description"] %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+    <pre><%= JSON.pretty_generate(@build.report) %></pre>
+  <% end %>
 
-<% if @build.report.present? %>
-  <div style="background-color: yellow">
-    <b>Failures (<%= @build.report.count %>)</b>
+  <% if @build.build_logs.any? %>
+    <% @build.build_logs.each do |build_log| %>
+      <pre><%= build_log.content %></pre>
+    <% end %>
+  <% end %>
+
+  <% if @build.build_events.any? %>
     <table border>
-      <% @build.report.each do |failure| %>
+      <tr>
+        <th>Time</th>
+        <th>Event</th>
+      </tr>
+
+      <% @build.build_events.each do |build_event| %>
         <tr>
-          <td><%= failure["filename"] %>:<%= failure["line_number"] %></td>
-          <td><%= failure["full_description"] %></td>
+          <td><%= build_event.created_at %></td>
+          <td><%= build_event.type %></td>
         </tr>
       <% end %>
     </table>
-  </div>
-  <pre><%= JSON.pretty_generate(@build.report) %></pre>
-<% end %>
-
-<% if @build.build_logs.any? %>
-  <% @build.build_logs.each do |build_log| %>
-    <pre><%= build_log.content %></pre>
+  <% else %>
+    Waiting for build machine
   <% end %>
-<% end %>
-
-<% if @build.build_events.any? %>
-  <table border>
-    <tr>
-      <th>Time</th>
-      <th>Event</th>
-    </tr>
-
-    <% @build.build_events.each do |build_event| %>
-      <tr>
-        <td><%= build_event.created_at %></td>
-        <td><%= build_event.type %></td>
-      </tr>
-    <% end %>
-  </table>
-<% else %>
-  Waiting for build machine
-<% end %>
+</div>

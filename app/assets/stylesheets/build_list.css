@@ -3,12 +3,6 @@
   border-right: 1px solid #DDD;
 }
 
-.build-detail {
-  border: 2px solid #DDD;
-  border-left: 1px solid #DDD;
-  padding: 8px;
-}
-
 .build-list ul {
   border-bottom: 1px solid #DDD;
   margin: 0;
