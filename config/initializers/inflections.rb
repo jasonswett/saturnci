@@ -15,4 +15,6 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "API"
   inflect.acronym "AWS"
   inflect.acronym "GitHub"
+  inflect.acronym "ANSI"
+  inflect.acronym "HTML"
 end

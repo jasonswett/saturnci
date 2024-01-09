@@ -41,6 +41,11 @@ header {
   margin-bottom: 10px;
 }
 
+pre {
+  margin: 0;
+  padding: 0;
+}
+
 .build-wrapper {
   display: flex;
   flex-grow: 1;
@@ -52,4 +57,10 @@ header {
   overflow-y: auto;
   min-height: 0;
   width: 600px; /* Set the width to 800px */
+}
+
+.terminal {
+  background-color: #000;
+  color: #FFF;
+  padding: 12px;
 }
