@@ -1,7 +1,7 @@
 #!/bin/bash
 
 USER_DIR=/home/ubuntu
-OUTPUT_FILENAME=/tmp/build_log.txt
+TEST_OUTPUT_FILENAME=/tmp/build_log.txt
 
 # Function to perform API request
 function api_request() {
@@ -65,7 +65,7 @@ api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"test_suite_started"
 
 echo "Running tests"
 RESULTS_FILENAME=$USER_DIR/build_report.json
-script -c "sudo docker-compose -f .saturnci/docker-compose.yml run app bundle exec rspec --format=documentation" -f "$OUTPUT_FILENAME"
+script -c "sudo docker-compose -f .saturnci/docker-compose.yml run app bundle exec rspec --format=documentation" -f "$TEST_OUTPUT_FILENAME"
 
 #--------------------------------------------------------------------------------
 
@@ -80,7 +80,15 @@ api_request "POST" "builds/$BUILD_ID/build_reports" "$RESULTS_CONTENT"
 
 #--------------------------------------------------------------------------------
 
-echo "Sending logs"
+echo "Sending test output"
+curl -u $SATURNCI_API_USERNAME:$SATURNCI_API_PASSWORD \
+  -X POST \
+  -H "Content-Type: text/plain" \
+  --data-binary "@$TEST_OUTPUT_FILENAME" "${HOST}/api/v1/builds/$BUILD_ID/build_logs"
+
+#--------------------------------------------------------------------------------
+
+echo "Sending general logs"
 curl -u $SATURNCI_API_USERNAME:$SATURNCI_API_PASSWORD \
   -X POST \
   -H "Content-Type: text/plain" \
