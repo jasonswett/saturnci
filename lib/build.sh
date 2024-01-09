@@ -1,8 +1,12 @@
 #!/bin/bash
 
 USER_DIR=/home/ubuntu
-OUTPUT_FILENAME=$USER_DIR/build_log.txt
-script -c "$0" -f "$OUTPUT_FILENAME"
+OUTPUT_FILENAME=/tmp/build_log.txt
+
+if [ -z "$SATURN_CI_SCRIPT_LOGGING" ]; then
+    export SATURN_CI_SCRIPT_LOGGING=1
+    script -c "$0" -f "$OUTPUT_FILENAME"
+fi
 
 # Function to perform API request
 function api_request() {
