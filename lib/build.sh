@@ -23,8 +23,8 @@ function api_request() {
 
 #--------------------------------------------------------------------------------
 
-echo "Spot instance ready"
-api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"spot_instance_ready"}'
+echo "Build machine ready"
+api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"build_machine_ready"}'
 
 #--------------------------------------------------------------------------------
 
