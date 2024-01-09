@@ -28,6 +28,7 @@
   <% if @build.build_logs.any? %>
     <% @build.build_logs.each do |build_log| %>
       <pre class="terminal"><%= ansi_to_html(build_log.content) %></pre>
+      <br>
     <% end %>
   <% end %>
 
