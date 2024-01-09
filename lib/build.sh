@@ -75,8 +75,6 @@ api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"test_suite_finished
 #--------------------------------------------------------------------------------
 
 echo "Sending report"
-api_request "POST" "builds/$BUILD_ID/build_reports" "$TEST_RESULTS_CONTENT"
-
 curl -u $SATURNCI_API_USERNAME:$SATURNCI_API_PASSWORD \
   -X POST \
   -H "Content-Type: text/plain" \
