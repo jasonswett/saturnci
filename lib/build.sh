@@ -70,10 +70,7 @@ api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"test_suite_started"
 
 echo "Running tests"
 RESULTS_FILENAME=$USER_DIR/build_report.json
-sudo docker-compose -f .saturnci/docker-compose.yml run \
-  app bundle exec rspec \
-  --require ./custom_formatter.rb \
-  --format CustomFormatter | tee $RESULTS_FILENAME
+script -c "sudo docker-compose -f .saturnci/docker-compose.yml run app bundle exec rspec --format=documentation" -f "$OUTPUT_FILENAME"
 
 #--------------------------------------------------------------------------------
 
