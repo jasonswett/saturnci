@@ -8,11 +8,11 @@ RSpec.describe "build reports", type: :request do
     it "adds a report to a build" do
       post(
         api_v1_build_build_reports_path(build_id: build.id),
-        params: [].to_json,
-        headers: { "CONTENT_TYPE" => "application/json" }.merge(api_authorization_headers)
+        params: "build report content",
+        headers: api_authorization_headers.merge({ "CONTENT_TYPE" => "text/plain" })
       )
 
-      expect(build.reload.report).to eq([])
+      expect(build.reload.report).to eq("build report content")
     end
   end
 end

@@ -3,7 +3,10 @@ module API
     class BuildReportsController < APIController
       def create
         build = Build.find(params[:build_id])
-        build.update!(report: params[:build_report][:_json])
+        request.body.rewind
+        build.update!(report: request.body.read)
+
+        head :ok
       end
     end
   end
