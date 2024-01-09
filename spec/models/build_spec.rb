@@ -20,7 +20,7 @@ RSpec.describe Build, type: :model do
   describe "#status" do
     context "there's no report yet" do
       it "returns 'Running'" do
-        expect(build.status).to eq("Running")
+        expect(build.status).to eq("blah")
       end
     end
 
