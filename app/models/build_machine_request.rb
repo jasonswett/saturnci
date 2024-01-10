@@ -36,6 +36,7 @@ class BuildMachineRequest
       #!/usr/bin/bash
       HOST=#{ENV["SATURNCI_HOST"]}
       BUILD_ID=#{@build.id}
+      COMMIT_HASH=#{@build.commit_hash}
       GITHUB_INSTALLATION_ID=#{@github_installation_id}
       GITHUB_REPO_FULL_NAME=#{@build.project.github_repo_full_name}
       SATURNCI_API_USERNAME=#{ENV["SATURNCI_API_USERNAME"]}

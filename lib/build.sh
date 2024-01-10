@@ -50,6 +50,7 @@ echo "Cloning user repo"
 TOKEN=$(api_request "POST" "github_tokens" "{\"github_installation_id\":\"$GITHUB_INSTALLATION_ID\"}")
 PROJECT_DIR=$USER_DIR/project
 git clone https://x-access-token:$TOKEN@github.com/$GITHUB_REPO_FULL_NAME $PROJECT_DIR
+git checkout $COMMIT_HASH
 cd $PROJECT_DIR
 api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"repository_cloned"}'
 
