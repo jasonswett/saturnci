@@ -4,7 +4,7 @@ class BuildsController < ApplicationController
     build = Build.new(project: @project)
     build.start!
 
-    redirect_to @project
+    redirect_to build
   end
 
   def show
@@ -18,5 +18,11 @@ class BuildsController < ApplicationController
     end
 
     @branch_names = @project.builds.map(&:branch_name).uniq
+  end
+
+  def destroy
+    build = Build.find(params[:id])
+    build.destroy!
+    redirect_to project_path(build.project)
   end
 end

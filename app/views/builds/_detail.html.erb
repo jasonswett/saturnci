@@ -6,6 +6,7 @@
 
   <div>
     <%= button_to "Rerun", rebuilds_path(build_id: @build.id), method: :post %>
+    <%= button_to "Delete", project_build_path(id: @build.id), method: :delete %>
   </div>
 </div>
 

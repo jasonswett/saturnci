@@ -7,7 +7,10 @@ class ProjectsController < ApplicationController
 
   def show
     build = @project.builds.order("created_at desc").first
-    redirect_to project_build_path(@project, build)
+
+    if build.present?
+      redirect_to project_build_path(@project, build)
+    end
   end
 
   def new

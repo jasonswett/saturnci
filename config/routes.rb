@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
   resources :projects do
-    resources :builds, only: %i(show create)
+    resources :builds, only: %i(show create destroy)
   end
 
   resources :project_integrations, only: %i(new create)
