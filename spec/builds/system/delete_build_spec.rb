@@ -4,6 +4,8 @@ describe "Delete build", type: :system do
   let!(:build) { create(:build) }
 
   before do
+    stub_request(:delete, "https://api.digitalocean.com/v2/droplets").to_return(status: 200)
+
     user = create(:user)
     login_as(user, scope: :user)
   end
@@ -22,7 +24,6 @@ describe "Delete build", type: :system do
 
       visit project_build_path(id: build.id, project_id: build.project.id)
       click_on "Delete"
-      binding.pry
       expect(page).not_to have_content(build.commit_hash)
     end
   end

@@ -18,9 +18,10 @@
             <b><%= link_to "SaturnCI", root_path %></b>
             <%= link_to "Projects", projects_path %>
 
-            <% if @project.present? %>
-              <%= link_to @project, @project %>
-            <% end %>
+            <%= select_tag "project_id",
+              options_from_collection_for_select(Project.all, :id, :name, @project&.id),
+              include_blank: true,
+              onchange: "window.location.href = '#{Rails.application.routes.url_helpers.projects_path}' + '/' + this.value" %>
           </div>
 
           <div>
