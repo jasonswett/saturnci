@@ -3,8 +3,7 @@ module API
     class BuildMachinesController < APIController
       def destroy
         build = Build.find(params[:build_id])
-        client = DropletKit::Client.new(access_token: ENV['DIGITALOCEAN_ACCESS_TOKEN'])
-        client.droplets.delete(id: build.build_machine_id)
+        build.delete_build_machine
         head :ok
       end
     end

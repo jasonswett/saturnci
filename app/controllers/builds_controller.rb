@@ -22,6 +22,7 @@ class BuildsController < ApplicationController
 
   def destroy
     build = Build.find(params[:id])
+    build.delete_build_machine
     build.destroy!
     redirect_to project_path(build.project)
   end
