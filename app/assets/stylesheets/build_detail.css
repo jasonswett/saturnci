@@ -28,3 +28,8 @@
 .build-detail-header {
   padding: 8px;
 }
+
+.build-detail-action-buttons {
+  display: flex;
+  gap: 4px;
+}
