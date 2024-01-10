@@ -16,7 +16,7 @@ describe "Filter", type: :system do
       visit project_path(project)
 
       select "main", from: "branch_name"
-      click_button "Apply"
+      click_button "aeouitnaeuoinhaeoutn"
 
       within ".build-list" do
         expect(page).not_to have_content("Filter commit")
