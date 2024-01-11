@@ -10,7 +10,7 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: saturn-staging
+    app: saturn
   ports:
     - name: http
       protocol: TCP
