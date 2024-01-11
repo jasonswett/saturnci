@@ -1,0 +1,22 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: https-with-cert
+  annotations:
+    service.beta.kubernetes.io/do-loadbalancer-protocol: "http"
+    service.beta.kubernetes.io/do-loadbalancer-tls-ports: "443"
+    service.beta.kubernetes.io/do-loadbalancer-certificate-id: "a74433a9-451d-4871-a049-16aef30f6924"
+spec:
+  type: LoadBalancer
+  selector:
+    app: saturn-staging
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 80
