@@ -27,4 +27,16 @@ describe "Delete build", type: :system do
       expect(page).not_to have_content(build.commit_hash)
     end
   end
+
+  context "404" do
+    before do
+      stub_request(:delete, "https://api.digitalocean.com/v2/droplets").to_return(status: 404)
+    end
+
+    it "removes the build" do
+      visit project_build_path(id: build.id, project_id: build.project.id)
+      click_on "Delete"
+      expect(page).not_to have_content(build.commit_hash)
+    end
+  end
 end
