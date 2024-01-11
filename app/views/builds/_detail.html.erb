@@ -12,7 +12,7 @@
 
 <div class="build-detail-content">
   <% if @build.report.present? %>
-    <pre class="terminal"><%= @build.report %></pre>
+    <pre class="terminal"><%= BuildReport.new(@build.report).to_s.html_safe %></pre>
   <% end %>
 
   <% if @build.build_logs.any? %>
