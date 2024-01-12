@@ -2,9 +2,8 @@
 
 USER_DIR=/home/ubuntu
 PROJECT_DIR=$USER_DIR/project
-TMP_DIR=$PROJECT_DIR/tmp
-TEST_OUTPUT_FILENAME=$TMP_DIR/build_log.txt
-TEST_RESULTS_FILENAME=$TMP_DIR/test_results.txt
+TEST_OUTPUT_FILENAME=tmp/build_log.txt
+TEST_RESULTS_FILENAME=tmp/test_results.txt
 
 function api_request() {
     local method=$1
@@ -62,7 +61,7 @@ echo "Cloning user repo"
 TOKEN=$(api_request "POST" "github_tokens" "{\"github_installation_id\":\"$GITHUB_INSTALLATION_ID\"}")
 git clone https://x-access-token:$TOKEN@github.com/$GITHUB_REPO_FULL_NAME $PROJECT_DIR
 cd $PROJECT_DIR
-mkdir $TMP_DIR
+mkdir tmp
 api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"repository_cloned"}'
 
 #--------------------------------------------------------------------------------
@@ -83,11 +82,13 @@ sudo docker-compose -f .saturnci/docker-compose.yml run app rake db:migrate
 echo "Running tests"
 api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"test_suite_started"}'
 
-echo "RSpec.configure do |config|" > example_status_persistence.rb
-echo "  config.example_status_persistence_file_path = '$TEST_RESULTS_FILENAME'" >> example_status_persistence.rb
-echo "end" >> example_status_persistence.rb
+cat <<EOF > ./example_status_persistence.rb
+RSpec.configure do |config|
+  config.example_status_persistence_file_path = '$TEST_RESULTS_FILENAME'
+end
+EOF
 
-script -c "sudo docker-compose -f .saturnci/docker-compose.yml run -e TEST_RESULTS_FILENAME=$TEST_RESULTS_FILENAME app bundle exec rspec --require ./example_status_persistence.rb --format=documentation" -f "$TEST_OUTPUT_FILENAME"
+script -c "sudo docker-compose -f .saturnci/docker-compose.yml run app bundle exec rspec --require ./example_status_persistence.rb --format=documentation" -f "$TEST_OUTPUT_FILENAME"
 
 #--------------------------------------------------------------------------------
 
