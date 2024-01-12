@@ -4,7 +4,6 @@ USER_DIR=/home/ubuntu
 TEST_OUTPUT_FILENAME=tmp/build_log.txt
 TEST_RESULTS_FILENAME=tmp/test_results.txt
 
-# Function to perform API request
 function api_request() {
     local method=$1
     local path=$2
@@ -15,6 +14,17 @@ function api_request() {
         -H "Content-Type: application/json" \
         -d "$data" \
         $HOST/api/v1/$path
+}
+
+function send_content_to_api() {
+    local api_path=$1
+    local content_type=$2
+    local file_path=$3
+
+    curl -u $SATURNCI_API_USERNAME:$SATURNCI_API_PASSWORD \
+        -X POST \
+        -H "Content-Type: $content_type" \
+        --data-binary "@$file_path" "$HOST/api/v1/$api_path"
 }
 
 #--------------------------------------------------------------------------------
@@ -79,26 +89,19 @@ api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"test_suite_finished
 
 #--------------------------------------------------------------------------------
 
-echo "Sending report"
-curl -u $SATURNCI_API_USERNAME:$SATURNCI_API_PASSWORD \
-  -X POST \
-  -H "Content-Type: text/plain" \
-  --data-binary "@$TEST_RESULTS_FILENAME" "${HOST}/api/v1/builds/$BUILD_ID/build_reports"
+echo "Sending general logs"
+send_content_to_api "builds/$BUILD_ID/build_logs" "text/plain" "/var/log/syslog"
 
 #--------------------------------------------------------------------------------
 
 echo "Sending test output"
-curl -u $SATURNCI_API_USERNAME:$SATURNCI_API_PASSWORD \
-  -X POST \
-  -H "Content-Type: text/plain" \
-  --data-binary "@$TEST_OUTPUT_FILENAME" "${HOST}/api/v1/builds/$BUILD_ID/build_logs"
+send_content_to_api "builds/$BUILD_ID/build_logs" "text/plain" "$TEST_OUTPUT_FILENAME"
 
 #--------------------------------------------------------------------------------
 
-echo "Sending general logs"
-curl -u $SATURNCI_API_USERNAME:$SATURNCI_API_PASSWORD \
-  -X POST \
-  -H "Content-Type: text/plain" \
-  --data-binary "@/var/log/syslog" "${HOST}/api/v1/builds/$BUILD_ID/build_logs"
+echo "Sending report"
+send_content_to_api "builds/$BUILD_ID/build_reports" "text/plain" "$TEST_RESULTS_FILENAME"
+
+#--------------------------------------------------------------------------------
 
 api_request "DELETE" "builds/$BUILD_ID/build_machine"
