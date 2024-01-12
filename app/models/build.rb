@@ -13,7 +13,7 @@ class Build < ApplicationRecord
   end
 
   def status
-    return "Running" if report.nil?
+    return "Running" if report.to_s.length == 0
     return "Passed" if !report.include?("failed")
     "Failed"
   end

@@ -24,6 +24,13 @@ RSpec.describe Build, type: :model do
       end
     end
 
+    context "report is empty" do
+      it "returns 'Running'" do
+        build.update!(report: "")
+        expect(build.status).to eq("Running")
+      end
+    end
+
     context "report is success" do
       it "returns 'Passed'" do
         build.update!(report: success)
