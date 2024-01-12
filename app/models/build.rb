@@ -48,7 +48,7 @@ class Build < ApplicationRecord
   def build_machine_request
     BuildMachineRequest.new(
       build: self,
-      github_installation_id: project.user.github_installation_id
+      github_installation_id: project.saturn_installation.github_installation_id
     )
   end
 end

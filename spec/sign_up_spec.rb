@@ -19,7 +19,7 @@ RSpec.describe "Sign up with Github", type: :system do
       visit new_user_registration_path
       click_on "Sign up with GitHub"
       
-      expect(page).to have_content("Add project")
+      expect(page).to have_content("Projects")
     end
   end
 end

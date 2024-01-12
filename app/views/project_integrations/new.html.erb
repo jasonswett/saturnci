@@ -1,11 +1,11 @@
-<h1>ProjectIntegrations#new</h1>
+<h1>New Project Integrations</h1>
 
 <table border>
   <% @repositories.each do |repository| %>
     <tr>
       <td>
         <%= link_to repository.name,
-          project_integrations_path(repo_full_name: repository.full_name),
+          saturn_installation_project_integrations_path(repo_full_name: repository.full_name),
           data: { turbo_method: :post } %>
       </td>
     </tr>

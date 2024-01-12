@@ -5,7 +5,10 @@ Rails.application.routes.draw do
     resources :builds, only: %i(show create destroy)
   end
 
-  resources :project_integrations, only: %i(new create)
+  resources :saturn_installations do
+    resources :project_integrations, only: %i(new create)
+  end
+
   resources :rebuilds, only: :create
   root "projects#index"
 

@@ -23,10 +23,15 @@ module API
 
       def handle_installation_event(payload)
         github_installation_id = payload["installation"]["id"]
-        github_account_id = payload["installation"]["account"]["id"]
 
-        user = User.find_by(uid: github_account_id, provider: "github")
-        user&.saturn_installations&.create!(github_installation_id: github_installation_id)
+        if payload["installation"]["account"]["type"] == "Organization"
+          github_account_id = payload["sender"]["id"]
+        else
+          github_account_id = payload["installation"]["account"]["id"]
+        end
+
+        user = User.find_by!(uid: github_account_id, provider: "github")
+        user.saturn_installations.create!(github_installation_id: github_installation_id)
       end
 
       def handle_push_event(payload)

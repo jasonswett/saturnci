@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_09_205930) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_12_010423) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +51,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_09_205930) do
     t.datetime "updated_at", null: false
     t.string "github_repo_full_name"
     t.uuid "user_id", null: false
+    t.uuid "saturn_installation_id"
+    t.index ["saturn_installation_id"], name: "index_projects_on_saturn_installation_id"
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
@@ -86,6 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_09_205930) do
   add_foreign_key "build_events", "builds"
   add_foreign_key "build_logs", "builds"
   add_foreign_key "builds", "projects"
+  add_foreign_key "projects", "saturn_installations"
   add_foreign_key "projects", "users"
   add_foreign_key "saturn_installations", "users"
 end
