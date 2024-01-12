@@ -77,5 +77,25 @@ RSpec.describe "GitHub Events", type: :request do
       build = Build.last
       expect(build.branch_name).to eq('main')
     end
+
+    context "multiple matching projects" do
+      before do
+        create(:project, github_repo_full_name: project.github_repo_full_name) do |project|
+          project.user.saturn_installations.create!(
+            github_installation_id: "1111112"
+          )
+        end
+      end
+
+      it "creates a new build for each project" do
+        expect {
+          post(
+            "/api/v1/github_events",
+            params: payload,
+            headers: headers
+          )
+        }.to change { Build.count }.by(2)
+      end
+    end
   end
 end
