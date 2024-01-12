@@ -5,6 +5,10 @@ RSpec.describe API::V1::GitHubEventsController, type: :controller do
 
   let!(:user) { create(:user, uid: "55555", provider: "github") }
 
+  before do
+    request.env["HTTP_X_GITHUB_EVENT"] = "installation"
+  end
+
   context "personal account" do
     let!(:payload) do
       {
@@ -12,14 +16,11 @@ RSpec.describe API::V1::GitHubEventsController, type: :controller do
         "installation" => {
           "id" => "12345",
           "account" => {
+            "login"=>"jasonswett",
             "id" => "55555",
           }
         }
       }
-    end
-
-    before do
-      request.env["HTTP_X_GITHUB_EVENT"] = "installation"
     end
 
     it "creates a new saturn installation for the user" do
@@ -29,6 +30,13 @@ RSpec.describe API::V1::GitHubEventsController, type: :controller do
 
       saturn_installation = user.saturn_installations.last
       expect(saturn_installation.github_installation_id).to eq(payload["installation"]["id"])
+    end
+
+    it "sets the name" do
+      post :create, params: payload, as: :json
+
+      saturn_installation = user.saturn_installations.last
+      expect(saturn_installation.name).to eq("jasonswett")
     end
   end
 
@@ -50,10 +58,6 @@ RSpec.describe API::V1::GitHubEventsController, type: :controller do
           "type" => "User",
         }
       }
-    end
-
-    before do
-      request.env["HTTP_X_GITHUB_EVENT"] = "installation"
     end
 
     it "creates a new saturn installation for the user" do
