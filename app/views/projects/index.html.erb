@@ -2,8 +2,6 @@
 
 <h1>Projects</h1>
 
-<p><%= link_to "Add project", new_project_integration_path %></p>
-
 <ul>
   <% @projects.each do |project| %>
     <li><%= link_to project, project %></li>
