@@ -3,8 +3,8 @@ require "octokit"
 
 class ProjectIntegrationsController < ApplicationController
   def new
-    @saturn_integration = SaturnInstallation.find(params[:saturn_installation_id])
-    client = Octokit::Client.new(bearer_token: GitHubToken.generate(@saturn_integration.github_installation_id))
+    @saturn_installation = SaturnInstallation.find(params[:saturn_installation_id])
+    client = Octokit::Client.new(bearer_token: GitHubToken.generate(@saturn_installation.github_installation_id))
 
     @repositories = []
     page = 0
@@ -17,13 +17,14 @@ class ProjectIntegrationsController < ApplicationController
   end
 
   def create
-    @saturn_integration = SaturnInstallation.find(params[:saturn_installation_id])
-    client = Octokit::Client.new(bearer_token: GitHubToken.generate(@saturn_integration.github_installation_id))
+    @saturn_installation = SaturnInstallation.find(params[:saturn_installation_id])
+    client = Octokit::Client.new(bearer_token: GitHubToken.generate(@saturn_installation.github_installation_id))
 
     repo_full_name = params[:repo_full_name]
     repo = client.repo(repo_full_name)
 
     project = current_user.projects.create!(
+      saturn_installation: @saturn_installation,
       name: repo_full_name,
       github_repo_full_name: repo_full_name
     )
