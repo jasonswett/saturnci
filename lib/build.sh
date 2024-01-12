@@ -27,10 +27,20 @@ function send_content_to_api() {
         --data-binary "@$file_path" "$HOST/api/v1/$api_path"
 }
 
+# Function to stream general logs in the background
+function stream_logs() {
+    tail -f -n+1 "/var/log/syslog" | while read line; do
+        echo "$line" | send_content_to_api "builds/$BUILD_ID/build_logs" "text/plain" -
+    done
+}
+
 #--------------------------------------------------------------------------------
 
 echo "Build machine ready"
 api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"build_machine_ready"}'
+
+# Start streaming general logs in the background
+stream_logs &
 
 #--------------------------------------------------------------------------------
 
@@ -44,8 +54,8 @@ sudo chmod a+r /etc/apt/keyrings/docker.gpg
 #--------------------------------------------------------------------------------
 
 echo \
-  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 sudo apt-get update
@@ -87,10 +97,8 @@ script -c "sudo docker-compose -f .saturnci/docker-compose.yml run -e TEST_RESUL
 echo "Test suite finished"
 api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"test_suite_finished"}'
 
-#--------------------------------------------------------------------------------
-
-echo "Sending general logs"
-send_content_to_api "builds/$BUILD_ID/build_logs" "text/plain" "/var/log/syslog"
+# Kill the background log streaming process after the tests are done
+kill $!
 
 #--------------------------------------------------------------------------------
 
