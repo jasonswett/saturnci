@@ -12,10 +12,6 @@ class User < ApplicationRecord
     omniauth_providers: [:github]
   )
 
-  def github_installation_id
-    saturn_installations.first.github_installation_id
-  end
-
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email

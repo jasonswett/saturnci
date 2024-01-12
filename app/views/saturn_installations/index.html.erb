@@ -4,9 +4,16 @@
 
 <% if @saturn_installations.any? %>
   <table border>
-    <tr><th>GitHub Installation ID</th></tr>
+    <tr>
+      <th>GitHub Installation ID</th>
+      <th></th>
+    </tr>
+
     <% @saturn_installations.each do |saturn_installation| %>
-      <tr><td><%= saturn_installation.github_installation_id %></td></tr>
+      <tr>
+        <td><%= saturn_installation.github_installation_id %></td>
+        <td><%= link_to "Add Project", new_saturn_installation_project_integration_path(saturn_installation) %>
+      </tr>
     <% end %>
   </table>
 <% else %>
