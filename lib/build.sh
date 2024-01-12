@@ -74,7 +74,12 @@ echo "Cloning Saturn"
 git clone https://x-access-token:$TOKEN@github.com/jasonswett/saturnci $USER_DIR/saturnci
 cp $USER_DIR/saturnci/lib/example_status_persistence.rb $PROJECT_DIR
 
+#--------------------------------------------------------------------------------
+
+echo "Creating database"
 sudo docker-compose -f .saturnci/docker-compose.yml run app rake db:create
+api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"database_created"}'
+
 sudo docker-compose -f .saturnci/docker-compose.yml run app rake db:migrate
 
 #--------------------------------------------------------------------------------
