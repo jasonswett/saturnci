@@ -1,18 +1,30 @@
 <h1>Installations</h1>
+<br>
 
 <%= link_to "New Installation", ENV["SATURNCI_INSTALLATION_URL"] %>
+<br>
 
 <% if @saturn_installations.any? %>
   <table border>
     <tr>
       <th>GitHub Installation ID</th>
-      <th></th>
+      <th colspan="2"></th>
     </tr>
 
     <% @saturn_installations.each do |saturn_installation| %>
       <tr>
         <td><%= saturn_installation.github_installation_id %></td>
-        <td><%= link_to "Add Project", new_saturn_installation_project_integration_path(saturn_installation) %>
+
+        <td>
+          <%= link_to "Add Project",
+            new_saturn_installation_project_integration_path(saturn_installation) %>
+        </td>
+
+        <td>
+          <%= link_to "Remove",
+            saturn_installation_path(saturn_installation),
+            data: { turbo_method: :delete } %>
+        </td>
       </tr>
     <% end %>
   </table>
