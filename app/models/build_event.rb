@@ -7,7 +7,7 @@ class BuildEvent < ApplicationRecord
     build_machine_ready: 0,
     repository_cloned: 2,
     test_suite_started: 3,
-    test_suite_finished: 4
+    test_suite_finished: 4,
     database_created: 5
   }
 end
