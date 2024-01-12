@@ -20,7 +20,7 @@
             <%= link_to "Projects", projects_path %>
 
             <%= select_tag "project_id",
-              options_from_collection_for_select(Project.all, :id, :name, @project&.id),
+              options_from_collection_for_select(current_user.projects, :id, :name, @project&.id),
               include_blank: true,
               onchange: "window.location.href = '#{Rails.application.routes.url_helpers.projects_path}' + '/' + this.value" %>
           </div>
