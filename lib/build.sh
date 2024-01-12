@@ -1,8 +1,10 @@
 #!/bin/bash
 
 USER_DIR=/home/ubuntu
-TEST_OUTPUT_FILENAME=tmp/build_log.txt
-TEST_RESULTS_FILENAME=tmp/test_results.txt
+PROJECT_DIR=$USER_DIR/project
+TMP_DIR=$PROJECT_DIR/tmp
+TEST_OUTPUT_FILENAME=$TMP_DIR/build_log.txt
+TEST_RESULTS_FILENAME=$TMP_DIR/test_results.txt
 
 function api_request() {
     local method=$1
@@ -58,9 +60,9 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 echo "Cloning user repo"
 TOKEN=$(api_request "POST" "github_tokens" "{\"github_installation_id\":\"$GITHUB_INSTALLATION_ID\"}")
-PROJECT_DIR=$USER_DIR/project
 git clone https://x-access-token:$TOKEN@github.com/$GITHUB_REPO_FULL_NAME $PROJECT_DIR
 cd $PROJECT_DIR
+mkdir $TMP_DIR
 api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"repository_cloned"}'
 
 #--------------------------------------------------------------------------------
