@@ -5,8 +5,7 @@ describe "Build navigation", type: :system do
   let!(:build_heading) { "Commit #{build.commit_hash[0..7]}" }
 
   before do
-    user = create(:user)
-    login_as(user, scope: :user)
+    login_as(build.project.user, scope: :user)
   end
 
   describe "clicking build link" do
