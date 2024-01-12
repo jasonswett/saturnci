@@ -74,12 +74,13 @@ echo "Cloning Saturn"
 git clone https://x-access-token:$TOKEN@github.com/jasonswett/saturnci $USER_DIR/saturnci
 cp $USER_DIR/saturnci/lib/example_status_persistence.rb $PROJECT_DIR
 
-sudo docker-compose -f .saturnci/docker-compose.yml run app rails db:create
-api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"test_suite_started"}'
+sudo docker-compose -f .saturnci/docker-compose.yml run app rake db:create
+sudo docker-compose -f .saturnci/docker-compose.yml run app rake db:migrate
 
 #--------------------------------------------------------------------------------
 
 echo "Running tests"
+api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"test_suite_started"}'
 script -c "sudo docker-compose -f .saturnci/docker-compose.yml run -e TEST_RESULTS_FILENAME=$TEST_RESULTS_FILENAME app bundle exec rspec --require ./example_status_persistence.rb --format=documentation" -f "$TEST_OUTPUT_FILENAME"
 
 #--------------------------------------------------------------------------------
