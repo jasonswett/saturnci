@@ -84,7 +84,7 @@ echo "Running tests"
 api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"test_suite_started"}'
 
 echo "RSpec.configure do |config|" > example_status_persistence.rb
-echo "  config.example_status_persistence_file_path = ENV['TEST_RESULTS_FILENAME']" >> example_status_persistence.rb
+echo "  config.example_status_persistence_file_path = '$TEST_RESULTS_FILENAME'" >> example_status_persistence.rb
 echo "end" >> example_status_persistence.rb
 
 script -c "sudo docker-compose -f .saturnci/docker-compose.yml run -e TEST_RESULTS_FILENAME=$TEST_RESULTS_FILENAME app bundle exec rspec --require ./example_status_persistence.rb --format=documentation" -f "$TEST_OUTPUT_FILENAME"
