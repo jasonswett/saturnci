@@ -1,3 +1,11 @@
 <h1>Installations</h1>
 
 <%= link_to "New Installation", ENV["SATURNCI_INSTALLATION_URL"] %>
+
+<% if @saturn_installations.any? %>
+  <% @saturn_installations.each do |saturn_installation| %>
+    <%= saturn_installation.github_installation_id %>
+  <% end %>
+<% else %>
+  (No installations)
+<% end %>
