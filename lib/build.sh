@@ -1,6 +1,7 @@
 #!/bin/bash
 
 USER_DIR=/home/ubuntu
+PROJECT_DIR=$USER_DIR/project
 TEST_OUTPUT_FILENAME=tmp/build_log.txt
 TEST_RESULTS_FILENAME=tmp/test_results.txt
 
@@ -58,9 +59,9 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 echo "Cloning user repo"
 TOKEN=$(api_request "POST" "github_tokens" "{\"github_installation_id\":\"$GITHUB_INSTALLATION_ID\"}")
-PROJECT_DIR=$USER_DIR/project
 git clone https://x-access-token:$TOKEN@github.com/$GITHUB_REPO_FULL_NAME $PROJECT_DIR
 cd $PROJECT_DIR
+mkdir tmp
 api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"repository_cloned"}'
 
 #--------------------------------------------------------------------------------
@@ -70,17 +71,24 @@ git checkout $COMMIT_HASH
 
 #--------------------------------------------------------------------------------
 
-echo "Cloning Saturn"
-git clone https://x-access-token:$TOKEN@github.com/jasonswett/saturnci $USER_DIR/saturnci
-cp $USER_DIR/saturnci/lib/example_status_persistence.rb $PROJECT_DIR
+echo "Creating database"
+sudo docker-compose -f .saturnci/docker-compose.yml run app rake db:create
+api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"database_created"}'
 
-sudo docker-compose -f .saturnci/docker-compose.yml run app rails db:create
-api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"test_suite_started"}'
+sudo docker-compose -f .saturnci/docker-compose.yml run app rake db:migrate
 
 #--------------------------------------------------------------------------------
 
 echo "Running tests"
-script -c "sudo docker-compose -f .saturnci/docker-compose.yml run -e TEST_RESULTS_FILENAME=$TEST_RESULTS_FILENAME app bundle exec rspec --require ./example_status_persistence.rb --format=documentation" -f "$TEST_OUTPUT_FILENAME"
+api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"test_suite_started"}'
+
+cat <<EOF > ./example_status_persistence.rb
+RSpec.configure do |config|
+  config.example_status_persistence_file_path = '$TEST_RESULTS_FILENAME'
+end
+EOF
+
+script -c "sudo docker-compose -f .saturnci/docker-compose.yml run app bundle exec rspec --require ./example_status_persistence.rb --format=documentation" -f "$TEST_OUTPUT_FILENAME"
 
 #--------------------------------------------------------------------------------
 
