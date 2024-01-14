@@ -4,19 +4,8 @@
   </div>
 
   <div class="build-detail">
-    <%= turbo_frame_tag "build_frame" do %>
+    <%= turbo_frame_tag "build_frame", data: { turbo_action: "advance" } do %>
       <%= render "builds/detail" %>
     <% end %>
   </div>
 </div>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll("[data-turbo-frame='build_frame']").forEach(link => {
-    link.addEventListener("click", (event) => {
-      const url = link.getAttribute('href');
-      history.pushState({}, '', url);
-    });
-  });
-});
-</script>
