@@ -8,6 +8,7 @@ class BuildEvent < ApplicationRecord
     repository_cloned: 2,
     test_suite_started: 3,
     test_suite_finished: 4,
-    database_created: 5
+    pre_script_started: 5
+    pre_script_finished: 6
   }
 end

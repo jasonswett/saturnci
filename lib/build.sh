@@ -72,8 +72,10 @@ git checkout $COMMIT_HASH
 #--------------------------------------------------------------------------------
 
 echo "Running pre.sh"
+api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"pre_script_started"}'
 sudo chmod 755 .saturnci/pre.sh
 sudo docker-compose -f .saturnci/docker-compose.yml run app ./.saturnci/pre.sh
+api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"pre_script_finished"}'
 
 #--------------------------------------------------------------------------------
 
