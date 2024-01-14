@@ -9,15 +9,28 @@ class BuildsController < ApplicationController
 
   def show
     @build = Build.find(params[:id])
-    @project = @build.project
 
-    @builds = @project.builds.order("created_at desc")
+    respond_to do |format|
+      format.html do
+        @project = @build.project
 
-    if params[:branch_name].present?
-      @builds = @builds.where(branch_name: params[:branch_name])
+        @builds = @project.builds.order("created_at desc")
+
+        if params[:branch_name].present?
+          @builds = @builds.where(branch_name: params[:branch_name])
+        end
+
+        @branch_names = @project.builds.map(&:branch_name).uniq
+      end
+
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(
+          "build_frame",
+          partial: "builds/detail",
+          locals: { build: @build }
+        )
+      end
     end
-
-    @branch_names = @project.builds.map(&:branch_name).uniq
   end
 
   def destroy

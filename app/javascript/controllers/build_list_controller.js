@@ -9,5 +9,8 @@ export default class extends Controller {
     });
 
     event.currentTarget.classList.add("active");
+
+    const newUrl = event.currentTarget.getAttribute('href');
+    window.history.pushState({}, '', newUrl);
   }
 }
