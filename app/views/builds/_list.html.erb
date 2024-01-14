@@ -16,7 +16,7 @@
             <div>
               <div>
                 <div style="line-height: 1.3; margin-bottom: 6px; max-width: 400px;">
-                  <%= build.commit_message %>
+                  <%= build.commit_message.truncate(80) %>
                 </div>
 
                 <div style="margin-bottom: 6px">
