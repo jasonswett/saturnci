@@ -9,6 +9,8 @@ class BuildEvent < ApplicationRecord
     test_suite_started: 3,
     test_suite_finished: 4,
     pre_script_started: 5,
-    pre_script_finished: 6
+    pre_script_finished: 6,
+    image_build_started: 7,
+    image_build_finished: 8
   }
 end
