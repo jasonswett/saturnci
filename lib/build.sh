@@ -71,6 +71,13 @@ git checkout $COMMIT_HASH
 
 #--------------------------------------------------------------------------------
 
+echo "Running docker-compose build"
+api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"image_build_started"}'
+sudo docker-compose -f .saturnci/docker-compose.yml build
+api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"image_build_finished"}'
+#
+#--------------------------------------------------------------------------------
+
 echo "Running pre.sh"
 api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"pre_script_started"}'
 sudo chmod 755 .saturnci/pre.sh
