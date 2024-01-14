@@ -4,8 +4,6 @@
   </div>
 
   <div class="build-detail">
-    <%= turbo_frame_tag "build_frame", data: { turbo_action: "advance" } do %>
-      <%= render "builds/detail" %>
-    <% end %>
+    <%= render "builds/detail" %>
   </div>
 </div>
