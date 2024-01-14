@@ -71,11 +71,8 @@ git checkout $COMMIT_HASH
 
 #--------------------------------------------------------------------------------
 
-echo "Creating database"
-sudo docker-compose -f .saturnci/docker-compose.yml run app rake db:create
-api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"database_created"}'
-
-sudo docker-compose -f .saturnci/docker-compose.yml run app rake db:migrate
+echo "Running pre.sh"
+sudo docker-compose -f .saturnci/docker-compose.yml run app ./.saturnci/pre.sh
 
 #--------------------------------------------------------------------------------
 
