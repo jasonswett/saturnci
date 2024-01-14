@@ -72,7 +72,7 @@ git checkout $COMMIT_HASH
 #--------------------------------------------------------------------------------
 
 echo "Running pre.sh"
-chmod 755 .saturnci/pre.sh
+sudo chmod 755 .saturnci/pre.sh
 sudo docker-compose -f .saturnci/docker-compose.yml run app ./.saturnci/pre.sh
 
 #--------------------------------------------------------------------------------
