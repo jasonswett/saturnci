@@ -81,7 +81,7 @@ api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"image_build_finishe
 echo "Running pre.sh"
 api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"pre_script_started"}'
 sudo chmod 755 .saturnci/pre.sh
-sudo docker-compose -f .saturnci/docker-compose.yml run app ./.saturnci/pre.sh
+sudo docker-compose -f .saturnci/docker-compose.yml run saturn_test_app ./.saturnci/pre.sh
 api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"pre_script_finished"}'
 
 #--------------------------------------------------------------------------------
@@ -95,7 +95,7 @@ RSpec.configure do |config|
 end
 EOF
 
-script -c "sudo docker-compose -f .saturnci/docker-compose.yml run app bundle exec rspec --require ./example_status_persistence.rb --format=documentation" -f "$TEST_OUTPUT_FILENAME"
+script -c "sudo docker-compose -f .saturnci/docker-compose.yml run saturn_test_app bundle exec rspec --require ./example_status_persistence.rb --format=documentation" -f "$TEST_OUTPUT_FILENAME"
 
 #--------------------------------------------------------------------------------
 
