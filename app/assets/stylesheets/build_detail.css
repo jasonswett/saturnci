@@ -3,7 +3,10 @@
   min-height: 0;
   border: 2px solid #DDD;
   border-left: 1px solid #DDD;
+  display: flex;
+}
 
+.build-detail-inner {
   display: flex;
   flex-direction: column;
 }
