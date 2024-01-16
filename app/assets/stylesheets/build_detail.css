@@ -1,19 +1,21 @@
 .build-detail {
   flex: 1;
-  overflow-y: auto;
   min-height: 0;
   border: 2px solid #DDD;
   border-left: 1px solid #DDD;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.build-detail-content {
+  flex-grow: 1;
+  overflow-y: auto;
 }
 
 .build-detail-header {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  background-color: white;
+  color: #000;
+  background-color: #FFF;
 }
 
 .build-detail-header h2 {
