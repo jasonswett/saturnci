@@ -1,4 +1,7 @@
-<div class="build-detail-inner">
+<%= turbo_frame_tag "build_frame",
+  class: "build-detail-inner",
+  data: { turbo_action: "advance" } do %>
+
   <div class="build-detail-header">
     <div>
       <h2><%= @build.commit_message %></h2>
@@ -21,4 +24,4 @@
       <% end %>
     <% end %>
   </div>
-</div>
+<% end %>
