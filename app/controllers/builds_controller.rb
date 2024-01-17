@@ -26,19 +26,10 @@ class BuildsController < ApplicationController
 
   def system_logs
     @build = Build.find(params[:build_id])
+    @build_list = BuildList.new(@build, branch_name: params[:branch_name])
 
     respond_to do |format|
-      format.html do
-        @project = @build.project
-
-        @builds = @project.builds.order("created_at desc")
-
-        if params[:branch_name].present?
-          @builds = @builds.where(branch_name: params[:branch_name])
-        end
-
-        @branch_names = @project.builds.map(&:branch_name).uniq
-      end
+      format.html
 
       format.turbo_stream do
         render turbo_stream: turbo_stream.replace(
@@ -52,19 +43,10 @@ class BuildsController < ApplicationController
 
   def test_report
     @build = Build.find(params[:build_id])
+    @build_list = BuildList.new(@build, branch_name: params[:branch_name])
 
     respond_to do |format|
-      format.html do
-        @project = @build.project
-
-        @builds = @project.builds.order("created_at desc")
-
-        if params[:branch_name].present?
-          @builds = @builds.where(branch_name: params[:branch_name])
-        end
-
-        @branch_names = @project.builds.map(&:branch_name).uniq
-      end
+      format.html
 
       format.turbo_stream do
         render turbo_stream: turbo_stream.replace(
