@@ -1,13 +1,13 @@
-<% if @builds.any? %>
-  <%= form_tag(project_build_path(@project, @build), method: :get, class: "build-filter-form") do %>
-    <%= select_tag "branch_name", options_for_select(@branch_names), prompt: "Branch" %>
+<% if @build_list.builds.any? %>
+  <%= form_tag(project_build_path(@build.project, @build), method: :get, class: "build-filter-form") do %>
+    <%= select_tag "branch_name", options_for_select(@build_list.branch_names), prompt: "Branch" %>
     <%= submit_tag "Apply" %>
   <% end %>
 
   <ul data-controller="build-list">
-    <% @builds.each do |build| %>
+    <% @build_list.builds.each do |build| %>
       <li>
-        <%= link_to project_build_path(@project, build),
+        <%= link_to project_build_path(@build.project, build),
           data: { turbo_frame: "build", action: "click->build-list#makeActive", build_list_target: "link" },
           class: build == @build ? "active" : "",
           id: "build_link_#{build.id}" do %>
