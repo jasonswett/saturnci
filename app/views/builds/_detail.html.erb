@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <div style="display: flex">
+  <div class="build-detail-navigation">
     <%= link_to "System Logs", project_build_system_logs_path(@build.project, @build),
       data: { turbo_frame: "build", turbo_stream: "build_details" } %>
 
