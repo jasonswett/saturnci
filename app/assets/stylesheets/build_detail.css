@@ -1,19 +1,41 @@
 .build-detail {
   flex: 1;
-  overflow-y: auto;
   min-height: 0;
   border: 2px solid #DDD;
   border-left: 1px solid #DDD;
+  display: flex;
+}
+
+.build-detail-inner {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.build-detail-content {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.terminal-container {
+  width: 0;
+  min-width: 100%;
+  overflow: auto;
+}
+
+.terminal {
+  background-color: #000;
+  color: #FFF;
+  overflow: auto;
+  padding: 12px;
 }
 
 .build-detail-header {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
   justify-content: space-between;
-  position: sticky;
-  top: 0;
-  background-color: white;
+  color: #000;
+  background-color: #FFF;
 }
 
 .build-detail-header h2 {

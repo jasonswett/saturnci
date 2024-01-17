@@ -56,11 +56,5 @@ pre {
 .build-list {
   overflow-y: auto;
   min-height: 0;
-  width: 600px; /* Set the width to 800px */
-}
-
-.terminal {
-  background-color: #000;
-  color: #FFF;
-  padding: 12px;
+  width: 600px;
 }

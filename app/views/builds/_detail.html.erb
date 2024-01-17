@@ -1,4 +1,7 @@
-<%= turbo_frame_tag "build_frame", data: { turbo_action: "advance" } do %>
+<%= turbo_frame_tag "build_frame",
+  class: "build-detail-inner",
+  data: { turbo_action: "advance" } do %>
+
   <div class="build-detail-header">
     <div>
       <h2><%= @build.commit_message %></h2>
@@ -12,16 +15,18 @@
   </div>
 
   <div class="build-detail-content">
-    <% if @build.report.present? %>
-      <pre class="terminal"><%= BuildReport.new(@build.report).to_s.html_safe %></pre>
-    <% end %>
-
-    <% if @build.build_logs.any? %>
-      <% @build.build_logs.each do |build_log| %>
-        <pre class="terminal"><%= ansi_to_html(build_log.content) %></pre>
-        <br>
+    <div class="terminal-container">
+      <% if @build.report.present? %>
+        <pre class="terminal"><%= BuildReport.new(@build.report).to_s.html_safe %></pre>
       <% end %>
-    <% end %>
+
+      <% if @build.build_logs.any? %>
+        <% @build.build_logs.each do |build_log| %>
+          <pre class="terminal"><%= ansi_to_html(build_log.content) %></pre>
+          <br>
+        <% end %>
+      <% end %>
+    </div>
 
     <% if @build.build_events.any? %>
       <table border>
