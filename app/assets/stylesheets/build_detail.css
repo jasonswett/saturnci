@@ -4,6 +4,7 @@
   border: 2px solid #DDD;
   border-left: 1px solid #DDD;
   display: flex;
+  background-color: #000;
 }
 
 .build-detail-inner {
