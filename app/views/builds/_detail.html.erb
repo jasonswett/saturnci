@@ -11,36 +11,16 @@
     </div>
   </div>
 
+  <div style="display: flex">
+    <%= link_to "System Logs", project_build_system_logs_path(@build.project, @build),
+      data: { turbo_frame: "build", turbo_stream: "build_details" } %>
+
+    <%= link_to "Test Report", project_build_test_report_path(@build.project, @build),
+      data: { turbo_frame: "build", turbo_stream: "build_details" } %>
+  </div>
+
   <div class="build-detail-content">
-    <div class="terminal-container">
-      <% if @build.report.present? %>
-        <pre class="terminal"><%= BuildReport.new(@build.report).to_s.html_safe %></pre>
-      <% end %>
-
-      <% if @build.build_logs.any? %>
-        <% @build.build_logs.each do |build_log| %>
-          <pre class="terminal"><%= ansi_to_html(build_log.content) %></pre>
-          <br>
-        <% end %>
-      <% end %>
-    </div>
-
-    <% if @build.build_events.any? %>
-      <table border>
-        <tr>
-          <th>Time</th>
-          <th>Event</th>
-        </tr>
-
-        <% @build.build_events.each do |build_event| %>
-          <tr>
-            <td><%= build_event.created_at %></td>
-            <td><%= build_event.type %></td>
-          </tr>
-        <% end %>
-      </table>
-    <% else %>
-      Waiting for build machine
+    <%= turbo_frame_tag "build_details" do %>
     <% end %>
   </div>
 <% end %>
