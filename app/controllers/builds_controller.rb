@@ -25,7 +25,7 @@ class BuildsController < ApplicationController
 
       format.turbo_stream do
         render turbo_stream: turbo_stream.replace(
-          "build_frame",
+          "build",
           partial: "builds/detail",
           locals: { build: @build }
         )
