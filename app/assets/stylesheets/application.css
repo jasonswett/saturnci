@@ -58,10 +58,3 @@ pre {
   min-height: 0;
   width: 600px;
 }
-
-.terminal {
-  background-color: #000;
-  color: #FFF;
-  padding: 12px;
-  flex: 1;
-}

@@ -17,8 +17,8 @@
   <div class="build-detail-content">
     <% if @build.build_logs.any? %>
       <% @build.build_logs.each do |build_log| %>
-        <div class="terminal">
-          <%= ansi_to_html(build_log.content) %>
+        <div class="terminal-container">
+          <pre class="terminal"><%= ansi_to_html(build_log.content) %></pre>
         </div>
         <br>
       <% end %>
