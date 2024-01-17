@@ -1,0 +1,12 @@
+.build-detail-navigation {
+  display: flex;
+  padding: 0 8px;
+  background-color: #DDD;
+}
+
+.build-detail-navigation a {
+  display: block;
+  padding: 6px 4px;
+  text-decoration: none;
+  color: #000;
+}
