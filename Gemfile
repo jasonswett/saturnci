@@ -58,7 +58,8 @@ gem "paranoia"
 
 gem "audited"
 gem "devise"
-gem 'droplet_kit'
+gem "droplet_kit"
+gem "view_component"
 
 # For GitHub authentication
 gem "octokit", require: false
