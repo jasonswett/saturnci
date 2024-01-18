@@ -1,5 +1,5 @@
 class BuildsController < ApplicationController
-  DEFAULT_TAB = "test_report"
+  DEFAULT_TAB = "builds/test_report"
 
   def create
     @project = Project.find(params[:project_id])
@@ -18,14 +18,14 @@ class BuildsController < ApplicationController
   def system_logs
     @build = Build.find(params[:build_id])
     @build_list = BuildList.new(@build, branch_name: params[:branch_name])
-    @partial = "system_logs"
+    @partial = "builds/system_logs"
     render "show"
   end
 
   def test_report
     @build = Build.find(params[:build_id])
     @build_list = BuildList.new(@build, branch_name: params[:branch_name])
-    @partial = "test_report"
+    @partial = "builds/test_report"
     render "show"
   end
 

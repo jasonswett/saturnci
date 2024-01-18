@@ -11,19 +11,15 @@
     </div>
   </div>
 
-  <%= turbo_frame_tag "build_details", data: { turbo_action: "advance" } do %>
-    <div class="build-navigation">
-      <%= link_to "System Logs", project_build_system_logs_path(@build.project, @build),
-        class: @partial == "system_logs" ? "active" : "",
-        data: { turbo_frame: "build_details" } %>
+  <div class="build-navigation">
+    <%= link_to "System Logs", project_build_system_logs_path(@build.project, @build),
+      data: { turbo_frame: "build_details" } %>
 
-      <%= link_to "Test Report", project_build_test_report_path(@build.project, @build),
-        class: @partial == "test_report" ? "active" : "",
-        data: { turbo_frame: "build_details" } %>
-    </div>
+    <%= link_to "Test Report", project_build_test_report_path(@build.project, @build),
+      data: { turbo_frame: "build_details" } %>
+  </div>
 
-    <div class="build-content">
-      <%= render @partial %>
-    </div>
-  <% end %>
+  <div class="build-content">
+    <%= render @partial %>
+  </div>
 <% end %>
