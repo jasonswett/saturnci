@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       resources :builds, only: [] do
         resources :build_events, only: :create
         resources :build_reports, only: :create
+        resource :test_output, only: :create
         resources :build_logs, only: :create
         resource :build_machine, only: :destroy
       end
