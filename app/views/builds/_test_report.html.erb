@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "build_details" do %>
+<%= turbo_frame_tag "build_details", data: { turbo_action: "advance" } do %>
   <div class="terminal-container">
     <% if @build.report.present? %>
       <pre class="terminal"><%= BuildReport.new(@build.report).to_s.html_safe %></pre>

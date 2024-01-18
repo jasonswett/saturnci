@@ -13,13 +13,13 @@
 
   <div class="build-navigation">
     <%= link_to "System Logs", project_build_system_logs_path(@build.project, @build),
-      data: { turbo_frame: "build", turbo_stream: "build_details" } %>
+      data: { turbo_frame: "build_details" } %>
 
     <%= link_to "Test Report", project_build_test_report_path(@build.project, @build),
-      data: { turbo_frame: "build", turbo_stream: "build_details" } %>
+      data: { turbo_frame: "build_details" } %>
   </div>
 
   <div class="build-content">
-    <%= render "builds/test_report" %>
+    <%= render @partial %>
   </div>
 <% end %>

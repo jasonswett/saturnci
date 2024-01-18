@@ -1,4 +1,6 @@
 class BuildsController < ApplicationController
+  DEFAULT_TAB = "builds/test_report"
+
   def create
     @project = Project.find(params[:project_id])
     build = Build.new(project: @project)
@@ -8,15 +10,23 @@ class BuildsController < ApplicationController
   end
 
   def show
-    render_turbo_stream Build.find(params[:id]), "builds/show"
+    @build = Build.find(params[:id])
+    @build_list = BuildList.new(@build, branch_name: params[:branch_name])
+    @partial = DEFAULT_TAB
   end
 
   def system_logs
-    render_turbo_stream Build.find(params[:build_id]), "builds/system_logs"
+    @build = Build.find(params[:build_id])
+    @build_list = BuildList.new(@build, branch_name: params[:branch_name])
+    @partial = "builds/system_logs"
+    render "show"
   end
 
   def test_report
-    render_turbo_stream Build.find(params[:build_id]), "builds/test_report"
+    @build = Build.find(params[:build_id])
+    @build_list = BuildList.new(@build, branch_name: params[:branch_name])
+    @partial = "builds/test_report"
+    render "show"
   end
 
   def destroy
@@ -39,19 +49,5 @@ class BuildsController < ApplicationController
   private
 
   def render_turbo_stream(build, partial)
-    @build = build
-    @build_list = BuildList.new(@build, branch_name: params[:branch_name])
-
-    respond_to do |format|
-      format.html
-
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.replace(
-          "build_details",
-          partial: partial,
-          locals: { build: @build }
-        )
-      end
-    end
   end
 end
