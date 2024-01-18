@@ -110,7 +110,7 @@ send_content_to_api "builds/$BUILD_ID/build_logs" "text/plain" "/var/log/syslog"
 #--------------------------------------------------------------------------------
 
 echo "Sending test output"
-send_content_to_api "builds/$BUILD_ID/build_logs" "text/plain" "$TEST_OUTPUT_FILENAME"
+send_content_to_api "builds/$BUILD_ID/test_output" "text/plain" "$TEST_OUTPUT_FILENAME"
 
 #--------------------------------------------------------------------------------
 

@@ -1,3 +1,7 @@
 <div class="terminal-container">
-  <pre class="terminal">Nothing here yet</pre>
+  <% if @build.test_output.present? %>
+    <pre class="terminal"><%= ansi_to_html(@build.test_output) %></pre>
+  <% else %>
+    <pre class="terminal">Nothing here yet</pre>
+  <% end %>
 </div>
