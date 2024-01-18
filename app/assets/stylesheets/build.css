@@ -13,7 +13,14 @@
   flex-direction: column;
 }
 
-.build-content {
+.build-details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.build-details-content {
   flex-grow: 1;
   overflow-y: auto;
 }
