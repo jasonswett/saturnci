@@ -20,6 +20,10 @@
       <%= link_to "Test Report", project_build_test_report_path(@build.project, @build),
         class: @partial == "test_report" ? "active" : "",
         data: { turbo_frame: "build_details" } %>
+
+      <%= link_to "Test Output", project_build_test_output_path(@build.project, @build),
+        class: @partial == "test_output" ? "active" : "",
+        data: { turbo_frame: "build_details" } %>
     </div>
 
     <div class="build-content">
