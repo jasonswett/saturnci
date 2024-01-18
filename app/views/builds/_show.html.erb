@@ -1,17 +1,17 @@
-<%= turbo_frame_tag "build", class: "build-detail-inner", data: { turbo_action: "advance" } do %>
-  <div class="build-detail-header">
+<%= turbo_frame_tag "build", class: "build-inner", data: { turbo_action: "advance" } do %>
+  <div class="build-header">
     <div>
       <h2><%= @build.commit_message %></h2>
       <h3>Commit <code><%= abbreviated_hash(@build.commit_hash) %></code></h3>
     </div>
 
-    <div class="build-detail-action-buttons">
+    <div class="build-action-buttons">
       <%= button_to "Rerun", rebuilds_path(build_id: @build.id), method: :post, data: { turbo: false } %>
       <%= button_to "Delete", project_build_path(id: @build.id), method: :delete, data: { turbo: false } %>
     </div>
   </div>
 
-  <div class="build-detail-navigation">
+  <div class="build-navigation">
     <%= link_to "System Logs", project_build_system_logs_path(@build.project, @build),
       data: { turbo_frame: "build", turbo_stream: "build_details" } %>
 
@@ -19,7 +19,7 @@
       data: { turbo_frame: "build", turbo_stream: "build_details" } %>
   </div>
 
-  <div class="build-detail-content">
+  <div class="build-content">
     <%= render "builds/test_report" %>
   </div>
 <% end %>

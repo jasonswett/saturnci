@@ -1,10 +1,10 @@
-.build-detail-navigation {
+.build-navigation {
   display: flex;
   padding: 0 8px;
   background-color: #DDD;
 }
 
-.build-detail-navigation a {
+.build-navigation a {
   display: block;
   padding: 6px 4px;
   text-decoration: none;
