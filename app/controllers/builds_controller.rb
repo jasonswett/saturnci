@@ -8,7 +8,7 @@ class BuildsController < ApplicationController
   end
 
   def show
-    render_turbo_stream Build.find(params[:id]), "builds/detail"
+    render_turbo_stream Build.find(params[:id]), "builds/show"
   end
 
   def system_logs
