@@ -405,7 +405,7 @@ DEPENDENCIES
   rspec-rails
   sprockets-rails
   stimulus-rails
-  turbo-rails (~> 1.4)
+  turbo-rails (~> 1.5)
   tzinfo-data
   web-console
   webdrivers
