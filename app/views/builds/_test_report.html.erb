@@ -1,5 +1,5 @@
-<div class="terminal-container">
-  <% if @build.report.present? %>
-    <pre class="terminal"><%= BuildReport.new(@build.report).to_s.html_safe %></pre>
-  <% end %>
-</div>
+    <div class="terminal-container">
+      <% if @build.report.present? %>
+        <pre class="terminal"><%= BuildReport.new(@build.report).to_s.html_safe %></pre>
+      <% end %>
+    </div>
