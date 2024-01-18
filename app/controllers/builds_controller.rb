@@ -29,6 +29,13 @@ class BuildsController < ApplicationController
     render "show"
   end
 
+  def test_output
+    @build = Build.find(params[:build_id])
+    @build_list = BuildList.new(@build, branch_name: params[:branch_name])
+    @partial = "test_output"
+    render "show"
+  end
+
   def destroy
     build = Build.find(params[:id])
 
