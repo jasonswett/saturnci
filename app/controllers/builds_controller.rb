@@ -1,5 +1,5 @@
 class BuildsController < ApplicationController
-  DEFAULT_TAB = "test_report"
+  DEFAULT_TAB = "test_output"
 
   def create
     @project = Project.find(params[:project_id])
