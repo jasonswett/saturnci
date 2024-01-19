@@ -10,7 +10,7 @@ class GitHubToken
   def self.token(installation_id)
     # GITHUB_PRIVATE_PEM comes from the private key which can be generated at
     # https://github.com/settings/apps/saturnci-development
-    private_pem = ENV["GITHUB_PRIVATE_PEM"]
+    private_pem = Rails.configuration.github_private_pem
     private_key = OpenSSL::PKey::RSA.new(private_pem)
 
     payload = {

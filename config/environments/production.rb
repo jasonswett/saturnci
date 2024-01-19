@@ -91,6 +91,8 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  config.github_private_pem = ENV["GITHUB_PRIVATE_PEM"]
+
   config.hosts << "localhost"
   config.hosts << IPAddr.new("10.0.0.0/8")
   config.hosts << IPAddr.new("172.16.0.0/12")

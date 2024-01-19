@@ -31,3 +31,4 @@
 /config/master.key
 
 .env
+.github_private_key.pem
