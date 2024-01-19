@@ -2,6 +2,8 @@ require "jwt"
 require "octokit"
 
 class GitHubToken
+  class MissingGitHubPrivateKeyError < StandardError; end
+
   def self.generate(installation_id)
     raise "Installation ID is missing" if installation_id.blank?
     token(installation_id)
@@ -11,6 +13,8 @@ class GitHubToken
     # GITHUB_PRIVATE_PEM comes from the private key which can be generated at
     # https://github.com/settings/apps/saturnci-development
     private_pem = ENV["GITHUB_PRIVATE_PEM"]
+    raise MissingGitHubPrivateKeyError unless private_pem.present?
+
     private_key = OpenSSL::PKey::RSA.new(private_pem)
 
     payload = {
