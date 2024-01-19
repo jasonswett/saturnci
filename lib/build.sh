@@ -10,7 +10,7 @@ function api_request() {
     local path=$2
     local data=$3
 
-    curl -u $SATURNCI_API_USERNAME:$SATURNCI_API_PASSWORD \
+    curl -f -u $SATURNCI_API_USERNAME:$SATURNCI_API_PASSWORD \
         -X $method \
         -H "Content-Type: application/json" \
         -d "$data" \
@@ -22,7 +22,7 @@ function send_content_to_api() {
     local content_type=$2
     local file_path=$3
 
-    curl -u $SATURNCI_API_USERNAME:$SATURNCI_API_PASSWORD \
+    curl -f -u $SATURNCI_API_USERNAME:$SATURNCI_API_PASSWORD \
         -X POST \
         -H "Content-Type: $content_type" \
         --data-binary "@$file_path" "$HOST/api/v1/$api_path"
