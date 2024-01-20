@@ -70,7 +70,7 @@ gem "aws-sdk-secretsmanager", require: false
 
 group :development, :test do
   gem "capybara", ">= 3.37.1"
-  gem "webdrivers"
+  gem 'selenium-webdriver', '~> 4.4'
   gem "factory_bot_rails"
   gem "faker"
   gem "rspec-rails"
