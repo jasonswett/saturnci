@@ -48,7 +48,7 @@
 
 .build-header h2 {
   color: #444;
-  margin: 0 0 4px 0;
+  margin: 0 0 2px 0;
   padding: 0;
 }
 
@@ -58,7 +58,7 @@
 }
 
 .build-header {
-  padding: 8px 12px 18px 12px;
+  padding: 12px;
 }
 
 .build-action-buttons {
