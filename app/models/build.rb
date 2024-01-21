@@ -1,6 +1,7 @@
 class Build < ApplicationRecord
   NUMBER_OF_PARALLEL_JOBS = 2
   belongs_to :project
+  has_many :jobs, dependent: :destroy
   has_many :build_events, dependent: :destroy
   has_many :build_logs, dependent: :destroy
   alias_attribute :started_at, :created_at
