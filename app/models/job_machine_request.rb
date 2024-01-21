@@ -19,8 +19,8 @@ class JobMachineRequest
       ssh_keys: []
     )
 
-    #droplet_request = client.droplets.create(droplet)
-    #@job.update!(job_machine_id: droplet_request.id)
+    droplet_request = client.droplets.create(droplet)
+    @job.update!(job_machine_id: droplet_request.id)
   end
 
   private

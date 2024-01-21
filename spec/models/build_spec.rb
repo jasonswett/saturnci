@@ -1,12 +1,17 @@
 require "rails_helper"
 
 RSpec.describe Build, type: :model do
-  let!(:build) { create(:build) }
+  let!(:job) { create(:job) }
+  let!(:build) { job.build }
 
   describe "#start!" do
-    let!(:fake_build_machine_request) { double("BuildMachineRequest") }
-
     before do
+      fake_job_machine_request = double("JobMachineRequest")
+      allow(job).to receive(:job_machine_request).and_return(fake_job_machine_request)
+      allow(fake_job_machine_request).to receive(:create!)
+
+      fake_build_machine_request = double("BuildMachineRequest")
+      allow(build).to receive(:jobs_to_use).and_return([job])
       allow(build).to receive(:build_machine_request).and_return(fake_build_machine_request)
       allow(fake_build_machine_request).to receive(:create!)
     end

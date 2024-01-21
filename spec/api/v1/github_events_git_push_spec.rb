@@ -11,7 +11,17 @@ RSpec.describe "GitHub Events", type: :request do
   end
 
   before do
+    build_machine_request_stub = instance_double("BuildMachineRequest").tap do |stub|
+      allow(stub).to receive(:create!)
+    end
+
     allow(BuildMachineRequest).to receive(:new).and_return(build_machine_request_stub)
+
+    job_machine_request_stub = instance_double("JobMachineRequest").tap do |stub|
+      allow(stub).to receive(:create!)
+    end
+
+    allow(JobMachineRequest).to receive(:new).and_return(job_machine_request_stub)
   end
 
   describe "git push event" do
@@ -39,12 +49,6 @@ RSpec.describe "GitHub Events", type: :request do
 
     let(:headers) do
       api_authorization_headers.merge('CONTENT_TYPE' => 'application/json')
-    end
-
-    let(:build_machine_request_stub) do
-      instance_double("BuildMachineRequest").tap do |stub|
-        allow(stub).to receive(:create!)
-      end
     end
 
     it "returns 200" do

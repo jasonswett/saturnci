@@ -12,9 +12,16 @@ class Build < ApplicationRecord
       build_events.create!(type: :build_machine_requested)
       build_machine_request.create!
 
-      NUMBER_OF_PARALLEL_JOBS.times do
-        Job.create!(build: self).start!
+      jobs_to_use.each do |job|
+        job.save!
+        job.start!
       end
+    end
+  end
+
+  def jobs_to_use
+    NUMBER_OF_PARALLEL_JOBS.times.map do
+      Job.new(build: self)
     end
   end
 
