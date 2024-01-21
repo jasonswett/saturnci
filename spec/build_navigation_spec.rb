@@ -31,6 +31,6 @@ describe "Build navigation", type: :system do
   end
 
   def pane_heading(build)
-    "Commit #{build.commit_hash[0..7]}"
+    "Commit: #{build.commit_hash[0..7]}"
   end
 end
