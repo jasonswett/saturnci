@@ -3,12 +3,18 @@ class Build < ApplicationRecord
   has_many :build_events, dependent: :destroy
   has_many :build_logs, dependent: :destroy
   alias_attribute :started_at, :created_at
+  NUMBER_OF_PARALLEL_JOBS = 2
 
   def start!
     transaction do
       save!
+
       build_events.create!(type: :build_machine_requested)
       build_machine_request.create!
+
+      NUMBER_OF_PARALLEL_JOBS.times do
+        Job.create!(build: self).start!
+      end
     end
   end
 

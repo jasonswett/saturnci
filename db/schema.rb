@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_14_140606) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_21_185627) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,6 +43,27 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_14_140606) do
     t.string "build_machine_id"
     t.text "test_output"
     t.index ["project_id"], name: "index_builds_on_project_id"
+  end
+
+  create_table "job_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "job_id", null: false
+    t.integer "type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_id", "type"], name: "index_job_events_on_job_id_and_type", unique: true
+    t.index ["job_id"], name: "index_job_events_on_job_id"
+  end
+
+  create_table "jobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "build_id", null: false
+    t.string "job_machine_id"
+    t.text "test_output"
+    t.text "test_report"
+    t.text "system_logs"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["build_id"], name: "index_jobs_on_build_id"
+    t.index ["job_machine_id"], name: "index_jobs_on_job_machine_id", unique: true
   end
 
   create_table "projects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -89,6 +110,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_14_140606) do
   add_foreign_key "build_events", "builds"
   add_foreign_key "build_logs", "builds"
   add_foreign_key "builds", "projects"
+  add_foreign_key "job_events", "jobs"
+  add_foreign_key "jobs", "builds"
   add_foreign_key "projects", "saturn_installations"
   add_foreign_key "projects", "users"
   add_foreign_key "saturn_installations", "users"
