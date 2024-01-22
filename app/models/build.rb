@@ -1,5 +1,5 @@
 class Build < ApplicationRecord
-  NUMBER_OF_PARALLEL_JOBS = 2
+  NUMBER_OF_CONCURRENT_JOBS = 2
   belongs_to :project
   has_many :jobs, dependent: :destroy
   has_many :build_events, dependent: :destroy
@@ -28,7 +28,7 @@ class Build < ApplicationRecord
   end
 
   def jobs_to_use
-    NUMBER_OF_PARALLEL_JOBS.times.map do |i|
+    NUMBER_OF_CONCURRENT_JOBS.times.map do |i|
       Job.new(build: self, order_index: i + 1)
     end
   end

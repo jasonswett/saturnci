@@ -96,8 +96,8 @@ end
 EOF
 
 TEST_FILES=$(find spec -name '*_spec.rb')
-TEST_GROUP=$(expr ${JOB_ORDER_INDEX} % ${NUMBER_OF_PARALLEL_JOBS})
-SELECTED_TESTS=$(echo "${TEST_FILES}" | awk "NR % ${NUMBER_OF_PARALLEL_JOBS} == ${TEST_GROUP}")
+TEST_GROUP=$(expr ${JOB_ORDER_INDEX} % ${NUMBER_OF_CONCURRENT_JOBS})
+SELECTED_TESTS=$(echo "${TEST_FILES}" | awk "NR % ${NUMBER_OF_CONCURRENT_JOBS} == ${TEST_GROUP}")
 echo $SELECTED_TESTS
 
 script -c "sudo docker-compose -f .saturnci/docker-compose.yml run saturn_test_app \
