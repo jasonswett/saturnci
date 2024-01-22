@@ -13,4 +13,9 @@ class Job < ApplicationRecord
       github_installation_id: build.project.saturn_installation.github_installation_id
     )
   end
+
+  def delete_job_machine
+    client = DropletKit::Client.new(access_token: ENV['DIGITALOCEAN_ACCESS_TOKEN'])
+    client.droplets.delete(id: job_machine_id)
+  end
 end

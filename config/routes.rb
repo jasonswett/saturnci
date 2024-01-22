@@ -26,6 +26,10 @@ Rails.application.routes.draw do
         resource :build_machine, only: :destroy
       end
 
+      resources :jobs, only: [] do
+        resource :job_machine, only: :destroy
+      end
+
       resources :github_events
       resources :github_tokens, only: :create
     end
