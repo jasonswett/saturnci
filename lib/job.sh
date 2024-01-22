@@ -115,7 +115,7 @@ send_content_to_api "jobs/$JOB_ID/test_output" "text/plain" "$TEST_OUTPUT_FILENA
 #--------------------------------------------------------------------------------
 
 echo "Sending report"
-send_content_to_api "jobs/$JOB_ID/job_reports" "text/plain" "$TEST_RESULTS_FILENAME"
+send_content_to_api "jobs/$JOB_ID/test_reports" "text/plain" "$TEST_RESULTS_FILENAME"
 
 #--------------------------------------------------------------------------------
 
