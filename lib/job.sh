@@ -95,7 +95,11 @@ RSpec.configure do |config|
 end
 EOF
 
-script -c "sudo docker-compose -f .saturnci/docker-compose.yml run saturn_test_app bundle exec rspec --require ./example_status_persistence.rb --format=documentation" -f "$TEST_OUTPUT_FILENAME"
+script -c "sudo docker-compose -f .saturnci/docker-compose.yml run saturn_test_app \
+  bundle exec rspec --require ./example_status_persistence.rb \
+  --format=documentation --order rand:$RSPEC_SEED \
+  --example \"/$(expr ${JOB_ORDER_INDEX} % 2)/\"" \
+  -f "$TEST_OUTPUT_FILENAME"
 
 #--------------------------------------------------------------------------------
 
