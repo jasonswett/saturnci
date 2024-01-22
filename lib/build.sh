@@ -104,7 +104,7 @@ api_request "POST" "builds/$BUILD_ID/build_events" '{"type":"test_suite_finished
 
 #--------------------------------------------------------------------------------
 
-echo "Sending general logs"
+echo "Sending system logs"
 send_content_to_api "builds/$BUILD_ID/build_logs" "text/plain" "/var/log/syslog"
 
 #--------------------------------------------------------------------------------

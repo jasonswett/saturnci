@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
       resources :jobs, only: [] do
         resources :job_events, only: :create
+        resources :system_logs, only: :create
         resource :job_machine, only: :destroy
       end
 
