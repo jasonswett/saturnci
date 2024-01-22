@@ -102,7 +102,7 @@ echo $SELECTED_TESTS
 
 script -c "sudo docker-compose -f .saturnci/docker-compose.yml run saturn_test_app \
   bundle exec rspec --require ./example_status_persistence.rb \
-  --format=documentation --order rand:$RSPEC_SEED $SELECTED_TESTS" \
+  --format=documentation --order rand:$RSPEC_SEED $(echo $SELECTED_TESTS)" \
   -f "$TEST_OUTPUT_FILENAME"
 
 #--------------------------------------------------------------------------------
