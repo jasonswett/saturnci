@@ -10,6 +10,8 @@ class Build < ApplicationRecord
   end
 
   def start!
+    return unless project.active
+
     transaction do
       save!
 
