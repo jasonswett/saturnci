@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.describe Build, type: :model do
-  let!(:job) { create(:job) }
-  let!(:build) { job.build }
-
   describe "#start!" do
+    let!(:job) { create(:job) }
+    let!(:build) { job.build }
+
     before do
       fake_job_machine_request = double("JobMachineRequest")
       allow(job).to receive(:job_machine_request).and_return(fake_job_machine_request)
@@ -23,53 +23,50 @@ RSpec.describe Build, type: :model do
   end
 
   describe "#status" do
-    context "there's no report yet" do
-      it "returns 'Running'" do
-        expect(build.status).to eq("Running")
-      end
-    end
+    let!(:build) { create(:build) }
 
-    context "report is empty" do
-      it "returns 'Running'" do
-        build.update!(report: "")
-        expect(build.status).to eq("Running")
-      end
-    end
+    context "all jobs have passed" do
+      it "is passed" do
+        job_1 = create(:job, build: build)
+        job_2 = create(:job, build: build)
+        allow(job_1).to receive(:status).and_return("Passed")
+        allow(job_2).to receive(:status).and_return("Passed")
+        allow(build).to receive(:jobs).and_return([job_1, job_2])
 
-    context "report is success" do
-      it "returns 'Passed'" do
-        build.update!(report: success)
         expect(build.status).to eq("Passed")
       end
     end
 
-    context "report is failure" do
-      it "returns 'Failed'" do
-        build.update!(report: failure)
+    context "any jobs have failed" do
+      it "is failed" do
+        job_1 = create(:job, build: build)
+        job_2 = create(:job, build: build)
+        allow(job_1).to receive(:status).and_return("Passed")
+        allow(job_2).to receive(:status).and_return("Failed")
+        allow(build).to receive(:jobs).and_return([job_1, job_2])
+
         expect(build.status).to eq("Failed")
       end
     end
-  end
 
-  def success
-    <<~RESULTS
-example_id                                                 | status | run_time        |
----------------------------------------------------------- | ------ | --------------- |
-./spec/models/github_token_spec.rb[1:2:1]                  | passed | 0.00288 seconds |
-./spec/rebuilds_spec.rb[1:1:1]                             | passed | 0.04704 seconds |
-./spec/sign_up_spec.rb[1:1:1]                              | passed | 0.1331 seconds  |
-./spec/test_spec.rb[1:1]                                   | passed | 0.00798 seconds |
-    RESULTS
-  end
+    context "some jobs are running, no jobs are failed" do
+      it "is running" do
+        job_1 = create(:job, build: build)
+        job_2 = create(:job, build: build)
+        allow(job_1).to receive(:status).and_return("Passed")
+        allow(job_2).to receive(:status).and_return("Running")
+        allow(build).to receive(:jobs).and_return([job_1, job_2])
 
-  def failure
-    <<~RESULTS
-example_id                                                 | status | run_time        |
----------------------------------------------------------- | ------ | --------------- |
-./spec/models/github_token_spec.rb[1:2:1]                  | passed | 0.00288 seconds |
-./spec/rebuilds_spec.rb[1:1:1]                             | passed | 0.04704 seconds |
-./spec/sign_up_spec.rb[1:1:1]                              | passed | 0.1331 seconds  |
-./spec/test_spec.rb[1:1]                                   | failed | 0.00798 seconds |
-    RESULTS
+        expect(build.status).to eq("Running")
+      end
+    end
+
+    context "there are no jobs" do
+      it "is running" do
+        allow(build).to receive(:jobs).and_return([])
+
+        expect(build.status).to eq("Running")
+      end
+    end
   end
 end

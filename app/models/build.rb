@@ -17,16 +17,17 @@ class Build < ApplicationRecord
     end
   end
 
+  def status
+    return "Running" unless jobs.any?
+    return "Failed" if jobs.any? { |job| job.status == "Failed" }
+    return "Passed" if jobs.all? { |job| job.status == "Passed" }
+    "Running"
+  end
+
   def jobs_to_use
     NUMBER_OF_PARALLEL_JOBS.times.map do
       Job.new(build: self)
     end
-  end
-
-  def status
-    return "Running" if report.to_s.length == 0
-    return "Passed" if !report.include?("failed")
-    "Failed"
   end
 
   def duration_formatted

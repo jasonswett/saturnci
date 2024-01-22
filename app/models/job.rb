@@ -7,6 +7,12 @@ class Job < ApplicationRecord
     job_machine_request.create!
   end
 
+  def status
+    return "Running" if test_report.to_s.length == 0
+    return "Passed" if !test_report.include?("failed")
+    "Failed"
+  end
+
   def job_machine_request
     JobMachineRequest.new(
       job: self,
