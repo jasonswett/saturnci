@@ -23,4 +23,12 @@ function send_content_to_api() {
         --data-binary "@$file_path" "$HOST/api/v1/$api_path"
 }
 
+#--------------------------------------------------------------------------------
+
+echo "Job machine ready"
+api_request "POST" "jobs/$JOB_ID/job_events" '{"type":"job_machine_ready"}'
+
+#--------------------------------------------------------------------------------
+
+echo "Deleting job machine"
 api_request "DELETE" "jobs/$JOB_ID/job_machine"
