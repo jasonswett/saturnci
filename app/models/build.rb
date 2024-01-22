@@ -10,9 +10,6 @@ class Build < ApplicationRecord
     transaction do
       save!
 
-      build_events.create!(type: :build_machine_requested)
-      build_machine_request.create!
-
       jobs_to_use.each do |job|
         job.save!
         job.start!

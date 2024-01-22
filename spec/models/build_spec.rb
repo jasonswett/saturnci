@@ -16,9 +16,9 @@ RSpec.describe Build, type: :model do
       allow(fake_build_machine_request).to receive(:create!)
     end
 
-    it "creates a new build_event with type build_machine_requested" do
+    it "creates a new job_event with type job_machine_requested" do
       expect { build.start! }
-        .to change { BuildEvent.where(type: "build_machine_requested").count }.by(1)
+        .to change { JobEvent.where(type: "job_machine_requested").count }.by(1)
     end
   end
 
