@@ -4,7 +4,6 @@ class Build < ApplicationRecord
   has_many :jobs, dependent: :destroy
   has_many :build_events, dependent: :destroy
   has_many :build_logs, dependent: :destroy
-  alias_attribute :started_at, :created_at
 
   after_initialize do
     self.seed ||= rand(10000)
@@ -42,8 +41,7 @@ class Build < ApplicationRecord
   end
 
   def duration
-    return unless ended_at.present?
-    ended_at - started_at
+    jobs.map(&:duration).max
   end
 
   def delete_job_machines
@@ -51,14 +49,6 @@ class Build < ApplicationRecord
   end
 
   private
-
-  def ended_at
-    test_suite_finished_event&.created_at
-  end
-
-  def test_suite_finished_event
-    build_events.test_suite_finished.first
-  end
 
   def build_machine_request
     BuildMachineRequest.new(
