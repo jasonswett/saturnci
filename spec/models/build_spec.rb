@@ -16,7 +16,7 @@ RSpec.describe Build, type: :model do
         allow(finished_job).to receive(:duration).and_return(5)
 
         unfinished_job = create(:job, build: build, order_index: 2)
-        allow(finished_job).to receive(:duration).and_return(nil)
+        allow(unfinished_job).to receive(:duration).and_return(nil)
 
         allow(build).to receive(:jobs).and_return([finished_job, unfinished_job])
       end
