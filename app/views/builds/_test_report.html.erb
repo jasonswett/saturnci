@@ -1,7 +1,9 @@
 <div class="terminal-container">
-  <% if @build.report.present? %>
-    <pre class="terminal"><%= BuildReport.new(@build.report).to_s.html_safe %></pre>
-  <% else %>
-    <pre class="terminal">Nothing here yet</pre>
+  <%= @build.jobs.each do |job| %>
+    <% if job.test_report.present? %>
+      <pre class="terminal"><%= BuildReport.new(job.test_report).to_s.html_safe %></pre>
+    <% else %>
+      <pre class="terminal">Nothing here yet</pre>
+    <% end %>
   <% end %>
 </div>
