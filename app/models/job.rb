@@ -1,6 +1,7 @@
 class Job < ApplicationRecord
   belongs_to :build
   has_many :job_events, dependent: :destroy
+  alias_attribute :started_at, :created_at
 
   def start!
     job_events.create!(type: :job_machine_requested)
@@ -23,5 +24,20 @@ class Job < ApplicationRecord
   def delete_job_machine
     client = DropletKit::Client.new(access_token: ENV['DIGITALOCEAN_ACCESS_TOKEN'])
     client.droplets.delete(id: job_machine_id)
+  end
+
+  def duration
+    return unless ended_at.present?
+    ended_at - started_at
+  end
+
+  private
+
+  def ended_at
+    test_suite_finished_event&.created_at
+  end
+
+  def test_suite_finished_event
+    job_events.test_suite_finished.first
   end
 end

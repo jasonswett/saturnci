@@ -95,7 +95,15 @@ RSpec.configure do |config|
 end
 EOF
 
-script -c "sudo docker-compose -f .saturnci/docker-compose.yml run saturn_test_app bundle exec rspec --require ./example_status_persistence.rb --format=documentation" -f "$TEST_OUTPUT_FILENAME"
+TEST_FILES=$(find spec -name '*_spec.rb')
+TEST_GROUP=$(expr ${JOB_ORDER_INDEX} % ${NUMBER_OF_CONCURRENT_JOBS})
+SELECTED_TESTS=$(echo "${TEST_FILES}" | awk "NR % ${NUMBER_OF_CONCURRENT_JOBS} == ${TEST_GROUP}")
+echo $SELECTED_TESTS
+
+script -c "sudo docker-compose -f .saturnci/docker-compose.yml run saturn_test_app \
+  bundle exec rspec --require ./example_status_persistence.rb \
+  --format=documentation --order rand:$RSPEC_SEED $(echo $SELECTED_TESTS)" \
+  -f "$TEST_OUTPUT_FILENAME"
 
 #--------------------------------------------------------------------------------
 

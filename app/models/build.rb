@@ -1,10 +1,13 @@
 class Build < ApplicationRecord
-  NUMBER_OF_PARALLEL_JOBS = 1
+  NUMBER_OF_CONCURRENT_JOBS = 2
   belongs_to :project
   has_many :jobs, dependent: :destroy
   has_many :build_events, dependent: :destroy
   has_many :build_logs, dependent: :destroy
-  alias_attribute :started_at, :created_at
+
+  after_initialize do
+    self.seed ||= rand(10000)
+  end
 
   def start!
     transaction do
@@ -25,7 +28,7 @@ class Build < ApplicationRecord
   end
 
   def jobs_to_use
-    NUMBER_OF_PARALLEL_JOBS.times.map do |i|
+    NUMBER_OF_CONCURRENT_JOBS.times.map do |i|
       Job.new(build: self, order_index: i + 1)
     end
   end
@@ -38,8 +41,7 @@ class Build < ApplicationRecord
   end
 
   def duration
-    return unless ended_at.present?
-    ended_at - started_at
+    jobs.map(&:duration).max
   end
 
   def delete_job_machines
@@ -47,14 +49,6 @@ class Build < ApplicationRecord
   end
 
   private
-
-  def ended_at
-    test_suite_finished_event&.created_at
-  end
-
-  def test_suite_finished_event
-    build_events.test_suite_finished.first
-  end
 
   def build_machine_request
     BuildMachineRequest.new(

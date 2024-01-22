@@ -1,5 +1,5 @@
 <div class="terminal-container">
-  <%= @build.jobs.each do |job| %>
+  <% @build.jobs.each do |job| %>
     <% if job.test_output.present? %>
       <pre class="terminal"><%= ansi_to_html(job.test_output) %></pre>
     <% else %>
