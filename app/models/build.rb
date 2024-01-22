@@ -6,6 +6,10 @@ class Build < ApplicationRecord
   has_many :build_logs, dependent: :destroy
   alias_attribute :started_at, :created_at
 
+  after_initialize do
+    self.seed ||= rand(10000)
+  end
+
   def start!
     transaction do
       save!

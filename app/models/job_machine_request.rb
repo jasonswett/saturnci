@@ -38,7 +38,7 @@ class JobMachineRequest
       JOB_ID=#{@job.id}
       JOB_ORDER_INDEX=#{@job.order_index}
       COMMIT_HASH=#{@job.build.commit_hash}
-      RSPEC_SEED=#{rand(10000)}
+      RSPEC_SEED=#{@job.build.seed}
       GITHUB_INSTALLATION_ID=#{@github_installation_id}
       GITHUB_REPO_FULL_NAME=#{@job.build.project.github_repo_full_name}
       SATURNCI_API_USERNAME=#{ENV["SATURNCI_API_USERNAME"]}
