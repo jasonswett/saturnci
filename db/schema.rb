@@ -63,9 +63,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_22_122512) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "order_index", null: false
+    t.index ["build_id", "order_index"], name: "index_jobs_on_build_id_and_order_index", unique: true
     t.index ["build_id"], name: "index_jobs_on_build_id"
     t.index ["job_machine_id"], name: "index_jobs_on_job_machine_id", unique: true
-    t.index ["order_index"], name: "index_jobs_on_order_index", unique: true
   end
 
   create_table "projects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

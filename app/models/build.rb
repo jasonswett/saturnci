@@ -25,8 +25,8 @@ class Build < ApplicationRecord
   end
 
   def jobs_to_use
-    NUMBER_OF_PARALLEL_JOBS.times.map do
-      Job.new(build: self)
+    NUMBER_OF_PARALLEL_JOBS.times.map do |i|
+      Job.new(build: self, order_index: i + 1)
     end
   end
 
