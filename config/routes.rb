@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       end
 
       resources :jobs, only: [] do
+        resources :job_events, only: :create
         resource :job_machine, only: :destroy
       end
 
