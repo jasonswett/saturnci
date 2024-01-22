@@ -45,6 +45,7 @@ class Build < ApplicationRecord
   end
 
   def delete_build_machine
+    jobs.each(&:delete_job_machine)
     client = DropletKit::Client.new(access_token: ENV['DIGITALOCEAN_ACCESS_TOKEN'])
     client.droplets.delete(id: build_machine_id)
   end
