@@ -18,14 +18,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :builds, only: [] do
-        resources :build_events, only: :create
-        resources :build_reports, only: :create
-        resource :test_output, only: :create
-        resources :build_logs, only: :create
-        resource :build_machine, only: :destroy
-      end
-
       resources :jobs, only: [] do
         resources :system_logs, only: :create
         resources :test_reports, only: :create
