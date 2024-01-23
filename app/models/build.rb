@@ -1,5 +1,5 @@
 class Build < ApplicationRecord
-  NUMBER_OF_CONCURRENT_JOBS = 4
+  NUMBER_OF_CONCURRENT_JOBS = 2
   belongs_to :project
   has_many :jobs, dependent: :destroy
   has_many :build_events, dependent: :destroy
