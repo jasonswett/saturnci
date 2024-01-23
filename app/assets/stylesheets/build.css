@@ -5,6 +5,11 @@
   border-left: 1px solid #DDD;
   display: flex;
   background-color: #000;
+  color: #FFF;
+}
+
+.build a {
+  color: #000;
 }
 
 .build-inner {
@@ -23,6 +28,7 @@
 .build-details-content {
   flex-grow: 1;
   overflow-y: auto;
+  display: flex;
 }
 
 .terminal-container {
@@ -64,4 +70,25 @@
 .build-action-buttons {
   display: flex;
   gap: 4px;
+}
+
+.job-menu-container {
+  width: 120px;
+}
+
+ul.job-menu {
+  width: 80px;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  position: fixed;
+}
+
+ul.job-menu li a {
+  padding: 5px;
+  margin: 0 0 2px 0;
+  display: block;
+  text-decoration: none;
+  color: #0AF;
+  background-color: #00F;
 }
