@@ -11,12 +11,6 @@ RSpec.describe "GitHub Events", type: :request do
   end
 
   before do
-    build_machine_request_stub = instance_double("BuildMachineRequest").tap do |stub|
-      allow(stub).to receive(:create!)
-    end
-
-    allow(BuildMachineRequest).to receive(:new).and_return(build_machine_request_stub)
-
     job_machine_request_stub = instance_double("JobMachineRequest").tap do |stub|
       allow(stub).to receive(:create!)
     end
