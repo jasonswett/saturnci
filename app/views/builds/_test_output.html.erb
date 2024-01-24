@@ -1,17 +1,17 @@
 <div class="terminal-container">
   <%= terminal_tag do %>
     <% @build.jobs.each do |job| %>
-      <div id="<%= dom_id(job) %>">
-        <%= "-" * 40 %><br>
-        Job <%= job.order_index %><br>
-        <%= "-" * 40 %><br><br>
-        <% if job.test_output.present? %>
+      <% if job.test_output.present? %>
+        <div id="<%= dom_id(job, @partial) %>">
+          <%= "-" * 40 %><br>
+          Job <%= job.order_index %><br>
+          <%= "-" * 40 %><br><br>
           <%= ansi_to_html(job.test_output) %>
-        <% else %>
-          Nothing here yet
-        <% end %>
-      </div>
-      <br>
+        </div>
+        <br>
+      <% else %>
+        Nothing here yet
+      <% end %>
     <% end %>
   <% end %>
 </div>

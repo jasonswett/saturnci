@@ -35,7 +35,7 @@
         <% @build.jobs.each do |job| %>
           <li>
             <%= link_to "Job #{job.order_index}",
-              "##{dom_id(job)}",
+              "##{dom_id(job, @partial)}",
               data: { turbo: false } %>
           </li>
         <% end %>
