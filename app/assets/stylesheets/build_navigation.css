@@ -12,6 +12,6 @@
 }
 
 .build-navigation a.active {
-  background-color: #000;
-  color: #DDD;
+  background-color: #444;
+  color: #FFF;
 }

@@ -1,25 +1,11 @@
-<div class="job-menu-container">
-  <ul class="job-menu">
-    <% @build.jobs.each do |job| %>
-      <li>
-        <%= link_to job.order_index,
-          "##{dom_id(job)}",
-          data: { turbo: false } %>
-      </li>
-    <% end %>
-  </ul>
-</div>
-
-<div style="width: 100%">
-  <div class="terminal-container">
-    <% @build.jobs.each do |job| %>
-      <pre class="terminal" id="<%= dom_id(job) %>">
-        <% if job.test_output.present? %>
-          <%= ansi_to_html(job.test_output) %>
-        <% else %>
-          Nothing here yet
-        <% end %>
-      </pre>
-    <% end %>
-  </div>
+<div class="terminal-container">
+  <% @build.jobs.each do |job| %>
+    <pre class="terminal" id="<%= dom_id(job) %>">
+      <% if job.test_output.present? %>
+        <%= ansi_to_html(job.test_output) %>
+      <% else %>
+        Nothing here yet
+      <% end %>
+    </pre>
+  <% end %>
 </div>

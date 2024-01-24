@@ -30,6 +30,18 @@
         data: { turbo_frame: "build_details" } %>
     </div>
 
+    <div class="job-menu-container">
+      <ul class="job-menu">
+        <% @build.jobs.each do |job| %>
+          <li>
+            <%= link_to "Job #{job.order_index}",
+              "##{dom_id(job)}",
+              data: { turbo: false } %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
     <div class="build-details-content">
       <%= render @partial %>
     </div>
