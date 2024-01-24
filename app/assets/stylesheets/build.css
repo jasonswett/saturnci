@@ -74,6 +74,7 @@
 
 .job-menu-container {
   width: 90px;
+  background-color: #666;
 }
 
 ul.job-menu {
@@ -86,9 +87,9 @@ ul.job-menu {
 
 ul.job-menu li a {
   padding: 5px;
-  margin: 0 0 2px 0;
+  margin: 5px;
   display: block;
   text-decoration: none;
   color: #DDD;
-  background-color: #666;
+  background-color: #888;
 }
