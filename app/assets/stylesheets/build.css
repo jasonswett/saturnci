@@ -73,21 +73,20 @@
 }
 
 .job-menu-container {
-  width: 90px;
   background-color: #666;
 }
 
 ul.job-menu {
-  width: 80px;
+  width: 50px;
   text-align: center;
   padding: 0;
   margin: 0;
-  position: fixed;
+  list-style: none;
 }
 
 ul.job-menu li a {
-  padding: 5px;
-  margin: 5px;
+  padding: 0;
+  margin: 5px 0;
   display: block;
   text-decoration: none;
   color: #DDD;
