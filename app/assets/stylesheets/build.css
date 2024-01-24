@@ -75,7 +75,7 @@
 .job-menu-container {
   display: flex;
   background-color: #444;
-  padding: 5px;
+  padding: 10px 8px;
 }
 
 ul.job-menu {
