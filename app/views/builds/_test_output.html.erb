@@ -1,11 +1,5 @@
 <div class="terminal-container">
   <% @build.jobs.each do |job| %>
-    <pre class="terminal" id="<%= dom_id(job) %>">
-      <% if job.test_output.present? %>
-        <%= ansi_to_html(job.test_output) %>
-      <% else %>
-        Nothing here yet
-      <% end %>
-    </pre>
+    <pre class="terminal" id="<%= dom_id(job) %>"><% if job.test_output.present? %><%= ansi_to_html(job.test_output) %><% else %>Nothing here yet<% end %></pre>
   <% end %>
 </div>
