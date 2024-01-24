@@ -11,11 +11,13 @@
 
 .build-list li {
   border-bottom: 2px solid #DDD;
+  margin: 0;
+  padding: 0;
 }
 
 .build-list a {
   display: block;
-  padding: 8px;
+  padding: 10px 12px 16px 12px;
   text-decoration: none;
   color: black;
 }

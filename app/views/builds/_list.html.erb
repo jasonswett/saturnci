@@ -15,21 +15,19 @@
           <div style="display: flex; justify-content: space-between">
             <div>
               <div>
-                <div style="line-height: 1.3; margin-bottom: 6px; max-width: 400px;">
+                <div style="line-height: 1.3; max-width: 400px;">
                   <%= build.commit_message.truncate(80) %>
                 </div>
 
-                <div style="margin-bottom: 6px">
-                  <span class="build-commit">
-                    <code><%= build.branch_name.truncate(20) %></code>
-                    <code><%= abbreviated_hash(build.commit_hash) %></code>
-                  </span>
-
-                  <span style="color: #999; margin-left: 6px">
-                    <%= build.author_name %>
-                    <%= build.created_at.in_time_zone.strftime("%-m/%-d/%Y %H:%M %Z") %>
-                  </span>
+                <div style="color: #999; margin: 0 0 8px 0">
+                  <%= build.author_name %>
+                  <%= build.created_at.in_time_zone.strftime("%-m/%-d/%Y %H:%M %Z") %>
                 </div>
+
+                <span class="build-commit">
+                  <code><%= build.branch_name.truncate(20) %></code>
+                  <code><%= abbreviated_hash(build.commit_hash) %></code>
+                </span>
               </div>
             </div>
 
