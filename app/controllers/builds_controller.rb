@@ -1,5 +1,5 @@
 class BuildsController < ApplicationController
-  DEFAULT_TAB = "test_output"
+  DEFAULT_PARTIAL = "test_output"
 
   def create
     @project = Project.find(params[:project_id])
@@ -10,34 +10,19 @@ class BuildsController < ApplicationController
   end
 
   def show
-    @build = Build.find(params[:id])
-    @project = @build.project
-    @build_list = BuildList.new(@build, branch_name: params[:branch_name])
-    @partial = DEFAULT_TAB
+    render_build_detail_partial(DEFAULT_PARTIAL)
   end
 
   def system_logs
-    @build = Build.find(params[:build_id])
-    @project = @build.project
-    @build_list = BuildList.new(@build, branch_name: params[:branch_name])
-    @partial = "system_logs"
-    render "show"
+    render_build_detail_partial("system_logs")
   end
 
   def test_report
-    @build = Build.find(params[:build_id])
-    @project = @build.project
-    @build_list = BuildList.new(@build, branch_name: params[:branch_name])
-    @partial = "test_report"
-    render "show"
+    render_build_detail_partial("test_report")
   end
 
   def test_output
-    @build = Build.find(params[:build_id])
-    @project = @build.project
-    @build_list = BuildList.new(@build, branch_name: params[:branch_name])
-    @partial = "test_output"
-    render "show"
+    render_build_detail_partial("test_output")
   end
 
   def destroy
@@ -55,5 +40,15 @@ class BuildsController < ApplicationController
 
     build.destroy!
     redirect_to project_path(build.project)
+  end
+
+  private
+
+  def render_build_detail_partial(partial)
+    @build = Build.find(params[:id] || params[:build_id])
+    @project = @build.project
+    @build_list = BuildList.new(@build, branch_name: params[:branch_name])
+    @partial = partial
+    render "show"
   end
 end
