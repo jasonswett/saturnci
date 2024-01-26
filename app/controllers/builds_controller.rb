@@ -10,19 +10,19 @@ class BuildsController < ApplicationController
   end
 
   def show
-    render_show(partial: DEFAULT_PARTIAL)
+    render_show(params[:id], partial: DEFAULT_PARTIAL)
   end
 
   def system_logs
-    render_show(partial: "system_logs")
+    render_show(params[:build_id], partial: "system_logs")
   end
 
   def test_report
-    render_show(partial: "test_report")
+    render_show(params[:build_id], partial: "test_report")
   end
 
   def test_output
-    render_show(partial: "test_output")
+    render_show(params[:build_id], partial: "test_output")
   end
 
   def destroy
@@ -44,8 +44,8 @@ class BuildsController < ApplicationController
 
   private
 
-  def render_show(partial:)
-    @build = Build.find(params[:id] || params[:build_id])
+  def render_show(build_id, partial:)
+    @build = Build.find(build_id)
     @project = @build.project
     @build_list = BuildList.new(@build, branch_name: params[:branch_name])
     @partial = partial
