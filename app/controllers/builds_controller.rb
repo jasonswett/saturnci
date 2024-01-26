@@ -11,12 +11,14 @@ class BuildsController < ApplicationController
 
   def show
     @build = Build.find(params[:id])
+    @project = @build.project
     @build_list = BuildList.new(@build, branch_name: params[:branch_name])
     @partial = DEFAULT_TAB
   end
 
   def system_logs
     @build = Build.find(params[:build_id])
+    @project = @build.project
     @build_list = BuildList.new(@build, branch_name: params[:branch_name])
     @partial = "system_logs"
     render "show"
@@ -24,6 +26,7 @@ class BuildsController < ApplicationController
 
   def test_report
     @build = Build.find(params[:build_id])
+    @project = @build.project
     @build_list = BuildList.new(@build, branch_name: params[:branch_name])
     @partial = "test_report"
     render "show"
@@ -31,6 +34,7 @@ class BuildsController < ApplicationController
 
   def test_output
     @build = Build.find(params[:build_id])
+    @project = @build.project
     @build_list = BuildList.new(@build, branch_name: params[:branch_name])
     @partial = "test_output"
     render "show"
