@@ -56,9 +56,4 @@ class BuildsController < ApplicationController
     build.destroy!
     redirect_to project_path(build.project)
   end
-
-  private
-
-  def render_turbo_stream(build, partial)
-  end
 end
