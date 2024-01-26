@@ -17,15 +17,15 @@
 
   <%= turbo_frame_tag "build_details", class: "build-details", data: { turbo_action: "advance" } do %>
     <div class="build-navigation">
-      <%= link_to "System Logs", project_build_system_logs_path(@build.project, @build),
+      <%= link_to "System Logs", build_detail_content_project_build_path(@build.project, @build, "system_logs"),
         class: @partial == "system_logs" ? "active" : "",
         data: { turbo_frame: "build_details" } %>
 
-      <%= link_to "Test Report", project_build_test_report_path(@build.project, @build),
+      <%= link_to "Test Report", build_detail_content_project_build_path(@build.project, @build, "test_report"),
         class: @partial == "test_report" ? "active" : "",
         data: { turbo_frame: "build_details" } %>
 
-      <%= link_to "Test Output", project_build_test_output_path(@build.project, @build),
+      <%= link_to "Test Output", build_detail_content_project_build_path(@build.project, @build, "test_output"),
         class: @partial == "test_output" ? "active" : "",
         data: { turbo_frame: "build_details" } %>
     </div>

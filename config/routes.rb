@@ -3,9 +3,7 @@ Rails.application.routes.draw do
 
   resources :projects do
     resources :builds, only: %i(show create destroy) do
-      get :system_logs
-      get :test_report
-      get :test_output
+      get ":partial", to: "builds#show", on: :member, as: "build_detail_content"
     end
   end
 
