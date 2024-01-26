@@ -24,7 +24,7 @@ describe "Project select", type: :system do
 
     context "visiting system logs page" do
       it "sets the select input to the project currently being visited" do
-        visit project_build_system_logs_path(build.project, build)
+        visit build_detail_content_project_build_path(build.project, build, "system_logs")
         expect(page).to have_select("project_id", selected: project.name)
       end
     end
