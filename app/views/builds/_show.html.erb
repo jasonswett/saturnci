@@ -17,17 +17,9 @@
 
   <%= turbo_frame_tag "build_details", class: "build-details", data: { turbo_action: "advance" } do %>
     <div class="build-navigation">
-      <%= link_to "System Logs", build_detail_content_project_build_path(@build.project, @build, "system_logs"),
-        class: @partial == "system_logs" ? "active" : "",
-        data: { turbo_frame: "build_details" } %>
-
-      <%= link_to "Test Report", build_detail_content_project_build_path(@build.project, @build, "test_report"),
-        class: @partial == "test_report" ? "active" : "",
-        data: { turbo_frame: "build_details" } %>
-
-      <%= link_to "Test Output", build_detail_content_project_build_path(@build.project, @build, "test_output"),
-        class: @partial == "test_output" ? "active" : "",
-        data: { turbo_frame: "build_details" } %>
+      <%= build_navigation_link_to "System Logs", "system_logs", @build, @partial %>
+      <%= build_navigation_link_to "Test Report", "test_report", @build, @partial %>
+      <%= build_navigation_link_to "Test Output", "test_output", @build, @partial %>
     </div>
 
     <div class="job-menu-container">
