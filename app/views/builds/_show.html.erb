@@ -17,9 +17,11 @@
 
   <%= turbo_frame_tag "build_details", class: "build-details", data: { turbo_action: "advance" } do %>
     <div class="build-navigation">
-      <%= build_navigation_link_to "System Logs", "system_logs", @build, @partial %>
-      <%= build_navigation_link_to "Test Report", "test_report", @build, @partial %>
-      <%= build_navigation_link_to "Test Output", "test_output", @build, @partial %>
+      <% build_navigation(@build, @partial) do |nav| %>
+        <%= nav.item "System Logs", "system_logs" %>
+        <%= nav.item "Test Report", "test_report" %>
+        <%= nav.item "Test Output", "test_output" %>
+      <% end %>
     </div>
 
     <div class="job-menu-container">
