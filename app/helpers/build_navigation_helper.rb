@@ -1,4 +1,4 @@
-class BuildNavigationItem
+class BuildNavigation
   def initialize(view_context, build, partial)
     @view_context = view_context
     @build = build
@@ -17,7 +17,7 @@ end
 
 module BuildNavigationHelper
   def build_navigation(build, partial, &block)
-    build_navigation = BuildNavigationItem.new(self, build, partial)
+    build_navigation = BuildNavigation.new(self, build, partial)
     block.call(build_navigation)
   end
 end
