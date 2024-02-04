@@ -39,5 +39,20 @@ RSpec.describe "test suite finished events", type: :request do
         expect(job.build.reload.finished_at).not_to be nil
       end
     end
+
+    context "not all the jobs have finished" do
+      before do
+        create(:job, build: job.build, order_index: 2)
+      end
+
+      it "sets the build's finished_at value" do
+        post(
+          api_v1_job_test_suite_finished_events_path(job),
+          headers: api_authorization_headers
+        )
+
+        expect(job.build.reload.finished_at).to be nil
+      end
+    end
   end
 end
