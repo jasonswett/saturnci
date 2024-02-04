@@ -7,7 +7,7 @@
   <ul data-controller="build-list">
     <% @build_list.builds.each do |build| %>
       <li>
-        <% cache build do %>
+        <% cache [build, build.status] do %>
           <%= render "builds/list_item", build: build %>
         <% end %>
       </li>
