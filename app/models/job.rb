@@ -9,6 +9,10 @@ class Job < ApplicationRecord
     job_machine_request.create!
   end
 
+  def finished?
+    job_events.map(&:type).include?("test_suite_finished")
+  end
+
   def status
     return "Running" if test_report.to_s.length == 0
     return "Passed" if !test_report.include?("failed")
