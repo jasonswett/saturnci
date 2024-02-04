@@ -16,6 +16,24 @@ RSpec.describe Job, type: :model do
     end
   end
 
+  describe "#finished?" do
+    context "it has a test_suite_finished event" do
+      before do
+        job.job_events.create!(type: "test_suite_finished")
+      end
+
+      it "returns true" do
+        expect(job).to be_finished
+      end
+    end
+
+    context "it does not have a test_suite_finished event" do
+      it "returns false" do
+        expect(job).not_to be_finished
+      end
+    end
+  end
+
   describe "#status" do
     context "there's no report yet" do
       it "returns 'Running'" do

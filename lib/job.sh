@@ -108,7 +108,7 @@ script -c "sudo docker-compose -f .saturnci/docker-compose.yml run saturn_test_a
 #--------------------------------------------------------------------------------
 
 echo "Test suite finished"
-api_request "POST" "jobs/$JOB_ID/job_events" '{"type":"test_suite_finished"}'
+api_request "POST" "jobs/$JOB_ID/test_suite_finished_events"
 
 #--------------------------------------------------------------------------------
 
