@@ -12,7 +12,7 @@ class JobMachineRequest
     droplet = DropletKit::Droplet.new(
       name: droplet_name,
       region: 'nyc1',
-      image: 'job-machine-snapshot',
+      image: '150149463',
       size: 's-4vcpu-8gb',
       user_data: user_data,
       tags: ['saturnci'],
