@@ -2,10 +2,17 @@ require "rails_helper"
 include APIAuthenticationHelper
 
 RSpec.describe "job machine instances", type: :request do
-  describe "PUT /api/v1/job_machine_instances/:id" do
+  describe "PUT /api/v1/job_machine_images/:id" do
     before do
       stub_request(:post, "https://api.digitalocean.com/v2/droplets/123456/actions")
         .to_return(status: 200, body: "{}", headers: {})      
+
+      stub_request(:get, "https://api.digitalocean.com/v2/droplets/123456")
+        .to_return(
+          status: 200,
+          body: { droplet: { id: 123456, status: 'off' } }.to_json,
+          headers: {}
+        )
     end
 
     it "returns an empty 200 response" do
