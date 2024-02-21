@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require_relative 'lib/saturnci/client'
+
+client = SaturnCI::Client.new(
+  username: ENV["SATURNCI_API_USERNAME"],
+  password: ENV["SATURNCI_API_PASSWORD"]
+)
+
+client.builds.each do |build|
+  puts build
+end
