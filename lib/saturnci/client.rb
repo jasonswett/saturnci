@@ -19,10 +19,7 @@ module SaturnCI
         http.request(request)
       end
 
-      if response.code != 200
-        raise "Bad credentials."
-      end
-
+      raise "Bad credentials." if response.code != 200
       JSON.parse(response)
     end
   end

@@ -2,10 +2,15 @@
 
 require_relative 'lib/saturnci/client'
 
-client = SaturnCI::Client.new(
-  username: ENV["SATURNCI_API_USERNAME"],
-  password: ENV["SATURNCI_API_PASSWORD"]
-)
+begin
+  client = SaturnCI::Client.new(
+    username: ENV["SATURNCI_API_USERNAME"],
+    password: ENV["SATURNCI_API_PASSWORD"]
+  )
+rescue StandardError => e
+  puts e.message
+  exit
+end
 
 client.builds.each do |build|
   puts build
