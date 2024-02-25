@@ -2,7 +2,7 @@ module API
   module V1
     class BuildsController < APIController
       def index
-        head :ok
+        render json: Build.all
       end
     end
   end
