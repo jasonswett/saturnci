@@ -11,7 +11,3 @@ rescue StandardError => e
   puts e.message
   exit
 end
-
-client.builds.each do |build|
-  puts build
-end
