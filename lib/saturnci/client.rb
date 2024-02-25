@@ -20,7 +20,7 @@ module SaturnCI
       end
 
       raise "Bad credentials." if response.code != "200"
-      JSON.parse(response)
+      JSON.parse(response.body)
     end
   end
 end
