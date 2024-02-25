@@ -1,5 +1,6 @@
 require "json"
 require_relative "api_request"
+require_relative "output_table"
 
 module SaturnCI
   class Client
@@ -14,8 +15,14 @@ module SaturnCI
     end
 
     def builds
-      response = APIRequest.new(self, "builds").response
-      JSON.parse(response.body)
+      response = request("builds")
+      puts OutputTable.new(JSON.parse(response.body)).to_s
+    end
+
+    private
+
+    def request(endpoint)
+      APIRequest.new(self, endpoint).response
     end
   end
 end
