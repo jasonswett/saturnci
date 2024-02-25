@@ -4,14 +4,17 @@ require "json"
 
 module SaturnCI
   class Client
-    def initialize(username:, password:)
+    DEFAULT_HOST = "http://localhost:3000"
+
+    def initialize(username:, password:, host: DEFAULT_HOST)
       @username = username
       @password = password
+      @host = host
       builds
     end
 
     def builds
-      uri = URI("http://localhost:3000/api/v1/builds")
+      uri = URI("#{@host}/api/v1/builds")
       request = Net::HTTP::Get.new(uri)
       request.basic_auth @username, @password
 
