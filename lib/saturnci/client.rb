@@ -1,10 +1,10 @@
-require "net/http"
-require "uri"
 require "json"
+require_relative "api_request"
 
 module SaturnCI
   class Client
     DEFAULT_HOST = "http://localhost:3000"
+    attr_reader :host, :username, :password
 
     def initialize(username:, password:, host: DEFAULT_HOST)
       @username = username
@@ -14,15 +14,7 @@ module SaturnCI
     end
 
     def builds
-      uri = URI("#{@host}/api/v1/builds")
-      request = Net::HTTP::Get.new(uri)
-      request.basic_auth @username, @password
-
-      response = Net::HTTP.start(uri.hostname, uri.port) do |http|
-        http.request(request)
-      end
-
-      raise "Bad credentials." if response.code != "200"
+      response = APIRequest.new(self, "builds").response
       JSON.parse(response.body)
     end
   end
