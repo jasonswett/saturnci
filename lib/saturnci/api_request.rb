@@ -22,14 +22,14 @@ module SaturnCI
       end
     end
 
-    def uri
-      URI("#{@client.host}/api/v1/#{@endpoint}")
-    end
-
     def request
       Net::HTTP::Get.new(uri).tap do |request|
         request.basic_auth @client.username, @client.password
       end
+    end
+
+    def uri
+      URI("#{@client.host}/api/v1/#{@endpoint}")
     end
   end
 end
