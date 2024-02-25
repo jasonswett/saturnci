@@ -9,16 +9,27 @@ module SaturnCI
     end
 
     def response
-      uri = URI("#{@client.host}/api/v1/#{@endpoint}")
-      request = Net::HTTP::Get.new(uri)
-      request.basic_auth @client.username, @client.password
+      send_request.tap do |response|
+        raise "Bad credentials." if response.code != "200"
+      end
+    end
 
-      response = Net::HTTP.start(uri.hostname, uri.port) do |http|
+    private
+
+    def send_request
+      Net::HTTP.start(uri.hostname, uri.port) do |http|
         http.request(request)
       end
+    end
 
-      raise "Bad credentials." if response.code != "200"
-      response
+    def uri
+      URI("#{@client.host}/api/v1/#{@endpoint}")
+    end
+
+    def request
+      Net::HTTP::Get.new(uri).tap do |request|
+        request.basic_auth @client.username, @client.password
+      end
     end
   end
 end
