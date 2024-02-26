@@ -1,4 +1,5 @@
 require_relative "output_table_row"
+require_relative "output_table_column"
 
 module SaturnCI
   class OutputTable
@@ -21,18 +22,10 @@ module SaturnCI
     private
 
     def header
-      HEADINGS.map do |attribute, heading|
-        column_heading(attribute, heading)
+      HEADINGS.map do |attribute, label|
+        values = @items.map { |item| item[attribute] }
+        OutputTableColumn.new(attribute, label, values, SPACER).formatted_heading
       end.join.strip
-    end
-
-    def column_heading(attribute, label)
-      label.ljust(length_of_longest(attribute) + SPACER.length)
-    end
-
-    def length_of_longest(attribute)
-      return 0 unless @items.any?
-      @items.map { |item| item[attribute].length }.max
     end
 
     def formatted_items
