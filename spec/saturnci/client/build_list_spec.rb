@@ -2,7 +2,7 @@ require_relative "../../../lib/saturnci/client"
 
 describe "build list" do
   before do
-    expected_body = [
+    body = [
       {
         "branch_name" => "saturnci-client",
         "commit_hash" => "7f8c8132",
@@ -21,7 +21,7 @@ describe "build list" do
     ].to_json
 
     stub_request(:get, "#{SaturnCI::Client::DEFAULT_HOST}/api/v1/builds")
-      .to_return(body: expected_body, status: 200)
+      .to_return(body: body, status: 200)
   end
 
   let!(:client) do
@@ -34,7 +34,7 @@ describe "build list" do
   it "formats the output to a table" do
     expected_output = <<~OUTPUT
     Branch           Commit    Commit message
-    saturnci-client  7f8c8132  Fix response.body issue in SaturnCI client.
+    saturnci-client  7f8c8132  Fix response.body issue in SaturnCI clien...
     saturnci-client  b7ef6ce6  Fix credentials issue.
     saturnci-client  650f5674  Make output more elegant.
     OUTPUT
