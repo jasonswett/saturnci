@@ -11,7 +11,7 @@ module SaturnCI
       [
         formatted_attribute("branch_name"),
         formatted_attribute("commit_hash"),
-        CLIHelpers.truncate(formatted_attribute("commit_message").squish),
+        CLIHelpers.truncate(CLIHelpers.squish(formatted_attribute("commit_message"))),
       ].join(@spacer)
     end
 
