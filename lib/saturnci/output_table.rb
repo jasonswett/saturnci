@@ -1,3 +1,5 @@
+require_relative "cli_helpers"
+
 module SaturnCI
   class OutputTable
     SPACER = "  "
@@ -34,19 +36,9 @@ module SaturnCI
         [
           item["branch_name"],
           item["commit_hash"],
-          truncate(item["commit_message"])
+          CLIHelpers.truncate(item["commit_message"])
         ].join(SPACER)
       end.join("\n")
-    end
-
-    def truncate(text)
-      threshold = 40
-
-      if text.length > threshold
-        "#{text[0..threshold].strip}..."
-      else
-        text
-      end
     end
   end
 end
