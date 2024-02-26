@@ -1,13 +1,10 @@
 module SaturnCI
   module CLIHelpers
-    def self.truncate(text)
-      threshold = 40
+    DEFAULT_TRUNCATION_THRESHOLD = 40
 
-      if text.length > threshold
-        "#{text[0..threshold].strip}..."
-      else
-        text
-      end
+    def self.truncate(text)
+      return text if text.length <= DEFAULT_TRUNCATION_THRESHOLD
+      "#{text[0..DEFAULT_TRUNCATION_THRESHOLD].strip}..."
     end
   end
 end
