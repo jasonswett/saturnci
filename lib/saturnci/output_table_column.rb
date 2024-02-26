@@ -1,6 +1,6 @@
 module SaturnCI
   class OutputTableColumn
-    def initialize(attribute, label, values, spacer)
+    def initialize(attribute:, label:, values:, spacer:)
       @attribute = attribute
       @label = label
       @values = values
