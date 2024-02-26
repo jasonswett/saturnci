@@ -1,4 +1,4 @@
-require_relative "cli_helpers"
+require_relative "output_table_row"
 
 module SaturnCI
   class OutputTable
@@ -33,12 +33,8 @@ module SaturnCI
 
     def formatted_items
       @items.map do |item|
-        [
-          item["branch_name"],
-          item["commit_hash"],
-          CLIHelpers.truncate(item["commit_message"])
-        ].join(SPACER)
-      end.join("\n")
+        OutputTableRow.new(item, SPACER).format
+      end
     end
   end
 end
