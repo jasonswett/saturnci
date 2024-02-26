@@ -52,4 +52,33 @@ describe "table" do
       expect(output_table.to_s).to eq(expected_output.strip)
     end
   end
+
+  context "commit message with newlines" do
+    let!(:output_table) do
+      commit_message = <<~TEXT
+Squashed commit of the following:                                                      
+                                                                   
+commit...
+      TEXT
+
+      items = [
+        {
+          "branch_name" => "main",
+          "commit_hash" => "2126d876",
+          "commit_message" => commit_message
+        },
+      ]
+
+      SaturnCI::OutputTable.new(items)
+    end
+
+    it "gets the newlines compressed" do
+      expected_output = <<~OUTPUT
+      Branch  Commit    Commit message
+      main    2126d876  Squashed commit of the following: commit....
+      OUTPUT
+
+      expect(output_table.to_s).to eq(expected_output.strip)
+    end
+  end
 end

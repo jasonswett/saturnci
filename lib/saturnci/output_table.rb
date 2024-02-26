@@ -38,7 +38,7 @@ module SaturnCI
 
     def formatted_items
       @items.map do |item|
-        OutputTableRow.new(item, SPACER).format
+        OutputTableRow.new(item, columns).format
       end
     end
   end

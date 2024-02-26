@@ -1,5 +1,7 @@
 module SaturnCI
   class OutputTableColumn
+    attr_accessor :attribute
+
     def initialize(attribute:, label:, values:, spacer:)
       @attribute = attribute
       @label = label
@@ -8,7 +10,17 @@ module SaturnCI
     end
 
     def formatted_heading
-      @label.ljust(length_of_longest_value + @spacer.length)
+      @label.ljust(ljust_length)
+    end
+
+    def ljust_length
+      length_of_longest_item + @spacer.length
+    end
+
+    private
+
+    def length_of_longest_item
+      [length_of_longest_value, @label.length].max
     end
 
     def length_of_longest_value
