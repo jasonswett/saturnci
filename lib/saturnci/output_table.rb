@@ -4,6 +4,12 @@ module SaturnCI
   class OutputTable
     SPACER = "  "
 
+    HEADINGS = {
+      "branch_name" => "Branch",
+      "commit_hash" => "Commit",
+      "commit_message" => "Commit message"
+    }
+
     def initialize(items)
       @items = items
     end
@@ -15,11 +21,9 @@ module SaturnCI
     private
 
     def header
-      [
-        column_heading("branch_name", "Branch"),
-        column_heading("commit_hash", "Commit"),
-        column_heading("commit_message", "Commit message")
-      ].join.strip
+      HEADINGS.map do |attribute, heading|
+        column_heading(attribute, heading)
+      end.join.strip
     end
 
     def column_heading(attribute, label)
