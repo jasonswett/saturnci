@@ -1,4 +1,3 @@
-require "rails_helper"
 require_relative "../../../lib/saturnci/client"
 
 describe "build list" do
