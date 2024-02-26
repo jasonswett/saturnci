@@ -22,15 +22,18 @@ module SaturnCI
     private
 
     def header
+      columns.map(&:formatted_heading).join.strip
+    end
+
+    def columns
       HEADINGS.map do |attribute, label|
-        values = @items.map { |item| item[attribute] }
         OutputTableColumn.new(
           attribute: attribute,
           label: label,
-          values: values,
+          values: @items.map { |item| item[attribute] },
           spacer: SPACER
-        ).formatted_heading
-      end.join.strip
+        )
+      end
     end
 
     def formatted_items
