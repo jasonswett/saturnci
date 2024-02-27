@@ -16,7 +16,7 @@ module SaturnCICLI
 
     def builds
       response = request("builds")
-      puts OutputTable.new(JSON.parse(response.body)).to_s
+      puts Display::OutputTable.new(JSON.parse(response.body)).to_s
     end
 
     private

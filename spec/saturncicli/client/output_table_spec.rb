@@ -11,7 +11,7 @@ describe "table" do
         },
       ]
 
-      SaturnCICLI::OutputTable.new(items)
+      SaturnCICLI::Display::OutputTable.new(items)
     end
 
     it "does not get truncated" do
@@ -40,7 +40,7 @@ describe "table" do
         },
       ]
 
-      SaturnCICLI::OutputTable.new(items)
+      SaturnCICLI::Display::OutputTable.new(items)
     end
 
     it "gets truncated" do
@@ -69,7 +69,7 @@ commit...
         },
       ]
 
-      SaturnCICLI::OutputTable.new(items)
+      SaturnCICLI::Display::OutputTable.new(items)
     end
 
     it "gets the newlines compressed" do
