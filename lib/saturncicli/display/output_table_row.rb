@@ -15,7 +15,7 @@ module SaturnCICLI
       private
 
       def formatted_values
-        @columns.map { |c| c.formatted_value(@values[c.attribute]) }
+        @columns.map { |c| c.formatted_value_justified(@values[c.attribute]) }
       end
     end
   end

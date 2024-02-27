@@ -8,7 +8,12 @@ module SaturnCICLI
 
       HEADING_DEFINITIONS = {
         "branch_name" => { label: "Branch" },
-        "commit_hash" => { label: "Commit" },
+
+        "commit_hash" => {
+          label: "Commit",
+          format: -> (value) { value[0..7] }
+        },
+
         "commit_message" => {
           label: "Commit message",
           format: -> (value) { CLIHelpers.truncate(CLIHelpers.squish(value)) }
