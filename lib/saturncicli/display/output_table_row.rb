@@ -3,27 +3,19 @@ require_relative "../cli_helpers"
 module SaturnCICLI
   module Display
     class OutputTableRow
-      def initialize(item, columns)
-        @item = item
+      def initialize(values, columns)
+        @values = values
         @columns = columns
       end
 
-      def format
-        [
-          formatted_attribute("branch_name"),
-          formatted_attribute("commit_hash"),
-          formatted_attribute("commit_message")
-        ].join(@spacer).strip
+      def formatted
+        formatted_values.join(@spacer).strip
       end
 
       private
 
-      def formatted_attribute(attribute)
-        column(attribute).formatted_value(@item[attribute])
-      end
-
-      def column(attribute)
-        @columns.find { |c| c.attribute == attribute }
+      def formatted_values
+        @columns.map { |c| c.formatted_value(@values[c.attribute]) }
       end
     end
   end

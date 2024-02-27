@@ -43,7 +43,7 @@ module SaturnCICLI
 
       def formatted_items
         @items.map do |item|
-          OutputTableRow.new(item, columns).format
+          OutputTableRow.new(item, columns).formatted
         end
       end
     end
