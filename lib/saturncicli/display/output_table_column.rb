@@ -3,15 +3,21 @@ module SaturnCICLI
     class OutputTableColumn
       attr_accessor :attribute
 
-      def initialize(attribute:, label:, values:, spacer:)
+      def initialize(attribute:, label:, formatter:, values:, spacer:)
         @attribute = attribute
         @label = label
         @values = values
+        @formatter = formatter
         @spacer = spacer
       end
 
       def formatted_heading
         @label.ljust(ljust_length)
+      end
+
+      def formatted_value(value)
+        value = @formatter.call(value) if @formatter
+        value.ljust(ljust_length)
       end
 
       def ljust_length

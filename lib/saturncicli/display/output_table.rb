@@ -6,10 +6,13 @@ module SaturnCICLI
     class OutputTable
       SPACER = "  "
 
-      HEADINGS = {
-        "branch_name" => "Branch",
-        "commit_hash" => "Commit",
-        "commit_message" => "Commit message"
+      HEADING_DEFINITIONS = {
+        "branch_name" => { label: "Branch" },
+        "commit_hash" => { label: "Commit" },
+        "commit_message" => {
+          label: "Commit message",
+          format: -> (value) { CLIHelpers.truncate(CLIHelpers.squish(value)) }
+        }
       }
 
       def initialize(items)
@@ -27,10 +30,11 @@ module SaturnCICLI
       end
 
       def columns
-        HEADINGS.map do |attribute, label|
+        HEADING_DEFINITIONS.map do |attribute, definition|
           OutputTableColumn.new(
             attribute: attribute,
-            label: label,
+            label: definition[:label],
+            formatter: definition[:format],
             values: @items.map { |item| item[attribute] },
             spacer: SPACER
           )

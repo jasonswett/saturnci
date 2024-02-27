@@ -12,14 +12,14 @@ module SaturnCICLI
         [
           formatted_attribute("branch_name"),
           formatted_attribute("commit_hash"),
-          CLIHelpers.truncate(CLIHelpers.squish(formatted_attribute("commit_message"))),
-        ].join(@spacer)
+          formatted_attribute("commit_message")
+        ].join(@spacer).strip
       end
 
       private
 
       def formatted_attribute(attribute)
-        @item[attribute].ljust(column(attribute).ljust_length)
+        column(attribute).formatted_value(@item[attribute])
       end
 
       def column(attribute)
