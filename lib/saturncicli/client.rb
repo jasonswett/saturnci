@@ -11,7 +11,7 @@ module SaturnCICLI
       @username = username
       @password = password
       @host = host
-      request("builds")
+      builds
     end
 
     def builds
