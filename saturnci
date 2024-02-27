@@ -7,6 +7,8 @@ begin
     username: ENV["SATURNCI_API_USERNAME"],
     password: ENV["SATURNCI_API_PASSWORD"]
   )
+
+  client.builds
 rescue StandardError => e
   puts e.message
   exit
