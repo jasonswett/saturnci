@@ -5,6 +5,7 @@ require_relative "display/output_table"
 module SaturnCICLI
   class Client
     DEFAULT_HOST = "http://localhost:3000"
+    DEFAULT_NUMBER_OF_BUILDS_TO_SHOW = 10
     attr_reader :host, :username, :password
 
     def initialize(username:, password:, host: DEFAULT_HOST)
@@ -16,7 +17,8 @@ module SaturnCICLI
 
     def builds
       response = request("builds")
-      puts Display::OutputTable.new(JSON.parse(response.body)).to_s
+      builds = JSON.parse(response.body)[0..DEFAULT_NUMBER_OF_BUILDS_TO_SHOW]
+      puts Display::OutputTable.new(builds).to_s
     end
 
     private
