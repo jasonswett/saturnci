@@ -1,4 +1,4 @@
-module SaturnCI
+module SaturnCICLI
   module CLIHelpers
     DEFAULT_TRUNCATION_THRESHOLD = 40
 

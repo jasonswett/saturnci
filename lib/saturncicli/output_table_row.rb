@@ -1,6 +1,6 @@
 require_relative "cli_helpers"
 
-module SaturnCI
+module SaturnCICLI
   class OutputTableRow
     def initialize(item, columns)
       @item = item

@@ -1,7 +1,7 @@
 require_relative "output_table_row"
 require_relative "output_table_column"
 
-module SaturnCI
+module SaturnCICLI
   class OutputTable
     SPACER = "  "
 

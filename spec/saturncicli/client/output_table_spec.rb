@@ -1,4 +1,4 @@
-require_relative "../../../lib/saturnci/output_table"
+require_relative "../../../lib/saturncicli/output_table"
 
 describe "table" do
   context "short commit message" do
@@ -11,7 +11,7 @@ describe "table" do
         },
       ]
 
-      SaturnCI::OutputTable.new(items)
+      SaturnCICLI::OutputTable.new(items)
     end
 
     it "does not get truncated" do
@@ -40,7 +40,7 @@ describe "table" do
         },
       ]
 
-      SaturnCI::OutputTable.new(items)
+      SaturnCICLI::OutputTable.new(items)
     end
 
     it "gets truncated" do
@@ -69,7 +69,7 @@ commit...
         },
       ]
 
-      SaturnCI::OutputTable.new(items)
+      SaturnCICLI::OutputTable.new(items)
     end
 
     it "gets the newlines compressed" do

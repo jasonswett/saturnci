@@ -1,13 +1,13 @@
-require_relative '../../../lib/saturnci/client'
+require_relative '../../../lib/saturncicli/client'
 
 describe "authentication" do
   context "valid credentials" do
     it "does not raise an error" do
-      stub_request(:get, "#{SaturnCI::Client::DEFAULT_HOST}/api/v1/builds")
+      stub_request(:get, "#{SaturnCICLI::Client::DEFAULT_HOST}/api/v1/builds")
         .to_return(body: "[]", status: 200)
 
       expect {
-        SaturnCI::Client.new(
+        SaturnCICLI::Client.new(
           username: "valid_username",
           password: "valid_password"
         )
@@ -17,11 +17,11 @@ describe "authentication" do
 
   context "invalid credentials" do
     it "outputs a graceful error message" do
-      stub_request(:get, "#{SaturnCI::Client::DEFAULT_HOST}/api/v1/builds")
+      stub_request(:get, "#{SaturnCICLI::Client::DEFAULT_HOST}/api/v1/builds")
         .to_return(status: 422)
 
       expect {
-        SaturnCI::Client.new(
+        SaturnCICLI::Client.new(
           username: "",
           password: ""
         )

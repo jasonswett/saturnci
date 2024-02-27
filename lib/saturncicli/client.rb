@@ -2,7 +2,7 @@ require "json"
 require_relative "api_request"
 require_relative "output_table"
 
-module SaturnCI
+module SaturnCICLI
   class Client
     DEFAULT_HOST = "http://localhost:3000"
     attr_reader :host, :username, :password

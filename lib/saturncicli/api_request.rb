@@ -1,7 +1,7 @@
 require "net/http"
 require "uri"
 
-module SaturnCI
+module SaturnCICLI
   class APIRequest
     def initialize(client, endpoint)
       @client = client

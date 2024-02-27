@@ -1,4 +1,4 @@
-module SaturnCI
+module SaturnCICLI
   class OutputTableColumn
     attr_accessor :attribute
 

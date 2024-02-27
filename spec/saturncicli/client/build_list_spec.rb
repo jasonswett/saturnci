@@ -1,4 +1,4 @@
-require_relative "../../../lib/saturnci/client"
+require_relative "../../../lib/saturncicli/client"
 
 describe "build list" do
   before do
@@ -20,12 +20,12 @@ describe "build list" do
       }
     ].to_json
 
-    stub_request(:get, "#{SaturnCI::Client::DEFAULT_HOST}/api/v1/builds")
+    stub_request(:get, "#{SaturnCICLI::Client::DEFAULT_HOST}/api/v1/builds")
       .to_return(body: body, status: 200)
   end
 
   let!(:client) do
-    SaturnCI::Client.new(
+    SaturnCICLI::Client.new(
       username: "valid_username",
       password: "valid_password"
     )
