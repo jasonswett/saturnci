@@ -1,6 +1,6 @@
 require "json"
 require_relative "api_request"
-require_relative "output_table"
+require_relative "display/output_table"
 
 module SaturnCICLI
   class Client

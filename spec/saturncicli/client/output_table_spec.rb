@@ -1,4 +1,4 @@
-require_relative "../../../lib/saturncicli/output_table"
+require_relative "../../../lib/saturncicli/display/output_table"
 
 describe "table" do
   context "short commit message" do
