@@ -14,6 +14,17 @@ module SaturnCICLI
       request("builds")
     end
 
+    def execute(argument)
+      case argument
+      when "jobs"
+        jobs
+      when "builds"
+        builds
+      else
+        builds
+      end
+    end
+
     def builds(options = {})
       response = request("builds")
       builds = JSON.parse(response.body)
@@ -23,6 +34,12 @@ module SaturnCICLI
         items: builds,
         options: options
       )
+    end
+
+    def jobs(options = {})
+      response = request("jobs")
+      jobs = JSON.parse(response.body)
+      puts Display::OutputTable.new(jobs, options).to_s
     end
 
     private
