@@ -30,7 +30,7 @@ module SaturnCICLI
       builds = JSON.parse(response.body)
 
       puts Display::Table.new(
-        column_definitions: :build,
+        resource_name: :build,
         items: builds,
         options: options
       )
@@ -41,7 +41,7 @@ module SaturnCICLI
       jobs = JSON.parse(response.body)
 
       puts Display::Table.new(
-        column_definitions: :job,
+        resource_name: :job,
         items: jobs,
         options: options
       )
