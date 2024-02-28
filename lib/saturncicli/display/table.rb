@@ -1,6 +1,6 @@
 require_relative "helpers"
-require_relative "row"
 require_relative "column"
+require_relative "row"
 require_relative "column_definition"
 
 module SaturnCICLI
