@@ -1,7 +1,9 @@
 require_relative "helpers"
 require_relative "row"
 require_relative "column"
+
 require_relative "build_table_column_definitions"
+require_relative "job_table_column_definitions"
 
 module SaturnCICLI
   module Display

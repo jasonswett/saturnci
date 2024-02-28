@@ -39,7 +39,12 @@ module SaturnCICLI
     def jobs(options = {})
       response = request("jobs")
       jobs = JSON.parse(response.body)
-      puts Display::OutputTable.new(jobs, options).to_s
+
+      puts Display::Table.new(
+        column_definitions: :job,
+        items: jobs,
+        options: options
+      )
     end
 
     private

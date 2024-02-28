@@ -11,6 +11,18 @@ describe "client" do
         {
           "build_id" => "3cbe1b26",
           "created_at" => "2024-02-28 15:38:06"
+        },
+        {
+          "build_id" => "56d2a863",
+          "created_at" => "2024-02-28 15:36:18"
+        },
+        {
+          "build_id" => "7c8dd048",
+          "created_at" => "2024-02-28 01:57:05"
+        },
+        {
+          "build_id" => "65a7e250",
+          "created_at" => "2024-02-28 01:52:07"
         }
       ].to_json
 
