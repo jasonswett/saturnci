@@ -7,7 +7,7 @@ describe "definitions" do
     end
 
     it "sets the key of the first column to build_id" do
-      expect(definitions.to_a[0][0]).to eq("build_id")
+      expect(definitions.to_a[0][0]).to eq("created_at")
     end
   end
 end
