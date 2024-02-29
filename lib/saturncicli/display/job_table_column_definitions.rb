@@ -11,6 +11,10 @@ module SaturnCICLI
         self.column_definitions = block.call
       end
 
+      def each(&block)
+        self.class.column_definitions.each(&block)
+      end
+
       define_columns do
         {
           "build_id" => {
@@ -22,10 +26,6 @@ module SaturnCICLI
             format: -> (value) { Helpers.formatted_datetime(value) }
           },
         }
-      end
-
-      def each(&block)
-        self.class.column_definitions.each(&block)
       end
     end
   end
