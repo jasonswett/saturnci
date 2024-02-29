@@ -4,6 +4,10 @@ class Job < ApplicationRecord
   alias_attribute :started_at, :created_at
   default_scope -> { order(:order_index) }
 
+  def self.running
+    all.select { |job| job.status == "Running" }
+  end
+
   def start!
     job_events.create!(type: :job_machine_requested)
     job_machine_request.create!
