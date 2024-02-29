@@ -24,5 +24,15 @@ RSpec.describe "jobs", type: :request do
       response_body = JSON.parse(response.body)
       expect(response_body[0]["created_at"]).to eq("2020-01-01T01:00:00.000Z")
     end
+
+    it "includes build status" do
+      get(
+        api_v1_jobs_path,
+        headers: api_authorization_headers
+      )
+
+      response_body = JSON.parse(response.body)
+      expect(response_body[0]["status"]).to eq("Running")
+    end
   end
 end

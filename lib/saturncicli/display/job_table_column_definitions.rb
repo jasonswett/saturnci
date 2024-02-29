@@ -13,6 +13,7 @@ module SaturnCICLI
             label: "Created",
             format: -> (value) { Helpers.formatted_datetime(value) }
           },
+          "status" => { label: "Build status" }
         }
       end
     end
