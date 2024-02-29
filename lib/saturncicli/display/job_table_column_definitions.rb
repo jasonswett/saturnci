@@ -5,6 +5,10 @@ module SaturnCICLI
     class JobTableColumnDefinitions < ColumnDefinitions
       define_columns do
         {
+          "id" => {
+            label: "ID",
+            format: -> (hash) { Helpers.truncated_hash(hash) }
+          },
           "created_at" => {
             label: "Created",
             format: -> (value) { Helpers.formatted_datetime(value) }
