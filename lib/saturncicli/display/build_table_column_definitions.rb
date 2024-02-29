@@ -1,14 +1,10 @@
+require_relative "column_definitions"
+
 module SaturnCICLI
   module Display
-    class BuildTableColumnDefinitions
-      include Enumerable
-
-      def each(&block)
-        @column_definitions.each(&block)
-      end
-
-      def initialize
-        @column_definitions = {
+    class BuildTableColumnDefinitions < ColumnDefinitions
+      define_columns do
+        {
           "id" => {
             label: "Build ID",
             format: -> (hash) { Helpers.truncated_hash(hash) }
