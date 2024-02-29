@@ -3,7 +3,11 @@ include APIAuthenticationHelper
 
 RSpec.describe "jobs", type: :request do
   let!(:job) do
-    create(:job, created_at: "2020-01-01T01:00:00")
+    create(
+      :job,
+      created_at: "2020-01-01T01:00:00",
+      build: create(:build, commit_message: "Do stuff")
+    )
   end
 
   describe "GET /api/v1/jobs" do
@@ -33,6 +37,16 @@ RSpec.describe "jobs", type: :request do
 
       response_body = JSON.parse(response.body)
       expect(response_body[0]["status"]).to eq("Running")
+    end
+
+    it "includes commit message" do
+      get(
+        api_v1_jobs_path,
+        headers: api_authorization_headers
+      )
+
+      response_body = JSON.parse(response.body)
+      expect(response_body[0]["build_commit_message"]).to eq("Do stuff")
     end
   end
 end
