@@ -2,7 +2,9 @@ module API
   module V1
     class JobsController < APIController
       def index
-        render json: Job.running.as_json(methods: :status)
+        render json: Job.order("created_at desc")
+          .running
+          .as_json(methods: :status)
       end
     end
   end

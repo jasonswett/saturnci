@@ -65,17 +65,11 @@ RSpec.describe Job, type: :model do
 
   describe "#running" do
     let!(:running_job) do
-      create(:job)
+      create(:job, test_report: nil)
     end
 
     let!(:finished_job) do
-      create(:job) do |j|
-        allow(j).to receive(:status).and_return("Passed")
-      end
-    end
-
-    before do
-      allow(Job).to receive(:all).and_return([running_job, finished_job])
+      create(:job, test_report: "success")
     end
 
     it "by default includes the running job" do
