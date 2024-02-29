@@ -1,6 +1,34 @@
 require_relative "../../../lib/saturncicli/display/table"
 
 describe "table" do
+  context "nil value" do
+    let!(:table) do
+      items = [
+        {
+          "commit_hash" => "7f8c8132",
+          "status" => nil
+        },
+      ]
+
+      SaturnCICLI::Display::Table.new(
+        resource_name: :build,
+        items: items,
+        options: {
+          columns: %w[commit_hash status]
+        }
+      )
+    end
+
+    it "shows nothing" do
+      expected_output = <<~OUTPUT
+      Commit    Status
+      7f8c8132
+      OUTPUT
+
+      expect(table.to_s).to eq(expected_output.strip)
+    end
+  end
+
   context "short commit message" do
     let!(:table) do
       items = [
