@@ -8,7 +8,6 @@ class JobMachineRSAKey
   def initialize(job, tmp_dir_name = TMP_DIR_NAME)
     @job = job
     @tmp_dir_name = tmp_dir_name
-    @filename = "job-#{@job.id}-#{SecureRandom.hex}"
 
     FileUtils.mkdir_p(@tmp_dir_name)
     system("ssh-keygen -t rsa -b 4096 -N '' -f #{file_path} > /dev/null")
@@ -16,5 +15,9 @@ class JobMachineRSAKey
 
   def file_path
     "#{@tmp_dir_name}/#{filename}"
+  end
+
+  def filename
+    "job-#{@job.id}"
   end
 end
