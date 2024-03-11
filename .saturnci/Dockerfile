@@ -12,7 +12,7 @@ WORKDIR /code
 COPY . /code
 
 # Run bundle install to install the Ruby dependencies.
-RUN bundle install
+RUN bundle install --path vendor/bundle
 
 # Install Yarn.
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
