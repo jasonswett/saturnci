@@ -49,6 +49,10 @@ git checkout $COMMIT_HASH
 
 #--------------------------------------------------------------------------------
 
+echo "--------------------------------------------------------------------------------"
+echo "EXITING"
+echo "--------------------------------------------------------------------------------"
+exit
 echo "Running docker-compose build"
 api_request "POST" "jobs/$JOB_ID/job_events" '{"type":"image_build_started"}'
 sudo docker-compose -f .saturnci/docker-compose.yml build

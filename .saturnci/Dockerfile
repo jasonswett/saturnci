@@ -5,15 +5,14 @@ FROM ruby:3.1.2
 # Use a directory called /code in which to store
 # this application's files. (The directory name
 # is arbitrary and could have been anything.)
-ENV PROJECT_DIR=/code
-WORKDIR $PROJECT_DIR
+WORKDIR /code
 
 # Copy all the application's files into the /code
 # directory.
-COPY . $PROJECT_DIR
+COPY . /code
 
-RUN mkdir -p $PROJECT_DIR/vendor/bundle
-RUN bundle config set path '$PROJECT_DIR/vendor/bundle' && bundle install
+RUN mkdir -p /code/vendor/bundle
+RUN bundle config set path '/code/vendor/bundle' && bundle install
 
 # Install Yarn.
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
