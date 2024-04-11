@@ -49,6 +49,16 @@ git checkout $COMMIT_HASH
 
 #--------------------------------------------------------------------------------
 
+echo "Configuring Docker to use the registry cache"
+sudo mkdir -p /etc/docker
+echo '{
+  "registry-mirrors": ["http://159.223.97.154:5000"]
+}' | sudo tee /etc/docker/daemon.json
+
+sudo systemctl restart docker
+
+#--------------------------------------------------------------------------------
+
 echo "Running docker-compose build"
 api_request "POST" "jobs/$JOB_ID/job_events" '{"type":"image_build_started"}'
 sudo docker-compose -f .saturnci/docker-compose.yml build
