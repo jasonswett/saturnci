@@ -36,27 +36,19 @@ class DockerRegistryCacheMachineRequest
 #!/bin/bash
 apt-get update
 apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+
+# Add Docker’s official GPG key and repository
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 apt-get update
 apt-get install -y docker-ce docker-ce-cli containerd.io
 
-# Install certbot
-snap install --classic certbot
+# Run a simple Docker Registry
+docker run -d -p 5000:5000 --restart=always --name registry registry:2
 
-# Request certificates (Example using manual DNS challenge for demonstration. Adjust as needed)
-# certbot certonly --manual --preferred-challenges=dns -d registrycache.saturnci.com
-
-# Assuming certificates are now available at /etc/letsencrypt/live/yourdomain.com/
-# Configure Docker Registry with TLS
-mkdir -p /etc/docker/registry
-docker run -d -p 443:5000 --restart=always --name registry \
-  -v /etc/letsencrypt/live/registrycache.saturnci.com/fullchain.pem:/certs/domain.crt \
-  -v /etc/letsencrypt/live/registrycache.saturnci.com/privkey.pem:/certs/domain.key \
-  -e REGISTRY_HTTP_ADDR=0.0.0.0:5000 \
-  -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/domain.crt \
-  -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key \
-  registry:2
+# Configure UFW to allow traffic on port 5000
+ufw allow 5000/tcp
+ufw enable
     SCRIPT
   end
 end
