@@ -52,7 +52,8 @@ git checkout $COMMIT_HASH
 echo "Configuring Docker to use the registry cache"
 sudo mkdir -p /etc/docker
 echo '{
-  "registry-mirrors": ["http://146.190.66.111:5000"]
+  "registry-mirrors": ["http://146.190.66.111:5000"],
+  "insecure-registries": ["146.190.66.111:5000"]
 }' | sudo tee /etc/docker/daemon.json
 
 sudo systemctl restart docker
@@ -62,9 +63,6 @@ sudo systemctl restart docker
 echo "Running docker-compose build"
 api_request "POST" "jobs/$JOB_ID/job_events" '{"type":"image_build_started"}'
 sudo docker-compose -f .saturnci/docker-compose.yml build
-
-echo "Tagging saturn_test_app"
-sudo docker tag saturn_test_app:latest 146.190.66.111:5000/saturn_test_app:latest
 
 echo "Performing docker push"
 sudo docker push 146.190.66.111:5000/saturn_test_app:latest
