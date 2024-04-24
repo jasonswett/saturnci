@@ -62,7 +62,9 @@ sudo systemctl restart docker
 echo "Running docker-compose build"
 api_request "POST" "jobs/$JOB_ID/job_events" '{"type":"image_build_started"}'
 sudo docker-compose -f .saturnci/docker-compose.yml build
+echo "Before docker push"
 sudo docker push 146.190.66.111:5000/saturnci:latest
+echo "After docker push"
 api_request "POST" "jobs/$JOB_ID/job_events" '{"type":"image_build_finished"}'
 
 #--------------------------------------------------------------------------------
