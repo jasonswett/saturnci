@@ -60,6 +60,9 @@ sudo systemctl restart docker
 
 #--------------------------------------------------------------------------------
 
+echo "Attempting to pull the existing image to avoid rebuilding if possible"
+sudo docker pull 146.190.66.111:5000/saturn_test_app:latest || true
+
 echo "Running docker-compose build"
 api_request "POST" "jobs/$JOB_ID/job_events" '{"type":"image_build_started"}'
 sudo docker-compose -f .saturnci/docker-compose.yml build
