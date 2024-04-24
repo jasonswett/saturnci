@@ -7,12 +7,9 @@ FROM ruby:3.1.2
 # is arbitrary and could have been anything.)
 WORKDIR /code
 
-# Copy all the application's files into the /code
-# directory.
-COPY . /code
-
-# Run bundle install to install the Ruby dependencies.
+COPY Gemfile Gemfile.lock /code/
 RUN bundle install
+COPY . /code
 
 # Install Yarn.
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
