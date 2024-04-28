@@ -13,6 +13,7 @@ describe "Filter", type: :system do
 
   context "main branch" do
     it "only shows builds from the main branch" do
+      expect(true).to be false
       visit project_path(project)
 
       select "main", from: "branch_name"
