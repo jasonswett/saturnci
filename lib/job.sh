@@ -69,10 +69,6 @@ echo "Running docker-compose build"
 api_request "POST" "jobs/$JOB_ID/job_events" '{"type":"image_build_started"}'
 #sudo docker-compose -f .saturnci/docker-compose.yml build
 
-echo "Performing docker push"
-#sudo docker push 146.190.66.111:5000/saturn_test_app:latest
-echo "Docker push finished"
-
 api_request "POST" "jobs/$JOB_ID/job_events" '{"type":"image_build_finished"}'
 
 #--------------------------------------------------------------------------------
@@ -123,6 +119,12 @@ send_content_to_api "jobs/$JOB_ID/test_output" "text/plain" "$TEST_OUTPUT_FILENA
 
 echo "Sending report"
 send_content_to_api "jobs/$JOB_ID/test_reports" "text/plain" "$TEST_RESULTS_FILENAME"
+
+#--------------------------------------------------------------------------------
+
+echo "Performing docker push"
+sudo docker push 146.190.66.111:5000/saturn_test_app:latest
+echo "Docker push finished"
 
 #--------------------------------------------------------------------------------
 
