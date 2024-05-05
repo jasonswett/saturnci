@@ -122,11 +122,6 @@ api_request "POST" "jobs/$JOB_ID/test_suite_finished_events"
 
 #--------------------------------------------------------------------------------
 
-echo "Sending system logs"
-send_content_to_api "jobs/$JOB_ID/system_logs" "text/plain" "/var/log/syslog"
-
-#--------------------------------------------------------------------------------
-
 echo "Sending test output"
 send_content_to_api "jobs/$JOB_ID/test_output" "text/plain" "$TEST_OUTPUT_FILENAME"
 
