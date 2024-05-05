@@ -60,6 +60,26 @@ EOF
 
 #--------------------------------------------------------------------------------
 
+# Define the path to the log file
+LOG_FILE="/var/log/syslog"
+
+# Send the initial portion of the log
+LAST_LINE=100
+head -n $LAST_LINE $LOG_FILE | send_content_to_api "jobs/$JOB_ID/system_logs" "text/plain"
+
+# Periodically send new lines
+while true; do
+    NEW_LAST_LINE=$(wc -l < $LOG_FILE)
+    if [ $NEW_LAST_LINE -gt $LAST_LINE ]; then
+        # Send the new lines
+        sed -n "$(($LAST_LINE + 1)),$NEW_LAST_LINE p" $LOG_FILE | send_content_to_api "jobs/$JOB_ID/system_logs" "text/plain"
+        LAST_LINE=$NEW_LAST_LINE
+    fi
+    sleep 10 # Wait for 10 seconds before checking again
+done
+
+#--------------------------------------------------------------------------------
+
 echo "Job machine ready"
 api_request "POST" "jobs/$JOB_ID/job_events" '{"type":"job_machine_ready"}'
 
