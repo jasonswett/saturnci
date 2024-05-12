@@ -72,13 +72,13 @@ EOF
 function stream_logs() {
     local log_file="/var/log/syslog"
     local last_line=100
-    send_content_to_api "jobs/$JOB_ID/system_logs" "text/plain" $(head -n $last_line $log_file)
+    send_content_to_api "jobs/$JOB_ID/system_logs" "text/plain" "$(head -n $last_line $log_file)"
 
     while true; do
         local new_last_line=$(wc -l < $log_file)
         if [ $new_last_line -gt $last_line ]; then
             local content=$(sed -n "$(($last_line + 1)),$new_last_line p" $log_file)
-            send_content_to_api "jobs/$JOB_ID/system_logs" "text/plain" $content
+            send_content_to_api "jobs/$JOB_ID/system_logs" "text/plain" "$content"
             last_line=$new_last_line
         fi
         sleep 10 # Wait for 10 seconds before checking again
