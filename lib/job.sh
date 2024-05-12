@@ -72,6 +72,7 @@ EOF
 function stream_logs() {
     local log_file="/var/log/syslog"
     local last_line=100
+    local log_sending_interval_in_seconds=1
     send_content_to_api "jobs/$JOB_ID/system_logs" "text/plain" "$(head -n $last_line $log_file)"
 
     while true; do
@@ -81,7 +82,7 @@ function stream_logs() {
             send_content_to_api "jobs/$JOB_ID/system_logs" "text/plain" "$content"
             last_line=$new_last_line
         fi
-        sleep 10 # Wait for 10 seconds before checking again
+        sleep $log_sending_interval_in_seconds
     done
 }
 
