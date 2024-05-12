@@ -20,6 +20,17 @@ function api_request() {
 function send_content_to_api() {
     local api_path=$1
     local content_type=$2
+    local content=$3
+
+    curl -f -u $SATURNCI_API_USERNAME:$SATURNCI_API_PASSWORD \
+        -X POST \
+        -H "Content-Type: $content_type" \
+        -d "$content" "$HOST/api/v1/$api_path"
+}
+
+function send_file_content_to_api() {
+    local api_path=$1
+    local content_type=$2
     local file_path=$3
 
     curl -f -u $SATURNCI_API_USERNAME:$SATURNCI_API_PASSWORD \
@@ -61,15 +72,13 @@ EOF
 function stream_logs() {
     local log_file="/var/log/syslog"
     local last_line=100
-    #send_content_to_api "jobs/$JOB_ID/system_logs" "text/plain" $(head -n $last_line $log_file)
-    send_content_to_api "jobs/$JOB_ID/system_logs" "text/plain" "first chunk"
+    send_content_to_api "jobs/$JOB_ID/system_logs" "text/plain" $(head -n $last_line $log_file)
 
     while true; do
         local new_last_line=$(wc -l < $log_file)
         if [ $new_last_line -gt $last_line ]; then
             local content=$(sed -n "$(($last_line + 1)),$new_last_line p" $log_file)
-            #send_content_to_api "jobs/$JOB_ID/system_logs" "text/plain" content
-            send_content_to_api "jobs/$JOB_ID/system_logs" "text/plain" "additional chunk"
+            send_content_to_api "jobs/$JOB_ID/system_logs" "text/plain" content
             last_line=$new_last_line
         fi
         sleep 10 # Wait for 10 seconds before checking again
@@ -126,12 +135,12 @@ api_request "POST" "jobs/$JOB_ID/test_suite_finished_events"
 #--------------------------------------------------------------------------------
 
 echo "Sending test output"
-send_content_to_api "jobs/$JOB_ID/test_output" "text/plain" "$TEST_OUTPUT_FILENAME"
+send_file_content_to_api "jobs/$JOB_ID/test_output" "text/plain" "$TEST_OUTPUT_FILENAME"
 
 #--------------------------------------------------------------------------------
 
 echo "Sending report"
-send_content_to_api "jobs/$JOB_ID/test_reports" "text/plain" "$TEST_RESULTS_FILENAME"
+send_file_content_to_api "jobs/$JOB_ID/test_reports" "text/plain" "$TEST_RESULTS_FILENAME"
 
 #--------------------------------------------------------------------------------
 
