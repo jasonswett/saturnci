@@ -83,22 +83,26 @@
 .job-menu-container {
   display: flex;
   background-color: #444;
-  padding: 10px 8px;
+  padding: 0;
 }
 
 ul.job-menu {
   display: flex;
   text-align: center;
-  padding: 0;
+  padding: 10px 0 0 10px;
   margin: 0;
   list-style: none;
 }
 
 ul.job-menu li a {
-  padding: 5px 10px;
-  margin: 0 5px 0 0;
+  padding: 6px 12px;
+  margin: 0;
   display: block;
   text-decoration: none;
   color: #DDD;
   background-color: #777;
+}
+
+ul.job-menu li a.active {
+  background-color: #000;
 }
