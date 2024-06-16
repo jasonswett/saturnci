@@ -14,9 +14,7 @@ module API
           locals: { job: job, current_tab_name: "system_logs" }
         )
 
-        respond_to do |format|
-          format.json { head :ok }
-        end
+        head :ok
       end
     end
   end
