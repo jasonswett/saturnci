@@ -45,4 +45,4 @@
   <% end %>
 <% end %>
 
-<%= turbo_stream_from Streaming::JobOutputStream.new(job: @job, tab_name: @current_tab_name).name %>
+<%= turbo_stream_from @job_output_stream.name %>
