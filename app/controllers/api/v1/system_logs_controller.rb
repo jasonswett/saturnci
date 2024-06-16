@@ -1,6 +1,8 @@
 module API
   module V1
     class SystemLogsController < APIController
+      TAB_NAME = "system_logs"
+
       def create
         job = Job.find(params[:job_id])
         request.body.rewind
@@ -8,10 +10,10 @@ module API
         job.update!(system_logs: job.system_logs.to_s + log_chunk)
 
         Turbo::StreamsChannel.broadcast_update_to(
-          "job_#{job.id}_system_logs",
-          target: "build_details_content_system_logs",
-          partial: "jobs/system_logs",
-          locals: { job: job, current_tab_name: "system_logs" }
+          "job_#{job.id}_#{TAB_NAME}",
+          target: "build_details_content_#{TAB_NAME}",
+          partial: "jobs/#{TAB_NAME}",
+          locals: { job: job, current_tab_name: "#{TAB_NAME}" }
         )
 
         head :ok
