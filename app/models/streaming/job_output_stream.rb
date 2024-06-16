@@ -9,7 +9,7 @@ module Streaming
       "job_#{@job.id}_#{@tab_name}"
     end
 
-    def target_id
+    def target
       "build_details_content_#{@tab_name}"
     end
   end
