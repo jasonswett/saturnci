@@ -45,5 +45,4 @@
   <% end %>
 <% end %>
 
-<%= turbo_stream_from "job_#{@job.id}_system_logs" %>
-<%= turbo_stream_from "job_#{@job.id}_test_output" %>
+<%= turbo_stream_from "job_#{@job.id}_#{@current_tab_name}" %>
