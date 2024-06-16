@@ -9,8 +9,13 @@ module API
         log_chunk = request.body.read
         job.update!(test_output: job.test_output.to_s + log_chunk)
 
+        job_output_stream = Streaming::JobOutputStream.new(
+          job: job,
+          tab_name: TAB_NAME
+        )
+
         Turbo::StreamsChannel.broadcast_update_to(
-          "job_#{job.id}_#{TAB_NAME}",
+          job_output_stream.name,
           target: "build_details_content_#{TAB_NAME}",
           partial: "jobs/#{TAB_NAME}",
           locals: { job: job, current_tab_name: "#{TAB_NAME}" }
