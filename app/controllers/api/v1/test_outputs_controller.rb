@@ -17,8 +17,8 @@ module API
         Turbo::StreamsChannel.broadcast_update_to(
           job_output_stream.name,
           target: job_output_stream.target,
-          partial: "jobs/#{TAB_NAME}",
-          locals: { job: job, current_tab_name: "#{TAB_NAME}" }
+          partial: job_output_stream.partial,
+          locals: { job: job, current_tab_name: TAB_NAME }
         )
 
         head :ok

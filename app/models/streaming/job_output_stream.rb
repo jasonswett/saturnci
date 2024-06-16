@@ -12,5 +12,9 @@ module Streaming
     def target
       "build_details_content_#{@tab_name}"
     end
+
+    def partial
+      "jobs/#{@tab_name}"
+    end
   end
 end
