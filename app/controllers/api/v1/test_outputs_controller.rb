@@ -5,8 +5,7 @@ module API
 
       def create
         job = Job.find(params[:job_id])
-        log_chunk = request.body.read
-        job.update!(TAB_NAME => job.attributes[TAB_NAME].to_s + log_chunk)
+        job.update!(TAB_NAME => job.attributes[TAB_NAME].to_s + request.body.read)
 
         Streaming::JobOutputStream.new(
           job: job,
