@@ -38,7 +38,7 @@
     </div>
 
     <div class="build-details-content-container">
-      <div id="build_details_content_<%= @current_tab_name %>">
+      <div id="<%= @job_output_stream.target_id %>">
         <%= render current_tab_name, current_tab_name: @current_tab_name, job: @job %>
       </div>
     </div>
