@@ -16,5 +16,18 @@ module Streaming
     def partial
       "jobs/#{@tab_name}"
     end
+
+    def locals
+      { job: @job, current_tab_name: @tab_name }
+    end
+
+    def broadcast
+      Turbo::StreamsChannel.broadcast_update_to(
+        name,
+        target: target,
+        partial: partial,
+        locals: locals
+      )
+    end
   end
 end
