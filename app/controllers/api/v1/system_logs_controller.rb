@@ -1,14 +1,16 @@
 module API
   module V1
     class SystemLogsController < APIController
+      TAB_NAME = "system_logs"
+
       def create
         job = Job.find(params[:job_id])
         log_chunk = request.body.read
-        job.update!(system_logs: job.system_logs.to_s + log_chunk)
+        job.update!(TAB_NAME => job.attributes[TAB_NAME].to_s + log_chunk)
 
         Streaming::JobOutputStream.new(
           job: job,
-          tab_name: "system_logs"
+          tab_name: TAB_NAME
         ).broadcast
 
         head :ok
