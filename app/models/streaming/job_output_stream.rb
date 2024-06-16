@@ -13,20 +13,12 @@ module Streaming
       "build_details_content_#{@tab_name}"
     end
 
-    def partial
-      "jobs/#{@tab_name}"
-    end
-
-    def locals
-      { job: @job, current_tab_name: @tab_name }
-    end
-
     def broadcast
       Turbo::StreamsChannel.broadcast_update_to(
         name,
         target: target,
-        partial: partial,
-        locals: locals
+        partial: "jobs/#{@tab_name}",
+        locals: { job: @job, current_tab_name: @tab_name }
       )
     end
   end
