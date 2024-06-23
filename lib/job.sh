@@ -54,7 +54,7 @@ function clone_user_repo() {
 function run_pre_script() {
   sudo chmod 755 .saturnci/pre.sh
 
-  REGISTRY_CACHE_IMAGE_URL=$REGISTRY_CACHE_IMAGE_URL sudo docker-compose \
+  sudo SATURN_TEST_APP_IMAGE_URL=$REGISTRY_CACHE_IMAGE_URL docker-compose \
     -f .saturnci/docker-compose.yml run saturn_test_app ./.saturnci/pre.sh
 }
 
@@ -70,7 +70,7 @@ EOF
   SELECTED_TESTS=$(echo "${TEST_FILES}" | awk "NR % ${NUMBER_OF_CONCURRENT_JOBS} == ${TEST_GROUP}")
   echo $SELECTED_TESTS
 
-  script -c "REGISTRY_CACHE_IMAGE_URL=$REGISTRY_CACHE_IMAGE_URL sudo docker-compose \
+  script -c "sudo SATURN_TEST_APP_IMAGE_URL=$REGISTRY_CACHE_IMAGE_URL docker-compose \
     -f .saturnci/docker-compose.yml run saturn_test_app \
     bundle exec rspec --require ./example_status_persistence.rb \
     --format=documentation --order rand:$RSPEC_SEED $(echo $SELECTED_TESTS)" \
