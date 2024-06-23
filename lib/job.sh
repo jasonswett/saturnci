@@ -149,6 +149,8 @@ send_file_content_to_api "jobs/$JOB_ID/test_reports" "text/plain" "$TEST_RESULTS
 
 #--------------------------------------------------------------------------------
 
+echo $(sudo docker image ls)
+
 echo "Performing docker tag and push"
 sudo docker tag saturn_test_app registrycache.saturnci.com:5000/saturn_test_app:$GEMFILE_LOCK_CHECKSUM
 sudo docker push registrycache.saturnci.com:5000/saturn_test_app:$GEMFILE_LOCK_CHECKSUM
