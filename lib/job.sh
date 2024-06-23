@@ -116,6 +116,7 @@ sudo docker login registrycache.saturnci.com:5000 -u myusername -p mypassword
 # Generate a checksum for the Gemfile.lock
 GEMFILE_LOCK_CHECKSUM=$(sha256sum Gemfile.lock | awk '{ print $1 }')
 
+echo "Gemfile.lock checksum: $GEMFILE_LOCK_CHECKSUM"
 echo "Pulling the existing image to avoid rebuilding if possible"
 sudo docker pull registrycache.saturnci.com:5000/saturn_test_app:$GEMFILE_LOCK_CHECKSUM || true
 
