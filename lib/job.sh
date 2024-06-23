@@ -6,6 +6,10 @@ SYSTEM_LOG_FILENAME=/var/log/syslog
 TEST_OUTPUT_FILENAME=tmp/test_output.txt
 TEST_RESULTS_FILENAME=tmp/test_results.txt
 
+GEMFILE_LOCK_CHECKSUM=$(sha256sum Gemfile.lock | awk '{ print $1 }')
+REGISTRY_CACHE_URL=registrycache.saturnci.com:5000
+REGISTRY_CACHE_IMAGE_URL=$REGISTRY_CACHE_URL/saturn_test_app:$GEMFILE_LOCK_CHECKSUM
+
 function api_request() {
     local method=$1
     local path=$2
@@ -111,14 +115,11 @@ git checkout $COMMIT_HASH
 #--------------------------------------------------------------------------------
 
 echo "Authenticating to Docker registry"
-sudo docker login registrycache.saturnci.com:5000 -u myusername -p mypassword
-
-# Generate a checksum for the Gemfile.lock
-GEMFILE_LOCK_CHECKSUM=$(sha256sum Gemfile.lock | awk '{ print $1 }')
+sudo docker login $REGISTRY_CACHE_URL -u myusername -p mypassword
 
 echo "Gemfile.lock checksum: $GEMFILE_LOCK_CHECKSUM"
 echo "Pulling the existing image to avoid rebuilding if possible"
-sudo docker pull registrycache.saturnci.com:5000/saturn_test_app:$GEMFILE_LOCK_CHECKSUM || true
+sudo docker pull $REGISTRY_CACHE_IMAGE_URL || true
 
 #--------------------------------------------------------------------------------
 
@@ -152,8 +153,8 @@ send_file_content_to_api "jobs/$JOB_ID/test_reports" "text/plain" "$TEST_RESULTS
 echo $(sudo docker image ls)
 
 echo "Performing docker tag and push"
-sudo docker tag registrycache.saturnci.com:5000/saturn_test_app registrycache.saturnci.com:5000/saturn_test_app:$GEMFILE_LOCK_CHECKSUM
-sudo docker push registrycache.saturnci.com:5000/saturn_test_app:$GEMFILE_LOCK_CHECKSUM
+sudo docker tag $REGISTRY_CACHE_URL/saturn_test_app $REGISTRY_CACHE_IMAGE_URL
+sudo docker push $REGISTRY_CACHE_IMAGE_URL
 echo "Docker push finished"
 
 #--------------------------------------------------------------------------------
