@@ -114,10 +114,10 @@ echo "Authenticating to Docker registry"
 sudo docker login registrycache.saturnci.com:5000 -u myusername -p mypassword
 
 # Generate a checksum for the Gemfile.lock
-GEMS_CHECKSUM=$(sha256sum Gemfile.lock | awk '{ print $1 }')
+GEMFILE_LOCK_CHECKSUM=$(sha256sum Gemfile.lock | awk '{ print $1 }')
 
 echo "Pulling the existing image to avoid rebuilding if possible"
-sudo docker pull registrycache.saturnci.com:5000/saturn_test_app:$GEMS_CHECKSUM || true
+sudo docker pull registrycache.saturnci.com:5000/saturn_test_app:$GEMFILE_LOCK_CHECKSUM || true
 
 #--------------------------------------------------------------------------------
 
@@ -149,8 +149,8 @@ send_file_content_to_api "jobs/$JOB_ID/test_reports" "text/plain" "$TEST_RESULTS
 #--------------------------------------------------------------------------------
 
 echo "Performing docker push"
-sudo docker tag saturn_test_app:latest registrycache.saturnci.com:5000/saturn_test_app:$GEMS_CHECKSUM
-sudo docker push registrycache.saturnci.com:5000/saturn_test_app:$GEMS_CHECKSUM
+sudo docker tag saturn_test_app:latest registrycache.saturnci.com:5000/saturn_test_app:$GEMFILE_LOCK_CHECKSUM
+sudo docker push registrycache.saturnci.com:5000/saturn_test_app:$GEMFILE_LOCK_CHECKSUM
 echo "Docker push finished"
 
 #--------------------------------------------------------------------------------
