@@ -10,7 +10,6 @@ GEMFILE_LOCK_CHECKSUM=$(sha256sum Gemfile.lock | awk '{ print $1 }')
 REGISTRY_CACHE_URL=registrycache.saturnci.com:5000
 REGISTRY_CACHE_IMAGE_URL=$REGISTRY_CACHE_URL/saturn_test_app:$GEMFILE_LOCK_CHECKSUM
 echo "Registry cache image URL: $REGISTRY_CACHE_IMAGE_URL"
-exit
 
 function api_request() {
     local method=$1
