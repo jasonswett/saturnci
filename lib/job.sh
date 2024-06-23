@@ -6,11 +6,6 @@ SYSTEM_LOG_FILENAME=/var/log/syslog
 TEST_OUTPUT_FILENAME=tmp/test_output.txt
 TEST_RESULTS_FILENAME=tmp/test_results.txt
 
-GEMFILE_LOCK_CHECKSUM=$(sha256sum Gemfile.lock | awk '{ print $1 }')
-REGISTRY_CACHE_URL=registrycache.saturnci.com:5000
-REGISTRY_CACHE_IMAGE_URL=$REGISTRY_CACHE_URL/saturn_test_app:$GEMFILE_LOCK_CHECKSUM
-echo "Registry cache image URL: $REGISTRY_CACHE_IMAGE_URL"
-
 function api_request() {
     local method=$1
     local path=$2
@@ -117,6 +112,11 @@ echo "Checking out commit $COMMIT_HASH"
 git checkout $COMMIT_HASH
 
 #--------------------------------------------------------------------------------
+
+GEMFILE_LOCK_CHECKSUM=$(sha256sum Gemfile.lock | awk '{ print $1 }')
+REGISTRY_CACHE_URL=registrycache.saturnci.com:5000
+REGISTRY_CACHE_IMAGE_URL=$REGISTRY_CACHE_URL/saturn_test_app:$GEMFILE_LOCK_CHECKSUM
+echo "Registry cache image URL: $REGISTRY_CACHE_IMAGE_URL"
 
 echo "Authenticating to Docker registry"
 sudo docker login $REGISTRY_CACHE_URL -u myusername -p mypassword
