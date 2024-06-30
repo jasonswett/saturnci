@@ -56,7 +56,7 @@ describe "System log streaming", type: :system do
   context "visiting a different tab" do
     context "after log update occurs" do
       before do
-        visit job_path(job, "system_logs")
+        visit job_path(job, "test_output")
 
         http_request(
           api_authorization_headers: api_authorization_headers,
