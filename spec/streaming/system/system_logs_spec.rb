@@ -84,19 +84,15 @@ describe "System log streaming", type: :system do
     context "after log update occurs" do
       before do
         visit job_path(job, "system_logs")
-        expect(page).to have_content("original system log content")
+        expect(page).to have_content("original system log content") # To prevent race condition
 
-        http_request(
-          api_authorization_headers: api_authorization_headers,
-          path: api_v1_job_system_logs_path(job_id: job.id, format: :json),
-          body: "new system log content"
-        )
-        expect(page).to have_content("new system log content")
-
+        # It's important that we visit the other job via Turbo,
+        # not via a full page reload
         click_on "build_link_#{other_job.build_id}"
-        expect(page).to have_content("Make other change.", count: 2)
+        expect(page).to have_content("Make other change.", count: 2) # to prevent race condition
+
         click_on "System Logs"
-        expect(page).to have_content("other job system logs")
+        expect(page).to have_content("other job system logs") # to prevent race condition
 
         http_request(
           api_authorization_headers: api_authorization_headers,
@@ -104,6 +100,7 @@ describe "System log streaming", type: :system do
           body: "new system log content"
         )
 
+        # Wait for request to finish
         sleep(0.5)
       end
 
