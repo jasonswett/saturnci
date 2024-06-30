@@ -56,7 +56,7 @@ describe "System log streaming", type: :system do
   context "visiting a different tab" do
     context "after log update occurs" do
       before do
-        visit job_path(job, "test_output")
+        visit job_path(job, "system_logs")
 
         http_request(
           api_authorization_headers: api_authorization_headers,
@@ -67,6 +67,48 @@ describe "System log streaming", type: :system do
 
       it "does not show the system log content" do
         expect(page).not_to have_content("new system log content")
+      end
+    end
+  end
+
+  context "visiting a different build" do
+    let!(:other_job) do
+      create(:job, system_logs: "other job system logs") do |j|
+        j.build.update!(
+          project: job.build.project,
+          commit_message: "Make other change."
+        )
+      end
+    end
+
+    context "after log update occurs" do
+      before do
+        visit job_path(job, "system_logs")
+        expect(page).to have_content("original system log content")
+
+        http_request(
+          api_authorization_headers: api_authorization_headers,
+          path: api_v1_job_system_logs_path(job_id: job.id, format: :json),
+          body: "new system log content"
+        )
+        expect(page).to have_content("new system log content")
+
+        click_on "build_link_#{other_job.build_id}"
+        expect(page).to have_content("Make other change.", count: 2)
+        click_on "System Logs"
+        expect(page).to have_content("other job system logs")
+
+        http_request(
+          api_authorization_headers: api_authorization_headers,
+          path: api_v1_job_system_logs_path(job_id: job.id, format: :json),
+          body: "new system log content"
+        )
+
+        sleep(0.5)
+      end
+
+      it "does not show original job's system logs" do
+        expect(page).to have_content("other job system logs")
       end
     end
   end
