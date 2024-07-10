@@ -8,6 +8,12 @@ export default class extends Controller {
       return;
     }
 
-    this.valueTarget.textContent = "1234";
+    setInterval(() => {
+      this.valueTarget.textContent = this.elapsedTime();
+    }, 1000);
+  }
+
+  elapsedTime() {
+    return new Date().toLocaleTimeString();
   }
 }
