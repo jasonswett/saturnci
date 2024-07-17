@@ -6,7 +6,11 @@
 
   <ul data-controller="build-list">
     <% @build_list.builds.each do |build| %>
-      <li><%= render "builds/list_item", build: build %></li>
+      <li>
+        <%= render "builds/list_item",
+          build: build,
+          current_build: @build %>
+      </li>
     <% end %>
   </ul>
 <% else %>
