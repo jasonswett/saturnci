@@ -1,15 +1,9 @@
 module Billing
-  class JobDecorator
-    def initialize(job)
-      @job = job
-    end
+  class JobDecorator < ApplicationDecorator
+    CHARGE_RATE = 0.001
 
     def charge
-      @job.duration / 1000.0
-    end
-
-    def method_missing(method, *args, &block)
-      @job.send(method, *args, &block)
+      object.duration * CHARGE_RATE
     end
   end
 end
