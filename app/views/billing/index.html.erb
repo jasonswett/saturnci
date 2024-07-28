@@ -17,6 +17,6 @@
 
   <tr>
     <td colspan="2">Total</td>
-    <td class="number">$<%= @jobs.map(&:charge).compact.sum %></td>
+    <td class="number">$<%= @jobs.map(&:charge_cents).compact.sum / 100.0 %></td>
   </tr>
 </table>
