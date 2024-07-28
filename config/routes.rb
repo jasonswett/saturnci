@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
       get ":partial", to: "builds#show", on: :member, as: "build_detail_content"
     end
+
+    resources :billing, only: :index
   end
 
   resources :saturn_installations do
@@ -19,8 +21,6 @@ Rails.application.routes.draw do
 
   resources :rebuilds, only: :create
   root "projects#index"
-
-  resources :billing, only: :index
 
   namespace :api do
     namespace :v1 do
