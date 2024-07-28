@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   resources :rebuilds, only: :create
   root "projects#index"
 
+  resources :billing, only: :index
+
   namespace :api do
     namespace :v1 do
       resources :jobs, only: %w[index show] do

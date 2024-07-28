@@ -1,0 +1,17 @@
+<% @projects.each do |project| %>
+  <h2><%= project %></h2>
+
+  <table border>
+    <tr>
+      <th>Datetime</th>
+      <th>Duration</th>
+    </tr>
+
+    <% project.jobs.order("jobs.created_at desc").each do |job| %>
+      <tr>
+        <td><%= job.created_at %></td>
+        <td><%= job.duration %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
