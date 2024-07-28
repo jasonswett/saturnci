@@ -4,6 +4,10 @@ class Job < ApplicationRecord
   alias_attribute :started_at, :created_at
   default_scope -> { order("order_index") }
 
+  def charge
+    duration / 1000.0
+  end
+
   scope :running, -> do
     unscoped.joins(:build)
       .where.not(id: Job.finished.select(:id))
