@@ -6,7 +6,6 @@ class BillingController < ApplicationController
     month = params[:month].presence || Time.current.month
 
     @jobs = BillingReport.new(project: @project, year:, month:).jobs
-      .map { |job| Billing::JobDecorator.new(job) }
 
     @dates = @project.jobs
       .select("to_char(jobs.created_at, 'YYYY-MM') as month")
