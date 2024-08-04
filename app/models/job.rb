@@ -66,6 +66,8 @@ class Job < ApplicationRecord
       job_duration: duration,
       rate: Rails.configuration.charge_rate
     )
+
+    self
   end
 
   private
