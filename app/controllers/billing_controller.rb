@@ -2,16 +2,16 @@ class BillingController < ApplicationController
   def index
     @project = Project.find(params[:project_id])
 
-    year = params[:year].presence || Time.current.year
-    month = params[:month].presence || Time.current.month
+    @billing_navigation_component = BillingNavigationComponent.new(
+      project: @project,
+      year: params[:year],
+      month: params[:month]
+    )
 
-    @jobs = BillingReport.new(project: @project, year:, month:).jobs
-
-    @dates = @project.jobs
-      .select("to_char(jobs.created_at, 'YYYY-MM') as month")
-      .order("month desc")
-      .map(&:month)
-      .uniq
-      .map { |month_string| month_string.split("-") }
+    @jobs = BillingReport.new(
+      project: @project,
+      year: @billing_navigation_component.year,
+      month: @billing_navigation_component.month
+    ).jobs
   end
 end
