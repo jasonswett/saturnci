@@ -3,13 +3,17 @@
 require "rails_helper"
 
 RSpec.describe BillingNavigationComponent, type: :component do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context "there was a job in January 2020" do
+    let!(:job) do
+      create(:job, created_at: "01-01-2020")
+    end
 
-  # it "renders something useful" do
-  #   expect(
-  #     render_inline(described_class.new(attr: "value")) { "Hello, components!" }.css("p").to_html
-  #   ).to include(
-  #     "Hello, components!"
-  #   )
-  # end
+    let!(:billing_navigation_component) do
+      BillingNavigationComponent.new(project: job.build.project)
+    end
+
+    it "includes a date for January 2020" do
+      expect(billing_navigation_component.dates).to eq([["2020", "01"]])
+    end
+  end
 end

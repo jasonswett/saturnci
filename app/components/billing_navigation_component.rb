@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
 class BillingNavigationComponent < ViewComponent::Base
-  attr_reader :year, :month
-
-  def initialize(project:, year:, month:)
+  def initialize(project:)
     @project = project
-    @year = year.presence || Time.current.year
-    @month = month.presence || Time.current.month
   end
 
   def dates
