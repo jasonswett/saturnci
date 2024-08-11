@@ -15,29 +15,46 @@ describe "Status filtering", type: :system do
     failed_job.build.update!(cached_status: "Failed")
 
     login_as(passed_job.build.project.user, scope: :user)
+    visit job_path(passed_job, "test_output")
   end
 
   context "passed builds only" do
     it "includes the passed build" do
-      visit job_path(passed_job, "test_output")
       check "Passed"
       click_on "Apply"
-      expect(page).to have_content(passed_job.build.commit_hash)
+
+      within ".build-list" do
+        expect(page).to have_content(passed_job.build.commit_hash)
+      end
     end
 
     it "does not include the failed build" do
-      visit job_path(passed_job, "test_output")
       check "Passed"
       click_on "Apply"
-      expect(page).not_to have_content(failed_job.build.commit_hash)
+
+      within ".build-list" do
+        expect(page).not_to have_content(failed_job.build.commit_hash)
+      end
     end
   end
 
   context "failed builds only" do
     it "includes the failed build" do
+      check "Failed"
+      click_on "Apply"
+
+      within ".build-list" do
+        expect(page).to have_content(failed_job.build.commit_hash)
+      end
     end
 
     it "does not include the passed build" do
+      check "Failed"
+      click_on "Apply"
+
+      within ".build-list" do
+        expect(page).not_to have_content(passed_job.build.commit_hash)
+      end
     end
   end
 
