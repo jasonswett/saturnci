@@ -13,9 +13,7 @@ class BuildList
     end
 
     if @statuses.present?
-      builds = builds.select do |build|
-        @statuses.include?(build.status.downcase)
-      end
+      builds = builds.where("cached_status in (?)", @statuses)
     end
 
     builds

@@ -1,13 +1,19 @@
 require "rails_helper"
 
 describe "Status filtering", type: :system do
-  let!(:passed_job) { create(:job) }
+  let!(:passed_job) { create(:job).finish! }
 
   let!(:failed_job) do
-    create(:job, build: create(:build, project: passed_job.build.project))
+    create(
+      :job,
+      build: create(:build, project: passed_job.build.project)
+    ).finish!
   end
 
   before do
+    passed_job.build.update!(cached_status: "Passed")
+    failed_job.build.update!(cached_status: "Failed")
+
     login_as(passed_job.build.project.user, scope: :user)
   end
 
@@ -19,9 +25,9 @@ describe "Status filtering", type: :system do
       expect(page).to have_content(passed_job.build.commit_hash)
     end
 
-    it "does not includes the failed build" do
+    it "does not include the failed build" do
       visit job_path(passed_job, "test_output")
-      check "Failed"
+      check "Passed"
       click_on "Apply"
       expect(page).not_to have_content(failed_job.build.commit_hash)
     end
