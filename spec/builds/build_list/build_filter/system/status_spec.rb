@@ -19,19 +19,18 @@ describe "Status filtering", type: :system do
   end
 
   context "passed builds only" do
-    it "includes the passed build" do
+    before do
       check "Passed"
       click_on "Apply"
+    end
 
+    it "includes the passed build" do
       within ".build-list" do
         expect(page).to have_content(passed_job.build.commit_hash)
       end
     end
 
     it "does not include the failed build" do
-      check "Passed"
-      click_on "Apply"
-
       within ".build-list" do
         expect(page).not_to have_content(failed_job.build.commit_hash)
       end
@@ -39,19 +38,18 @@ describe "Status filtering", type: :system do
   end
 
   context "failed builds only" do
-    it "includes the failed build" do
+    before do
       check "Failed"
       click_on "Apply"
+    end
 
+    it "includes the failed build" do
       within ".build-list" do
         expect(page).to have_content(failed_job.build.commit_hash)
       end
     end
 
     it "does not include the passed build" do
-      check "Failed"
-      click_on "Apply"
-
       within ".build-list" do
         expect(page).not_to have_content(passed_job.build.commit_hash)
       end
@@ -59,10 +57,22 @@ describe "Status filtering", type: :system do
   end
 
   context "passed and failed builds" do
+    before do
+      check "Passed"
+      check "Failed"
+      click_on "Apply"
+    end
+
     it "includes the failed build" do
+      within ".build-list" do
+        expect(page).to have_content(failed_job.build.commit_hash)
+      end
     end
 
     it "includes the passed build" do
+      within ".build-list" do
+        expect(page).to have_content(passed_job.build.commit_hash)
+      end
     end
   end
 end
