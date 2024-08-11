@@ -1,8 +1,19 @@
 <div class="build-list-container">
   <% if @build_list.builds.any? %>
     <%= form_tag(job_path(@job, current_tab_name), method: :get, class: "build-filter-form") do %>
-      <%= select_tag "branch_name", options_for_select(@build_list.branch_names), prompt: "Branch" %>
-      <%= submit_tag "Apply" %>
+      <div>
+        <%= select_tag "branch_name", options_for_select(@build_list.branch_names), prompt: "Branch" %>
+      </div>
+
+      <div>
+        <%= label_tag "status_passed", "Passed" %>
+        <%= check_box_tag "statuses[]", "passed", id: "status_passed" %>
+
+        <%= label_tag "status_failed", "Failed" %>
+        <%= check_box_tag "statuses[]", "failed", id: "status_failed" %>
+      </div>
+
+      <div><%= submit_tag "Apply" %></div>
     <% end %>
 
     <div class="build-list">
