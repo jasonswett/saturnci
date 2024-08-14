@@ -16,5 +16,11 @@ class JobsController < ApplicationController
       job: @job,
       tab_name: @current_tab_name
     )
+
+    @build_filter_component = BuildFilterComponent.new(
+      job: @job,
+      build_list: @build_list,
+      current_tab_name: @current_tab_name
+    )
   end
 end

@@ -1,0 +1,15 @@
+<%= form_tag(job_path(@job, @current_tab_name), method: :get, class: "build-filter-form") do %>
+  <div>
+    <%= select_tag "branch_name", options_for_select(@build_list.branch_names), prompt: "Branch" %>
+  </div>
+
+  <div>
+    <%= label_tag "status_passed", "Passed" %>
+    <%= check_box_tag "statuses[]", "Passed", params[:statuses]&.include?("Passed"), id: "status_passed" %>
+
+    <%= label_tag "status_failed", "Failed" %>
+    <%= check_box_tag "statuses[]", "Failed", params[:statuses]&.include?("Failed"), id: "status_failed" %>
+  </div>
+
+  <div><%= submit_tag "Apply" %></div>
+<% end %>
