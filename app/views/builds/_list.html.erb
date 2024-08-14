@@ -7,10 +7,10 @@
 
       <div>
         <%= label_tag "status_passed", "Passed" %>
-        <%= check_box_tag "statuses[]", "Passed", id: "status_passed" %>
+        <%= check_box_tag "statuses[]", "Passed", params[:statuses]&.include?("Passed"), id: "status_passed" %>
 
         <%= label_tag "status_failed", "Failed" %>
-        <%= check_box_tag "statuses[]", "Failed", id: "status_failed" %>
+        <%= check_box_tag "statuses[]", "Failed", params[:statuses]&.include?("Failed"), id: "status_failed" %>
       </div>
 
       <div><%= submit_tag "Apply" %></div>

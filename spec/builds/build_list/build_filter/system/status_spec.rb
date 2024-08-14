@@ -75,4 +75,30 @@ describe "Status filtering", type: :system do
       end
     end
   end
+
+  describe "selected checkboxes" do
+    it "'Passed' stays checked after form submission" do
+      check "Passed"
+      click_on "Apply"
+
+      # to prevent race condition
+      within ".build-list" do
+        expect(page).not_to have_content(failed_job.build.commit_hash)
+      end
+
+      expect(page).to have_checked_field("Passed")
+    end
+
+    it "'Failed' stays checked after form submission" do
+      check "Failed"
+      click_on "Apply"
+
+      # to prevent race condition
+      within ".build-list" do
+        expect(page).not_to have_content(passed_job.build.commit_hash)
+      end
+
+      expect(page).to have_checked_field("Failed")
+    end
+  end
 end
