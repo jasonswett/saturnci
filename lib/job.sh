@@ -140,6 +140,11 @@ stream_logs "jobs/$JOB_ID/test_output" "$TEST_OUTPUT_FILENAME" &
 
 echo "Running tests"
 api_request "POST" "jobs/$JOB_ID/job_events" '{"type":"test_suite_started"}'
+
+echo "**********************************"
+echo "chromedriver:"
+echo $(which chromedriver)
+
 start_test_suite
 
 #--------------------------------------------------------------------------------
