@@ -1,3 +1,7 @@
+# Async adapter only works within the same process, so for manually triggering cable updates from a console,
+# and seeing results in the browser, you must do so from the web console (running inside the dev process),
+# not a terminal started via bin/rails console! Add "console" to any action or any ERB template view
+# to make the web console appear.
 development:
   adapter: async
 
@@ -5,5 +9,6 @@ test:
   adapter: test
 
 production:
-  adapter: postgresql
-  url: <%= "postgres://#{ENV['DATABASE_USERNAME']}:#{ENV['DATABASE_PASSWORD']}@#{ENV['DATABASE_HOST']}:#{ENV['DATABASE_PORT']}/#{ENV['DATABASE_NAME']}" %>
+  adapter: solid_cable
+  polling_interval: 0.1.seconds
+  message_retention: 1.day
